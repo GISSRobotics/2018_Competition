@@ -6,37 +6,34 @@ Children:
   - Children:
     - Children: []
       Properties:
-        Output Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id001 ['0', '1', '2', '3', '4', '5', '6', '7']
+        Forward PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
+            '12', '13', '14', '15', '16', '17', '18', '19', '20']
           default: '0'
-          name: Output Channel (Solenoid)
-          validators: &id002 [Solenoid]
+          name: Forward PCM (Solenoid)
+          validators: [Solenoid]
           value: '0'
-        Output PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id003 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-            '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
+        Reverse PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
+            '12', '13', '14', '15', '16', '17', '18', '19', '20']
           default: '0'
-          name: Output PCM (Solenoid)
-          validators: &id004 [Solenoid]
-          value: '1'
-      Base: Solenoid
-      Name: open motor
-    - Children: []
-      Properties:
-        Output Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id001
+          name: Reverse PCM (Solenoid)
+          validators: [Solenoid]
+          value: '0'
+        Reverse Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7']
           default: '0'
-          name: Output Channel (Solenoid)
-          validators: *id002
+          name: Reverse Channel (Solenoid)
+          validators: [Solenoid]
           value: '1'
-        Output PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id003
+        Forward Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7']
           default: '0'
-          name: Output PCM (Solenoid)
-          validators: *id004
-          value: '1'
-      Base: Solenoid
-      Name: close motor
+          name: Forward Channel (Solenoid)
+          validators: [Solenoid]
+          value: '0'
+      Base: Double Solenoid
+      Name: solenoids
     Properties:
       Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Send to SmartDashboard, validators: null, value: false}
@@ -51,7 +48,7 @@ Children:
         default: []
         name: Constants
         validators: null
-        value: &id005 []
+        value: &id001 []
     Base: Subsystem
     Name: claw
   - Children:
@@ -89,7 +86,7 @@ Children:
         default: []
         name: Constants
         validators: null
-        value: *id005
+        value: *id001
     Base: Subsystem
     Name: elbow
   - Children:
@@ -120,6 +117,24 @@ Children:
         value: []
     Base: Subsystem
     Name: Sensors
+  - Children: []
+    Properties:
+      Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Send to SmartDashboard, validators: null, value: false}
+      Default command parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Default command parameters
+        validators: null
+        value: []
+      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Default Command, type: Command, validators: null, value: None}
+      Constants: !!robotbuilder.data.properties.ConstantsProperty
+        default: []
+        name: Constants
+        validators: null
+        value: []
+    Base: Subsystem
+    Name: Drive Train
   Properties: {}
   Base: Subsystems
   Name: Subsystems
@@ -140,7 +155,7 @@ Children:
       Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Run When Disabled, validators: null, value: false}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: None}
+        name: Requires, type: Subsystem, validators: null, value: Drive Train}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
         default: []
         name: Parameter presets
@@ -252,10 +267,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Sensors}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id006 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id006
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
@@ -264,7 +279,7 @@ Children:
   Base: Commands
   Name: Commands
 Properties:
-  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\robotics13\workspace',
+  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\robotics15\workspace',
     extension: null, folder: true, name: Eclipse Workspace, validators: null, value: ..}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
@@ -283,7 +298,7 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: .}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\robotics13\',
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\robotics15\',
     extension: null, folder: true, name: Wiring file location, validators: null, value: .}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
