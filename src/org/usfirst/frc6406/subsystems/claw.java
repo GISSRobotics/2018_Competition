@@ -47,10 +47,11 @@ public class claw extends Subsystem {
     }
     
     public void open() {
-    solenoids.set(Value.kForward);
+      solenoids.set(Value.kForward);
     }
     
     public void close() {
+    	
     	solenoids.set(Value.kReverse);
     }
     public void stop() {
