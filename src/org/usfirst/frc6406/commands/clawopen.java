@@ -39,6 +39,7 @@ public class clawopen extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+    	int x = 1 / 0;
     	Robot.claw.open();
     }
 
@@ -51,7 +52,7 @@ public class clawopen extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        return false;
     }
 
     // Called once after isFinished returns true
