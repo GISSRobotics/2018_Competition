@@ -39,7 +39,6 @@ public class clawopen extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-    	int x = 1 / 0;
     	Robot.claw.open();
     }
 
