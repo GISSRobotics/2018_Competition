@@ -78,7 +78,7 @@ public class TurnLeft extends Command {
     protected void execute() {
     	SmartDashboard.putNumber("compass:", ahrs.getCompassHeading());
     	SmartDashboard.putBoolean("conection stage two:", ahrs.isConnected());
-    	RobotMap.driveMotorDeck.tankDrive(-0.5, 0.6);
+    	RobotMap.driveRobotDrive.tankDrive(-0.5, 0.6);
     }
 
     // Make this return true when this Command no longer needs to run execute()
