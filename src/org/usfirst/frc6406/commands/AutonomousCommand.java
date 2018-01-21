@@ -77,6 +77,7 @@ public class AutonomousCommand extends Command {
 		
 		yaw = (float) ahrs.getYaw();
 		if (!ahrs.isCalibrating()) {
+			SmartDashboard.putNumber("compass:", ahrs.getCompassHeading());
 			SmartDashboard.putBoolean("IMU_Connected", ahrs.isConnected());
 			SmartDashboard.putBoolean("IMU_IsCalibrating", ahrs.isCalibrating());
 		//	SmartDashboard.putNumber("Yaw:", yaw);
