@@ -64,7 +64,16 @@ public class Turn extends Command {
     protected boolean isFinished() {
     	yaw2 = (float) Robot.sensors.getYaw();
     	SmartDashboard.putNumber("Yaw2:", yaw2);
-        return yaw2<=-28;
+    	if (yaw2>=28) {
+    		return true;
+    	}
+        if (yaw2<=-28) {
+        	return true;
+        } else {
+        	return false;
+        } 
+        
+        
     }
 
     // Called once after isFinished returns true
