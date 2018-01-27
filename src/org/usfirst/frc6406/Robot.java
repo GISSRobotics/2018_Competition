@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import org.usfirst.frc6406.commands.*;
 import org.usfirst.frc6406.subsystems.*;
