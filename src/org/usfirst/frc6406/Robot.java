@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.usfirst.frc6406.commands.*;
 import org.usfirst.frc6406.subsystems.*;
@@ -88,7 +89,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.setDefaultStringArray("PrioritySelect", priority);
 	}
     void InitAutoDirections() {
-    	autoDirections.put("LSCL", "D1:R7:D1:T90:D");//This is our example case (Drive 1 meter:Begin raise 7 feet:Drive 1 meter:Turn 90 degrees:Dump)
+    	autoDirections.put("LSCL", "D1:R7:D1:T90:P");//This is our example case (Drive 1 meter:Begin raise 7 feet:Drive 1 meter:Turn 90 degrees:Place(Dump))
     	autoDirections.put("LSCR", "Do this");
     	autoDirections.put("LSWL", "Do this");
     	autoDirections.put("LSWR", "Do this");
@@ -129,14 +130,30 @@ public class Robot extends TimedRobot {
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		String char0 = (position == "right") ? "R":(position == "left") ? "L":(position == "center") ? "C":"0"; 
 		String char1 = (priority == "switch") ? "SW":(priority == "scale") ? "SC":"0";
-		int selectedElement = (char1 == "SW") ? 1:2;//THIS ONLY SELECTS SWITCH AND SCALE
-		String char2 = gameData.substring(selectedElement,selectedElement);
+		int selectedElement = (char1 == "SW") ? 0:1;//THIS ONLY SELECTS SWITCH AND SCALE
+		String char2 = gameData.substring(selectedElement,selectedElement++);
 		pathString = (char0+=char1+=char2);
 		String autoPath = autoDirections.get(pathString);
 		StartAutoPath(autoPath);
 	}
 	void StartAutoPath(String autoPath) {
-		//Break down code
+		String[] splitDirections = autoPath.split(":");
+		for(int i = 0; i<=splitDirections.length; i++) {
+			String firstChar = splitDirections[i].substring(0,1);
+			Double value = Double.parseDouble(splitDirections[i].substring(1));
+			if (firstChar == "D") {
+				//Call Drive(value) here
+			}
+			if (firstChar == "T") {
+				//Call Turn(value) here
+			}
+			if (firstChar == "R") {
+				//Call Raise(value) here
+			}
+			if (firstChar == "P") {
+				//Call Drop() here //IF THERE IS AN ERROR, TRY AND ADD A '0' AT THE END OF THE P STRING
+			}
+		}
 	}
     /**
      * This function is called periodically during autonomous
