@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.27784730913642053,
+  "dividerPosition": 0.2809457579972184,
   "tabPane": [
     {
       "title": "SmartDashboard",
@@ -81,7 +81,7 @@
               "valueVisible": true
             }
           },
-          "7,0": {
+          "0,1": {
             "size": [
               1,
               1
@@ -92,7 +92,7 @@
               "_title": "Autonomous Command"
             }
           },
-          "0,1": {
+          "1,1": {
             "size": [
               1,
               1
@@ -103,7 +103,7 @@
               "_title": "claw close"
             }
           },
-          "1,1": {
+          "2,1": {
             "size": [
               1,
               1
@@ -112,6 +112,16 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/wrist position",
               "_title": "wrist position"
+            }
+          },
+          "1,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_title": "DriverStationPosition"
             }
           }
         }
@@ -133,7 +143,6 @@
             ],
             "content": {
               "_type": "List Layout",
-              "_source0": "network_table:///LiveWindow/wrist",
               "_title": "wrist",
               "_children": [
                 {
@@ -168,7 +177,6 @@
             ],
             "content": {
               "_type": "List Layout",
-              "_source0": "network_table:///LiveWindow/Drive",
               "_title": "Drive",
               "_children": [
                 {
@@ -209,19 +217,17 @@
             ],
             "content": {
               "_type": "List Layout",
-              "_source0": "network_table:///LiveWindow/claw",
               "_title": "claw",
               "_children": []
             }
           },
           "6,0": {
             "size": [
-              2,
+              1,
               4
             ],
             "content": {
               "_type": "List Layout",
-              "_source0": "network_table:///LiveWindow/Sensors",
               "_title": "Sensors",
               "_children": [
                 {

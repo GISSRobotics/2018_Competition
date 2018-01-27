@@ -62,7 +62,7 @@ public class Sensors extends Subsystem {
     }
     void updateUltrasonicValues() {
     	ultrasonicTickCycle = 2;
-    	int finalValue = 0;
+    	double finalValue = 0;
     	for (int i=0; i < 5;i++) {finalValue += distanceValues[i];}
     	finalValue = (finalValue/ultrasonicTickCycle);
     	SmartDashboard.putNumber("Ultrasonic", finalValue);
