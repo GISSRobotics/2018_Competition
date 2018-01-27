@@ -154,6 +154,7 @@ public class Robot extends TimedRobot {
 				//Call Drop() here //IF THERE IS AN ERROR, TRY AND ADD A '0' AT THE END OF THE P STRING
 			}
 		}
+		//Do ending stuff here
 	}
     /**
      * This function is called periodically during autonomous
