@@ -46,13 +46,14 @@ public class DriveForward extends Command {
 	public DriveForward(float dist) {
 		distance = dist;
 		requires(Robot.drive);
+		RobotMap.ahrs.resetDisplacement();
 
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		RobotMap.ahrs.resetDisplacement();
+		
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -68,7 +69,12 @@ public class DriveForward extends Command {
 		SmartDashboard.putBoolean("IMU_Connected", RobotMap.ahrs.isConnected());
 
 		SmartDashboard.putNumber("curry:", RobotMap.ahrs.getDisplacementY());
-
+		SmartDashboard.putNumber("currx:", RobotMap.ahrs.getDisplacementX());
+		SmartDashboard.putNumber("currz:", RobotMap.ahrs.getDisplacementZ());
+		SmartDashboard.putNumber("fused:", RobotMap.ahrs.getFusedHeading());
+		SmartDashboard.putBoolean ("connected:", RobotMap.ahrs.isConnected());
+		SmartDashboard.putBoolean ("calibrating:", RobotMap.ahrs.isCalibrating());
+		
 		return RobotMap.ahrs.getDisplacementY() >= distance;
 	}
 

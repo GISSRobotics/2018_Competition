@@ -62,7 +62,7 @@ public class Drive extends Subsystem {
     // here. Call these from Commands.
     
     public void slowfoward() {
-    	robotDrive.tankDrive(0.4, 0.4);
+    	robotDrive.tankDrive(0.5, 0.5);
     }
     
     public void turnleft() {
