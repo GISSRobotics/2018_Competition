@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import com.kauailabs.navx.frc.AHRS;
 import org.usfirst.frc6406.Robot;
 import org.usfirst.frc6406.RobotMap;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,7 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Turn extends Command {
-	
+//	AHRS ahrs;
 	float yaw2;
 	float leftturn;
 
@@ -44,7 +43,7 @@ public class Turn extends Command {
     	leftturn = lturn;
     	requires(Robot.drive);
     	
-    };
+    }
 
     // Called just before this Command runs the first time
     @Override
@@ -55,20 +54,19 @@ public class Turn extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    	SmartDashboard.putBoolean("conection stage two:", Robot.sensors.isNavConected());
+    	SmartDashboard.putBoolean("conection stage two:", RobotMap.ahrs.isConnected());
     	RobotMap.driveRobotDrive.tankDrive(-0.5, 0.6);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-    	yaw2 = (float) Robot.sensors.getYaw();
+    	yaw2 = (float) RobotMap.ahrs.getYaw();
     	SmartDashboard.putNumber("Yaw2:", yaw2);
     	if (yaw2>=28) {
     		return true;
-    	}
-        if (yaw2<=-28) {
-        	return true;
+    	} else if (yaw2<=-28) {
+     	return true;
         } else {
         	return false;
         } 

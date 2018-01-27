@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import com.kauailabs.navx.frc.AHRS;
 import org.usfirst.frc6406.Robot;
 import org.usfirst.frc6406.RobotMap;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -51,7 +50,7 @@ public class DriveForward extends Command {
 		
     	
     	
-    };
+    }
 
     // Called just before this Command runs the first time
     @Override
@@ -69,9 +68,9 @@ public class DriveForward extends Command {
     @Override
     protected boolean isFinished() {
 
-    	SmartDashboard.putBoolean("IMU_Connected", Robot.sensors.isNavConected());
+    	SmartDashboard.putBoolean("IMU_Connected", RobotMap.ahrs.isConnected());
 
-    	SmartDashboard.putNumber("curry:",  Robot.sensors.getDisplacementY());
+    	SmartDashboard.putNumber("curry:",  RobotMap.ahrs.getDisplacementY());
     	
         return Math.abs(curr)>=distance;
     }
