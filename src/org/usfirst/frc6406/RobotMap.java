@@ -45,7 +45,7 @@ public class RobotMap {
     public static RobotDrive driveRobotDrive;
     public static PowerDistributionPanel sensorsPDP;
     public static AnalogInput sensorsUltrasonic;
-    public static SpeedController climbmotor;
+    public static SpeedController climbermotor;
     public static SpeedController lifttelescopeMotor;
     public static SpeedController lifttruckMotor;
     public static Encoder lifttelescopeEncoder;
@@ -61,7 +61,7 @@ public class RobotMap {
         clawsolenoids = new DoubleSolenoid(0, 0, 1);
         LiveWindow.addActuator("claw", "solenoids", clawsolenoids);
         
-        wristmotor = new VictorSP(5);
+        wristmotor = new VictorSP(10);
         LiveWindow.addActuator("wrist", "motor", (VictorSP) wristmotor);
         wristmotor.setInverted(false);
         wristpot = new AnalogInput(0);
@@ -93,9 +93,9 @@ public class RobotMap {
         sensorsUltrasonic = new AnalogInput(1);
         LiveWindow.addSensor("Sensors", "Ultrasonic", sensorsUltrasonic);
         
-        climbmotor = new Spark(4);
-        LiveWindow.addActuator("Climb", "motor", (Spark) climbmotor);
-        climbmotor.setInverted(false);
+        climbermotor = new VictorSP(5);
+        LiveWindow.addActuator("Climber", "motor", (VictorSP) climbermotor);
+        climbermotor.setInverted(false);
         lifttelescopeMotor = new Spark(6);
         LiveWindow.addActuator("Lift", "telescope Motor", (Spark) lifttelescopeMotor);
         lifttelescopeMotor.setInverted(false);
