@@ -123,6 +123,16 @@
               "_type": "ComboBox Chooser",
               "_title": "DriverStationPosition"
             }
+          },
+          "0,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_title": "PrioritySelect"
+            }
           }
         }
       }
@@ -286,6 +296,16 @@
               "_type": "Text View",
               "_source0": "network_table:///LiveWindow/Ungrouped/Talon[0]/Value",
               "_title": "Ungrouped/Talon[0]/Value"
+            }
+          },
+          "4,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_title": "FieldState"
             }
           }
         }
