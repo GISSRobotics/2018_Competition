@@ -61,6 +61,8 @@ public class OI {
 
 
         // SmartDashboard Buttons
+        SmartDashboard.putData("Climb", new Climb());
+        SmartDashboard.putData("Stop Climb", new StopClimb());
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
         SmartDashboard.putData("claw open", new clawopen());
         SmartDashboard.putData("claw close", new clawclose());
