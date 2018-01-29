@@ -95,10 +95,10 @@ public class RobotMap {
         driveRobotDrive = new RobotDrive(driveLeftFront, driveLeftBack,
               driveRightFront, driveRightBack);
         
-        driveRobotDrive.setSafetyEnabled(true);
-        driveRobotDrive.setExpiration(0.1);
-        driveRobotDrive.setSensitivity(0.5);
-        driveRobotDrive.setMaxOutput(1.0);
+       driveRobotDrive.setSafetyEnabled(false);
+  //      driveRobotDrive.setExpiration(0.1);
+ //       driveRobotDrive.setSensitivity(0.5);
+  //      driveRobotDrive.setMaxOutput(1.0);
 
         driveQuadratureEncoder = new Encoder(0, 1, false, EncodingType.k4X);
         LiveWindow.addSensor("Drive", "Quadrature Encoder", driveQuadratureEncoder);

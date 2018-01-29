@@ -52,7 +52,7 @@ public class DriveForward extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		RobotMap.driveQuadratureEncoder.reset();
+		RobotMap.driveQuadratureEncoder2.reset();
 		
 	}
 
@@ -67,7 +67,7 @@ public class DriveForward extends Command {
 	protected boolean isFinished() {
 
 		SmartDashboard.putBoolean("IMU_Connected", RobotMap.ahrs.isConnected());
-
+		SmartDashboard.putNumber("encoder:", RobotMap.driveQuadratureEncoder2.getDistance());
 		SmartDashboard.putNumber("curry:", RobotMap.ahrs.getDisplacementY());
 		SmartDashboard.putNumber("currx:", RobotMap.ahrs.getDisplacementX());
 		SmartDashboard.putNumber("currz:", RobotMap.ahrs.getDisplacementZ());
@@ -75,7 +75,7 @@ public class DriveForward extends Command {
 		SmartDashboard.putBoolean ("connected:", RobotMap.ahrs.isConnected());
 		SmartDashboard.putBoolean ("calibrating:", RobotMap.ahrs.isCalibrating());
 		
-		return RobotMap.driveQuadratureEncoder.getDistance() >= distance;
+		return RobotMap.driveQuadratureEncoder2.getDistance() >= distance;
 	}
 
 	// Called once after isFinished returns true

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc6406.Robot;
 import org.usfirst.frc6406.RobotMap;
 import org.usfirst.frc6406.subsystems.*;
 
@@ -48,13 +49,21 @@ public class AutoGroup extends CommandGroup {
 
 	//	addSequential(new DriveForward((float) 0.25));
 		
-		ParseGameData();
+	//	ParseGameData();
 		//addSequential(new Turn((float) 30));
+    	StartAutoPath("D4:R7:D2:T90:P0");
 
 	}
+    
+    // Called just before this Command runs the first time
+    @Override
+    protected void initialize() {
+    	//ParseGameData();
+    }
+
 	
-	void ParseGameData(){//Shrink this down after testing
-		String position = SmartDashboard.getString("DriverStationPosition", "unassigned");//When unassigned, need contingency
+	public void ParseGameData(){//Shrink this down after testing
+/**		String position = SmartDashboard.getString("DriverStationPosition", "unassigned");//When unassigned, need contingency
 		String priority = SmartDashboard.getString("PrioritySelect", "unassigned");//When unassigned, hierarchy is Switch>Scale>CrossLine>TransferStation
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		String char0 = (position == "right") ? "R":(position == "left") ? "L":(position == "center") ? "C":"0"; 
@@ -64,17 +73,21 @@ public class AutoGroup extends CommandGroup {
 		RobotMap.pathString = (char0+=char1+=char2);
 		String autoPath = RobotMap.autoDirections.get(RobotMap.pathString);
 		StartAutoPath(autoPath);
+		*/
+		
+		
 	}
 	
-	void StartAutoPath(String autoPath) {
+	public void StartAutoPath(String autoPath) {
 		String[] splitDirections = autoPath.split(":");
-		for(int i = 0; i<=splitDirections.length; i++) {
+		for(int i = 0; i<splitDirections.length; i++) {
 			String firstChar = splitDirections[i].substring(0,1);
 			float value = Float.parseFloat(splitDirections[i].substring(1));
-			if (firstChar == "D") {
-				addSequential(new DriveForward((float)value));
+			
+			if (firstChar.equals("D")) {
+				addSequential(new DriveForward((float)value*1000));
 			}
-			if (firstChar == "T") {
+			if (firstChar.equals("T")) {
 				//Call Turn(value) here
 				addSequential(new Turn((float) value));
 			}
