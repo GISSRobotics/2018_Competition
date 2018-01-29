@@ -57,6 +57,10 @@ public class Drive extends Subsystem {
 
     }
 
+    
+    public void drive(double acceleration, double steering) {
+    	robotDrive.arcadeDrive(acceleration, steering);
+    }
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
