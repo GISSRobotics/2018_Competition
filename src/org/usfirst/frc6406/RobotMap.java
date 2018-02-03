@@ -120,17 +120,17 @@ public class RobotMap {
     }
     
     public void initAutoDirections() {
-    	autoDirections.put("LSCL", "D8.22:T90:D0:P");//This is our example case (Drive 1 meter:Begin raise 7 feet:Drive 1 meter:Turn 90 degrees:Place(Dump))
-    	autoDirections.put("LSCR", "D6:T90:D6:T-90:D2.2:T-90:D0:P");
-    	autoDirections.put("LSWL", "D4.3:T90:D0:P");
-    	autoDirections.put("LSWR", "D6:T90:D5:T90:D0:P");
-    	autoDirections.put("CSCL", "D0.3:T-50:D4:T50:D4.2:T90:D0:P");
-    	autoDirections.put("CSCR", "D0.3:T50:D4:T-50:D4.2:T-90:D0:P");
-    	autoDirections.put("CSWL", "D0.3:T15:D3:T-15:D0:P");
-    	autoDirections.put("CSWR", "D0.3:T-30:D3.4:T30:D0:P");
-    	autoDirections.put("RSCL", "D6:T-90:D6:T90:D2.2:T90:D0:P");
-    	autoDirections.put("RSCR", "D8.22:T-90:D0:P");
-    	autoDirections.put("RSWL", "D6:T-90:D5:T-90:D0:P");
-    	autoDirections.put("RSWR", "D4.3:T-90:D0:P");
+    	autoDirections.put("LSCL", "D8.92:T90:D0:P");//This is our example case (Drive 1 meter:Begin raise 7 feet:Drive 1 meter:Turn 90 degrees:Place(Dump))
+    	autoDirections.put("LSCR", "D6.7:T90:D6:T-90:D2.2:T-90:D0:P");
+    	autoDirections.put("LSWL", "D5:T90:D0:P");
+    	autoDirections.put("LSWR", "D6.7:T90:D5.3:T90:D0:P");
+    	autoDirections.put("CSCL", "D1:T-50:D4:T50:D4.7:T90:D0:P");
+    	autoDirections.put("CSCR", "D1:T50:D4:T-50:D4.7:T-90:D0:P");
+    	autoDirections.put("CSWL", "D1:T-22:D3.4:T22:D0:P");
+    	autoDirections.put("CSWR", "D1:T24:D3.5:T-24:D0:P");
+    	autoDirections.put("RSCL", "D6.7:T-90:D6:T90:D2.2:T90:D0:P");
+    	autoDirections.put("RSCR", "D8.92:T-90:D0:P");
+    	autoDirections.put("RSWL", "D6.7:T-90:D5.3:T-90:D0:P");
+    	autoDirections.put("RSWR", "D5:T-90:D0:P");
     }
 }

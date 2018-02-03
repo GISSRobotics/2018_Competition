@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.27784730913642053,
+  "dividerPosition": 0.19471488178025034,
   "tabPane": [
     {
       "title": "SmartDashboard",
@@ -23,7 +23,7 @@
               "valueVisible": true
             }
           },
-          "2,0": {
+          "1,0": {
             "size": [
               1,
               1
@@ -34,7 +34,7 @@
               "_title": "Wrist Move: location"
             }
           },
-          "3,0": {
+          "2,0": {
             "size": [
               1,
               1
@@ -45,7 +45,7 @@
               "_title": "claw open"
             }
           },
-          "4,0": {
+          "3,0": {
             "size": [
               1,
               3
@@ -56,7 +56,7 @@
               "_title": "DriveStrait: default"
             }
           },
-          "5,0": {
+          "4,0": {
             "size": [
               1,
               1
@@ -67,7 +67,7 @@
               "_title": "Auto mode"
             }
           },
-          "6,0": {
+          "5,0": {
             "size": [
               1,
               1
@@ -81,7 +81,7 @@
               "valueVisible": true
             }
           },
-          "7,0": {
+          "0,2": {
             "size": [
               1,
               1
@@ -113,6 +113,152 @@
               "_source0": "network_table:///SmartDashboard/wrist position",
               "_title": "wrist position"
             }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Climb",
+              "_title": "Climb"
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/IMU_Connected",
+              "_title": "IMU_Connected",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "2,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/AutoGroup",
+              "_title": "AutoGroup"
+            }
+          },
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Stop Climb",
+              "_title": "Stop Climb"
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/DriveForward: default",
+              "_title": "DriveForward: default"
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Joystick Drive",
+              "_title": "Joystick Drive"
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Turn: default",
+              "_title": "Turn: default"
+            }
+          },
+          "1,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Auto Selector",
+              "_title": "Auto Selector"
+            }
+          },
+          "2,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/DB/Button 0",
+              "_title": "DB/Button 0",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "5,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/DriveForward",
+              "_title": "DriveForward"
+            }
+          },
+          "6,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Turn",
+              "_title": "Turn"
+            }
+          },
+          "7,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/AutoTester",
+              "_title": "AutoTester"
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_title": ""
+            }
           }
         }
       }
@@ -133,7 +279,6 @@
             ],
             "content": {
               "_type": "List Layout",
-              "_source0": "network_table:///LiveWindow/wrist",
               "_title": "wrist",
               "_children": [
                 {
@@ -168,7 +313,6 @@
             ],
             "content": {
               "_type": "List Layout",
-              "_source0": "network_table:///LiveWindow/Drive",
               "_title": "Drive",
               "_children": [
                 {
@@ -204,24 +348,22 @@
           },
           "4,0": {
             "size": [
-              2,
+              1,
               4
             ],
             "content": {
               "_type": "List Layout",
-              "_source0": "network_table:///LiveWindow/claw",
               "_title": "claw",
               "_children": []
             }
           },
-          "6,0": {
+          "5,0": {
             "size": [
-              2,
+              1,
               4
             ],
             "content": {
               "_type": "List Layout",
-              "_source0": "network_table:///LiveWindow/Sensors",
               "_title": "Sensors",
               "_children": [
                 {
@@ -280,6 +422,93 @@
               "_type": "Text View",
               "_source0": "network_table:///LiveWindow/Ungrouped/Talon[0]/Value",
               "_title": "Ungrouped/Talon[0]/Value"
+            }
+          },
+          "6,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_source0": "network_table:///LiveWindow/Drive",
+              "_title": "Drive",
+              "_children": [
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Drive/LeftFront",
+                  "_title": "LeftFront",
+                  "controllable": false,
+                  "orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Drive/RightBack",
+                  "_title": "RightBack",
+                  "controllable": false,
+                  "orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Drive/LeftBack",
+                  "_title": "LeftBack",
+                  "controllable": false,
+                  "orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Drive/RightFront",
+                  "_title": "RightFront",
+                  "controllable": false,
+                  "orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Drive/Quadrature Encoder 2/Speed",
+                  "_title": "Quadrature Encoder 2/Speed"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Drive/Quadrature Encoder 2/Distance",
+                  "_title": "Quadrature Encoder 2/Distance"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Drive/Quadrature Encoder/Speed",
+                  "_title": "Quadrature Encoder/Speed"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Drive/Quadrature Encoder/Distance",
+                  "_title": "Quadrature Encoder/Distance"
+                }
+              ]
+            }
+          },
+          "4,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Climber/motor",
+              "_title": "Climber/motor",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "6,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Lift/telescope Motor",
+              "_title": "Lift/telescope Motor",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
             }
           }
         }
