@@ -39,7 +39,7 @@ public class buttonIncrease extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-		JoystickDrive.TURN_SENSITIVITY = Math.min(JoystickDrive.TURN_SENSITIVITY + 0.2, 1);
+		JoystickDrive.TURN_SENSITIVITY = Math.min(JoystickDrive.TURN_SENSITIVITY + 0.1, 1);
 		SmartDashboard.putNumber("turn_Sensitivity",JoystickDrive.TURN_SENSITIVITY);
     }
 
