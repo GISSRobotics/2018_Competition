@@ -63,6 +63,10 @@ public class Drive extends Subsystem {
     }
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-
+public void turn(double left, double right) {
+	robotDrive.tankDrive(left, right);
 }
+}
+
+
 
