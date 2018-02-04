@@ -35,8 +35,8 @@ public class Robot extends TimedRobot {
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
-    SendableChooser<String> priorityChooser = new SendableChooser<>();
-    SendableChooser<String> positionChooser = new SendableChooser<>();
+    public static SendableChooser<String> priorityChooser = new SendableChooser<>();
+    public static SendableChooser<String> positionChooser = new SendableChooser<>();
     
     
     public static OI oi;
@@ -82,9 +82,9 @@ public class Robot extends TimedRobot {
     }
 
 	private void initSelectionButtons() {
-		priorityChooser.addObject("Switch", "switch");
+		priorityChooser.addDefault("Switch", "switch");
         priorityChooser.addObject("Scale", "scale");
-        positionChooser.addObject("Left", "left");
+        positionChooser.addDefault("Left", "left");
         positionChooser.addObject("Center", "center");
         positionChooser.addObject("Right", "right");
         SmartDashboard.putData("PrioritySelect",priorityChooser);
@@ -118,7 +118,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
     	//HACK TO AVOID UPDATRE ERRORS
-    	RobotMap.driveRobotDrive.tankDrive(0, 0);
+    	//RobotMap.driveRobotDrive.tankDrive(0, 0);
         Scheduler.getInstance().run();
      //   RobotMap.driveMotorDeck.tankDrive(0.0, 0.0);
     }
