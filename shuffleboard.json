@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.27784730913642053,
+  "dividerPosition": 0.2797055730809674,
   "tabPane": [
     {
       "title": "SmartDashboard",
@@ -113,6 +113,94 @@
               "_source0": "network_table:///SmartDashboard/wrist position",
               "_title": "wrist position"
             }
+          },
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/AutoGroup",
+              "_title": "AutoGroup"
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/DriveForward: default",
+              "_title": "DriveForward: default"
+            }
+          },
+          "0,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/TelescopeDown",
+              "_title": "TelescopeDown"
+            }
+          },
+          "3,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Turn: default",
+              "_title": "Turn: default"
+            }
+          },
+          "0,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/TelescopeUp",
+              "_title": "TelescopeUp"
+            }
+          },
+          "2,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Climb",
+              "_title": "Climb"
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Stop Climb",
+              "_title": "Stop Climb"
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Joystick Drive",
+              "_title": "Joystick Drive"
+            }
           }
         }
       }
@@ -133,7 +221,6 @@
             ],
             "content": {
               "_type": "List Layout",
-              "_source0": "network_table:///LiveWindow/wrist",
               "_title": "wrist",
               "_children": [
                 {
@@ -168,7 +255,6 @@
             ],
             "content": {
               "_type": "List Layout",
-              "_source0": "network_table:///LiveWindow/Drive",
               "_title": "Drive",
               "_children": [
                 {
@@ -209,7 +295,6 @@
             ],
             "content": {
               "_type": "List Layout",
-              "_source0": "network_table:///LiveWindow/claw",
               "_title": "claw",
               "_children": []
             }
@@ -221,7 +306,6 @@
             ],
             "content": {
               "_type": "List Layout",
-              "_source0": "network_table:///LiveWindow/Sensors",
               "_title": "Sensors",
               "_children": [
                 {
@@ -280,6 +364,85 @@
               "_type": "Text View",
               "_source0": "network_table:///LiveWindow/Ungrouped/Talon[0]/Value",
               "_title": "Ungrouped/Talon[0]/Value"
+            }
+          },
+          "4,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [1]",
+              "_title": "Ungrouped/Talon SRX [1]",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "6,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Voltage View",
+              "_source0": "network_table:///LiveWindow/Sensors/Ultrasonic",
+              "_title": "Sensors/Ultrasonic",
+              "min": 0.0,
+              "max": 5.0,
+              "center": 0.0,
+              "orientation": "HORIZONTAL",
+              "numTickMarks": 5.0
+            }
+          },
+          "0,5": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [0]",
+              "_title": "Ungrouped/Talon SRX [0]",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "2,5": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Climb/motor",
+              "_title": "Climb/motor",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/claw/solenoids/Value",
+              "_title": "claw/solenoids/Value"
+            }
+          },
+          "4,5": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [3]",
+              "_title": "Ungrouped/Talon SRX [3]",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
             }
           }
         }
