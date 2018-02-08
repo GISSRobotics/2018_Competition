@@ -130,10 +130,8 @@ public class RobotMap {
          sensorsPDP = new PowerDistributionPanel(0);
          LiveWindow.addSensor("Sensors", "PDP", sensorsPDP);
          
-         sensorsUltrasonic = new AnalogInput(1);
-         LiveWindow.addSensor("Sensors", "Ultrasonic", sensorsUltrasonic);
          
-         climbermotor = new VictorSP(5);
+         climbermotor = new VictorSP(6);//THIS WAS ORIGINALLY 5
          LiveWindow.addActuator("Climber", "motor", (VictorSP) climbermotor);
          climbermotor.setInverted(false);
          lifttruckMotor = new WPI_TalonSRX(3);
