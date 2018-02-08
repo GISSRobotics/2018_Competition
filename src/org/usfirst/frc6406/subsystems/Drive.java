@@ -66,15 +66,15 @@ public class Drive extends Subsystem {
     // here. Call these from Commands.
     
     public void slowfoward() {
-    	robotDrive.tankDrive(0.5, 0.5);
+    	robotDrive.tankDrive(0.6, 0.6);
     }
     
     public void turnleft() {
-    	robotDrive.arcadeDrive(0.4 , -0.4);
+    	robotDrive.arcadeDrive(0.5 , -0.5);
     }
     
     public void turnright() {
-    	robotDrive.arcadeDrive(0.4 , 0.4);
+    	robotDrive.arcadeDrive(0.5 , 0.5);
     }
     
     public void stop() {

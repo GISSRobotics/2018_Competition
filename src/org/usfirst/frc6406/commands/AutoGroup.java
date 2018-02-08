@@ -50,9 +50,9 @@ public class AutoGroup extends CommandGroup {
 
 	//	addSequential(new DriveForward((float) 0.25));
 		
-	//	ParseGameData();
+		ParseGameData();
 		//addSequential(new Turn((float) 30));
-    	StartAutoPath("D4:R7:D2:T90:P0");
+//    	StartAutoPath("D4:R7:D2:T90:P0");
 
 	}
     
@@ -64,13 +64,14 @@ public class AutoGroup extends CommandGroup {
 
 	
 	public void ParseGameData(){//Shrink this down after testing
-		String position = SmartDashboard.getString("DriverStationPosition", "unassigned");//When unassigned, need contingency
-		String priority = SmartDashboard.getString("PrioritySelect", "unassigned");//When unassigned, hierarchy is Switch>Scale>CrossLine>TransferStation
+		String position = RobotMap.positionChooser.getSelected();;//When unassigned, need contingency
+		String priority = RobotMap.priorityChooser.getSelected();//When unassigned, hierarchy is Switch>Scale>CrossLine>TransferStation
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		String char0 = (position == "right") ? "R":(position == "left") ? "L":(position == "center") ? "C":"0"; 
 		String char1 = (priority == "switch") ? "SW":(priority == "scale") ? "SC":"0";
 		int selectedElement = (char1 == "SW") ? 0:1;//THIS ONLY SELECTS SWITCH AND SCALE
-		String char2 = gameData.substring(selectedElement,selectedElement++);
+		char char2 = gameData.charAt(selectedElement);
+	
 		String pathString = (char0+=char1+=char2);
 		String autoPath = RobotMap.autoDirections.get(pathString);
 		StartAutoPath(autoPath);
@@ -80,6 +81,9 @@ public class AutoGroup extends CommandGroup {
 	}
 	
 	public void StartAutoPath(String autoPath) {
+		if (autoPath == null) {
+			return;
+		}
 		String[] splitDirections = autoPath.split(":");
 		for(int i = 0; i<splitDirections.length; i++) {
 			String firstChar = splitDirections[i].substring(0,1);
