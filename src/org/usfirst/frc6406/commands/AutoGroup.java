@@ -94,7 +94,7 @@ public class AutoGroup extends CommandGroup {
 				addSequential(new DriveForward((float)value*700));
 			}
 			else if (firstChar.equals("T")) {
-				float value = Float.parseFloat(splitDirections[i].substring(1));
+				float value = (Float.parseFloat(splitDirections[i].substring(1))*-1);
 				addSequential(new Turn((float) value));
 			}
 			else if (firstChar == "R") {
