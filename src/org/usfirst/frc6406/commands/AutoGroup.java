@@ -12,6 +12,10 @@ package org.usfirst.frc6406.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc6406.RobotMap;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Ultrasonic;
 
 /**
@@ -60,17 +64,17 @@ public class AutoGroup extends CommandGroup {
 
 	
 	public void ParseGameData(){//Shrink this down after testing
-/**		String position = SmartDashboard.getString("DriverStationPosition", "unassigned");//When unassigned, need contingency
+		String position = SmartDashboard.getString("DriverStationPosition", "unassigned");//When unassigned, need contingency
 		String priority = SmartDashboard.getString("PrioritySelect", "unassigned");//When unassigned, hierarchy is Switch>Scale>CrossLine>TransferStation
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		String char0 = (position == "right") ? "R":(position == "left") ? "L":(position == "center") ? "C":"0"; 
 		String char1 = (priority == "switch") ? "SW":(priority == "scale") ? "SC":"0";
 		int selectedElement = (char1 == "SW") ? 0:1;//THIS ONLY SELECTS SWITCH AND SCALE
 		String char2 = gameData.substring(selectedElement,selectedElement++);
-		RobotMap.pathString = (char0+=char1+=char2);
-		String autoPath = RobotMap.autoDirections.get(RobotMap.pathString);
+		String pathString = (char0+=char1+=char2);
+		String autoPath = RobotMap.autoDirections.get(pathString);
 		StartAutoPath(autoPath);
-		*/
+		
 		
 		
 	}
