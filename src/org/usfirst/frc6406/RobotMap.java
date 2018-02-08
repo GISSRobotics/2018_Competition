@@ -128,7 +128,7 @@ public class RobotMap {
 
 
          sensorsPDP = new PowerDistributionPanel(0);
-         LiveWindow.addSensor("Sensors", "PDP", sensorsPDP);
+//         LiveWindow.addSensor("Sensors", "PDP", sensorsPDP);
          
          
          climbermotor = new VictorSP(6);//THIS WAS ORIGINALLY 5
@@ -164,7 +164,7 @@ public class RobotMap {
     	autoDirections.put("RSCR", "D8.22:T-90:D0:P");
     	autoDirections.put("RSWL", "D6:T-90:D5.3:T-90:D0:P");
     	autoDirections.put("RSWR", "D4.3:T-90:D0:P");    	
-    	autoDirections.put("CSWZ", "D6:T45:D0.5:T45:D0.5:T45:D2:T45:D6");//THIS IS TESTING PATH
+    	autoDirections.put("LSWZ", "D6:T45:D0.5:T45:D0.5:T45:D2:T45:D6");//THIS IS TESTING PATH Should be default settings
 
     }
 }
