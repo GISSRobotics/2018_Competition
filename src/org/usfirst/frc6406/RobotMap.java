@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
+//import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -58,7 +58,7 @@ public class RobotMap {
     public static RobotDrive driveRobotDrive;
     public static Encoder driveQuadratureEncoder;
     public static Encoder driveQuadratureEncoder2;
-    public static PowerDistributionPanel sensorsPDP;
+  //  public static PowerDistributionPanel sensorsPDP;
     public static AnalogInput sensorsUltrasonic;
 
     public static SpeedController climbermotor;
@@ -119,15 +119,15 @@ public class RobotMap {
         LiveWindow.addSensor("Drive", "Quadrature Encoder 2", driveQuadratureEncoder2);
         driveQuadratureEncoder2.setDistancePerPulse(1.0);
         driveQuadratureEncoder2.setPIDSourceType(PIDSourceType.kRate);
-        sensorsPDP = new PowerDistributionPanel(0);
-        LiveWindow.addSensor("Sensors", "PDP", sensorsPDP);
+     //   sensorsPDP = new PowerDistributionPanel(0);
+    //    LiveWindow.addSensor("Sensors", "PDP", sensorsPDP);
         
         sensorsUltrasonic = new AnalogInput(1);
         LiveWindow.addSensor("Sensors", "Ultrasonic", sensorsUltrasonic);
         
 
 
-         sensorsPDP = new PowerDistributionPanel(0);
+       //  sensorsPDP = new PowerDistributionPanel(0);
 //         LiveWindow.addSensor("Sensors", "PDP", sensorsPDP);
          
          
