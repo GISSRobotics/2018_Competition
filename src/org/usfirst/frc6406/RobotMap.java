@@ -164,7 +164,7 @@ public class RobotMap {
     	autoDirections.put("RSCR", "D8.22:T-90:D0:P");
     	autoDirections.put("RSWL", "D6:T-90:D5.3:T-90:D0:P");
     	autoDirections.put("RSWR", "D4.3:T-90:D0:P");    	
-    	autoDirections.put("CSWZ", "");//THIS IS TESTING PATH
+    	autoDirections.put("CSWZ", "D6:T45:D0.5:T45:D0.5:T45:D2:T45:D6");//THIS IS TESTING PATH
 
     }
 }
