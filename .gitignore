@@ -40,3 +40,6 @@
 ehthumbs.db
 Thumbs.db
 /bin/
+.classpath_*
+*~*
+.classpath
