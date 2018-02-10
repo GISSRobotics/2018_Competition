@@ -95,8 +95,6 @@ public class RobotMap {
         wristpot = new AnalogInput(0);
         LiveWindow.addSensor("wrist", "pot", wristpot);
 
-       driveLeftFront.setInverted(false);
-        driveRobotDrive = new RobotDrive(driveLeftFront, driveLeftBack, driveRightFront, driveRightBack);
 
         driveRobotDrive.setSafetyEnabled(false);
         driveRobotDrive.setExpiration(0.1);
@@ -131,9 +129,14 @@ public class RobotMap {
         driveRobotDrive = new RobotDrive(driveLeftFront, driveLeftBack,
               driveRightFront, driveRightBack);
         
+        driveRobotDrive.setSafetyEnabled(false);
+        driveRobotDrive.setExpiration(0.1);
+        driveRobotDrive.setSensitivity(0.5);
+        driveRobotDrive.setMaxOutput(1.0);
+
         
-        sensorsUltrasonic = new AnalogInput(1);
-        LiveWindow.addSensor("Sensors", "Ultrasonic", sensorsUltrasonic);
+       // sensorsUltrasonic = new AnalogInput(1);
+        //LiveWindow.addSensor("Sensors", "Ultrasonic", sensorsUltrasonic);
        
 
          sensorsPDP = new PowerDistributionPanel(0);
