@@ -69,7 +69,6 @@ public class OI {
         // SmartDashboard Buttons
         SmartDashboard.putData("Climb", new Climb());
         SmartDashboard.putData("Stop Climb", new StopClimb());
-        SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
         SmartDashboard.putData("Wrist Move: location", new WristMove(2.5));
         SmartDashboard.putData("DriveForward: default", new DriveForward(10));
         SmartDashboard.putData("Turn: default", new Turn(90));

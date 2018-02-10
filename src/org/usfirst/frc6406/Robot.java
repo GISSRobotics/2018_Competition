@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc6406.commands.AutoGroup;
 import org.usfirst.frc6406.commands.Climb;
+import org.usfirst.frc6406.commands.JoystickDrive;
 import org.usfirst.frc6406.subsystems.*;
 
 /**
@@ -108,8 +109,10 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null)
-            autonomousCommand.cancel();
+        if (ag != null) {
+            ag.cancel();
+            ag = null;
+        }
     }
 
     /**
