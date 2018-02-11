@@ -60,13 +60,16 @@ public class JoystickDrive extends Command {
         double axis0 = stick.getRawAxis(0) * TURN_SENSITIVITY;
         Robot.drive.drive(translateSpeed(axis1 + axis0), translateSpeed(axis1 - axis0));
         */
-        
+    	
+        	
+       
         Joystick stick = Robot.oi.stick;
         double acceleration = stick.getRawAxis(1);
         double steering = -stick.getRawAxis(0);
         double driveSensitivity = (stick.getRawAxis(3) / -4.0) + 0.75;
         double steeringSensitivity = (stick.getRawAxis(3) / -3.0) + 0.66;
-        Robot.drive.arcadeDrive(acceleration*driveSensitivity, steering*steeringSensitivity);
+        double reverse = (stick.getRawButton(1)) ? 1 : -1; 
+        Robot.drive.arcadeDrive(acceleration*driveSensitivity*reverse, steering*steeringSensitivity*reverse);
     }
 
     private double translateSpeed(double inputSpeed) {
