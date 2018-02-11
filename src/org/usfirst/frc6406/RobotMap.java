@@ -94,13 +94,7 @@ public class RobotMap {
         wristmotor.setInverted(false);
         wristpot = new AnalogInput(0);
         LiveWindow.addSensor("wrist", "pot", wristpot);
-
-
-        driveRobotDrive.setSafetyEnabled(false);
-        driveRobotDrive.setExpiration(0.1);
-        driveRobotDrive.setSensitivity(0.5);
-        driveRobotDrive.setMaxOutput(1.0);
-
+       
         sensorsPDP = new PowerDistributionPanel(0);
         LiveWindow.addSensor("Sensors", "PDP", sensorsPDP);
 
