@@ -49,16 +49,24 @@ public class JoystickDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Joystick stick = Robot.oi.stick;
-        // double reverse = stick.getRawButton(2) ? -1.0 : 1.0;
-        double sensitivity = (stick.getRawAxis(3) / -2.0) + 0.5;
-        SmartDashboard.putNumber("Sensitivity", sensitivity);
-        // Robot.drive.drive(-stick.getRawAxis(1)*sensitivity*reverse,
-        // -stick.getRawAxis(0)*sensitivity);
-        double axis1 = stick.getRawAxis(1) * sensitivity;
-        double axis0 = stick.getRawAxis(0) * TURN_SENSITIVITY;
-        Robot.drive.drive(translateSpeed(axis1 + axis0), translateSpeed(axis1 - axis0));
+        /*
+         * Joystick stick = Robot.oi.stick; // double reverse = stick.getRawButton(2) ?
+         * -1.0 : 1.0; double sensitivity = (stick.getRawAxis(3) / -2.0) + 0.5;
+         * SmartDashboard.putNumber("Sensitivity", sensitivity); //
+         * Robot.drive.drive(-stick.getRawAxis(1)*sensitivity*reverse, //
+         * -stick.getRawAxis(0)*sensitivity); double axis1 = stick.getRawAxis(1) *
+         * sensitivity; double axis0 = stick.getRawAxis(0) * TURN_SENSITIVITY;
+         * Robot.drive.drive(translateSpeed(axis1 + axis0), translateSpeed(axis1 -
+         * axis0));
+         */
 
+        Joystick stick = Robot.oi.stick;
+        double acceleration = stick.getRawAxis(1);
+        double steering = -stick.getRawAxis(0);
+        double driveSensitivity = (stick.getRawAxis(3) / -4.0) + 0.75;
+        double steeringSensitivity = (stick.getRawAxis(3) / -3.0) + 0.66;
+        double reverse = (stick.getRawButton(1)) ? 1 : -1;
+        Robot.drive.arcadeDrive(acceleration * driveSensitivity * reverse, steering * steeringSensitivity * reverse);
     }
 
     private double translateSpeed(double inputSpeed) {
