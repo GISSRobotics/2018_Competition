@@ -60,4 +60,8 @@ public class Drive extends Subsystem {
     public void drive(double left, double right) {
         robotDrive.tankDrive(left, right);
     }
+    
+    public void arcadeDrive(double acceleration, double steering) {
+        robotDrive.arcadeDrive(acceleration, steering);
+    }
 }

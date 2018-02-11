@@ -82,8 +82,8 @@ public class RobotMap {
         driveRobotDrive.setSensitivity(0.5);
         driveRobotDrive.setMaxOutput(1.0);
 
-        //sensorsPDP = new PowerDistributionPanel(0);
-        //LiveWindow.addSensor("Sensors", "PDP", sensorsPDP);
+        sensorsPDP = new PowerDistributionPanel(0);
+        LiveWindow.addSensor("Sensors", "PDP", sensorsPDP);
         
         sensorsUltrasonic = new AnalogInput(1);
         LiveWindow.addSensor("Sensors", "Ultrasonic", sensorsUltrasonic);

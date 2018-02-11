@@ -54,6 +54,9 @@ public class Lift extends Subsystem {
     public Lift() {        
         truckStatus = truckMotor.getSensorCollection();
         telescopeStatus = telescopeMotor.getSensorCollection();
+        
+        truckMotor.configClosedloopRamp(0.1, 100);
+        telescopeMotor.configClosedloopRamp(0.1, 100);
                 
         watchingLimit = true;
         (new Thread(() -> {limitWatcher();})).start();
@@ -88,7 +91,7 @@ public class Lift extends Subsystem {
     public void moveTelescope(double HeightIn) {
         targetHeight = (int)(HeightIn * (MAX_HEIGHT_TELESCOPE+MAX_HEIGHT_TRUCK));
         telescopeMotor.set(ControlMode.Position, -Math.min(targetHeight, MAX_HEIGHT_TELESCOPE));
-        truckMotor.set(ControlMode.Position, -Math.max(0, targetHeight-MAX_HEIGHT_TELESCOPE));
+        truckMotor.set(ControlMode.Position, -Math.max(0.05, targetHeight-MAX_HEIGHT_TELESCOPE));
     }
     
     public int currentHeight() {
@@ -101,14 +104,14 @@ public class Lift extends Subsystem {
         targetHeight = currentHeight() + 2*INCREMENT;
         targetHeight = Math.min(targetHeight, MAX_HEIGHT_TELESCOPE+MAX_HEIGHT_TRUCK);
         telescopeMotor.set(ControlMode.Position, -Math.min(targetHeight, MAX_HEIGHT_TELESCOPE));
-        truckMotor.set(ControlMode.Position, -Math.max(0, targetHeight-MAX_HEIGHT_TELESCOPE));
+        truckMotor.set(ControlMode.Position, -Math.max(0.05, targetHeight-MAX_HEIGHT_TELESCOPE));
     }
     
     public void Down() {
         targetHeight = currentHeight() - INCREMENT;
         targetHeight = Math.max(targetHeight, 0);
         telescopeMotor.set(ControlMode.Position, -Math.min(targetHeight, MAX_HEIGHT_TELESCOPE));
-        truckMotor.set(ControlMode.Position, -Math.max(0, targetHeight-MAX_HEIGHT_TELESCOPE));
+        truckMotor.set(ControlMode.Position, -Math.max(0.05, targetHeight-MAX_HEIGHT_TELESCOPE));
     }
 
     @Override
