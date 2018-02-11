@@ -75,23 +75,17 @@ public class Lift extends Subsystem {
     
     public void limitWatcher() {
         while (watchingLimit) {
-            if (!telescopeStatus.isRevLimitSwitchClosed() && telescopeMotor.getSelectedSensorPosition(0) != 0 && !(telescopeMotor.getMotorOutputPercent() > 0.0)) {
+            if (!telescopeStatus.isRevLimitSwitchClosed() && telescopeMotor.getSelectedSensorPosition(0) != 0 && !(telescopeMotor.getMotorOutputPercent() < 0.0)) {
                 telescopeMotor.setSelectedSensorPosition(0, pidid, 100);
-                //telescopeMotor.set(0.0);
+                telescopeMotor.set(0.0);
                 System.out.println("Telescope encoder reset to 0.");
             }
-            if (!truckStatus.isRevLimitSwitchClosed() && truckMotor.getSelectedSensorPosition(0) != 0 && !(truckMotor.getMotorOutputPercent() > 0.0)) {
+            if (!truckStatus.isRevLimitSwitchClosed() && truckMotor.getSelectedSensorPosition(0) != 0 && !(truckMotor.getMotorOutputPercent() < 0.0)) {
                 truckMotor.setSelectedSensorPosition(0, pidid, 100);
-                //truckMotor.set(0.0);
+                truckMotor.set(0.0);
                 System.out.println("Truck encoder reset to 0.");
             }
         }
-    }
-
-    public void moveTelescope(double HeightIn) {
-        targetHeight = (int)(HeightIn * (MAX_HEIGHT_TELESCOPE+MAX_HEIGHT_TRUCK));
-        telescopeMotor.set(ControlMode.Position, -Math.min(targetHeight, MAX_HEIGHT_TELESCOPE));
-        truckMotor.set(ControlMode.Position, -Math.max(0.05, targetHeight-MAX_HEIGHT_TELESCOPE));
     }
     
     public int currentHeight() {
@@ -100,18 +94,33 @@ public class Lift extends Subsystem {
         return -(a + b);
     }
 
+    public void moveTelescope(double HeightIn) {
+        // Takes height in percentage of total height
+        MoveToTarget((int)(HeightIn * (MAX_HEIGHT_TELESCOPE+MAX_HEIGHT_TRUCK)));
+    }
+
     public void Up() {
-        targetHeight = currentHeight() + 2*INCREMENT;
-        targetHeight = Math.min(targetHeight, MAX_HEIGHT_TELESCOPE+MAX_HEIGHT_TRUCK);
-        telescopeMotor.set(ControlMode.Position, -Math.min(targetHeight, MAX_HEIGHT_TELESCOPE));
-        truckMotor.set(ControlMode.Position, -Math.max(0.05, targetHeight-MAX_HEIGHT_TELESCOPE));
+        MoveToTarget(currentHeight() + 2*INCREMENT);
     }
     
     public void Down() {
-        targetHeight = currentHeight() - INCREMENT;
-        targetHeight = Math.max(targetHeight, 0);
-        telescopeMotor.set(ControlMode.Position, -Math.min(targetHeight, MAX_HEIGHT_TELESCOPE));
-        truckMotor.set(ControlMode.Position, -Math.max(0.05, targetHeight-MAX_HEIGHT_TELESCOPE));
+        MoveToTarget(currentHeight() - INCREMENT);
+    }
+    
+    public void MoveToTarget(int pos) {
+        // Keep pos in range
+        pos = Math.max(Math.min(pos, MAX_HEIGHT_TELESCOPE+MAX_HEIGHT_TRUCK), 0);
+        // telescope can't go lower than 5%
+        int telescopeTarget = Math.max(Math.min(pos, MAX_HEIGHT_TELESCOPE), (int)(0.0*MAX_HEIGHT_TELESCOPE));
+        // truck can't go lower than 5%
+        int truckTarget = Math.max(pos-MAX_HEIGHT_TELESCOPE, (int)(0.0*MAX_HEIGHT_TRUCK));
+        
+        // Encoder counts are actually negative
+        telescopeTarget *= -1;
+        truckTarget *= -1;
+        
+        telescopeMotor.set(ControlMode.Position, telescopeTarget);
+        truckMotor.set(ControlMode.Position, truckTarget);
     }
 
     @Override
