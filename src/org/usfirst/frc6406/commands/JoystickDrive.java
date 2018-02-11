@@ -66,18 +66,7 @@ public class JoystickDrive extends Command {
         double driveSensitivity = (stick.getRawAxis(3) / -4.0) + 0.75;
         double steeringSensitivity = (stick.getRawAxis(3) / -3.0) + 0.66;
         double reverse = (stick.getRawButton(1)) ? -1 : 1;
-        Robot.drive.arcadeDrive(acceleration * driveSensitivity * reverse, steering * steeringSensitivity * reverse);
-    }
-
-    private double translateSpeed(double inputSpeed) {
-        double drivespeed = 0;
-
-        if (inputSpeed > DRIVE_DEAD_ZONE) {
-            drivespeed = (inputSpeed / 2 + 0.5);
-        } else if (inputSpeed < -DRIVE_DEAD_ZONE) {
-            drivespeed = (inputSpeed / 2 - 0.5);
-        }
-        return Math.max(Math.min(drivespeed, 1), -1);
+        Robot.drive.arcadeDrive(acceleration * driveSensitivity * reverse, steering * steeringSensitivity);
     }
 
     // Make this return true when this Command no longer needs to run execute()
