@@ -9,14 +9,16 @@ public class PidTurn extends PIDSubsystem {
 
 	
 	public PidTurn() {
-		super(45,0,0);
+		super(0.005,0,0);
 		setAbsoluteTolerance(0.05);
 		getPIDController().setContinuous(false);
 	}
 	@Override
 	protected double returnPIDInput() {
 		// TODO Auto-generated method stub
+		SmartDashboard.putNumber("yaw 3:",  RobotMap.ahrs.getYaw());
 		return RobotMap.ahrs.getYaw();
+		
 	}
 
 	@Override
