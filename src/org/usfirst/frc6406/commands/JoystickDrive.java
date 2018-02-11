@@ -65,7 +65,7 @@ public class JoystickDrive extends Command {
         double steering = -stick.getRawAxis(0);
         double driveSensitivity = (stick.getRawAxis(3) / -4.0) + 0.75;
         double steeringSensitivity = (stick.getRawAxis(3) / -3.0) + 0.66;
-        double reverse = (stick.getRawButton(1)) ? 1 : -1;
+        double reverse = (stick.getRawButton(1)) ? -1 : 1;
         Robot.drive.arcadeDrive(acceleration * driveSensitivity * reverse, steering * steeringSensitivity * reverse);
     }
 

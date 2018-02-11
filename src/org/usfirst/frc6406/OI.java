@@ -77,8 +77,8 @@ public class OI {
         sensitivityincrease.whenPressed(new buttonIncrease());
         sensitivitydecrease = new JoystickButton(stick, 6);
         sensitivitydecrease.whenPressed(new buttonDecrease());
-        pickupheight = new JoystickButton(stick, 12);
-        pickupheight.whenPressed(new liftmove(0.05));
+        //pickupheight = new JoystickButton(stick, 12);
+        //pickupheight.whenPressed(new liftmove(0.05));
         switchHeight = new JoystickButton(stick, 10);
         switchHeight.whenPressed(new liftmove(0.2));
         bottomscale = new JoystickButton(stick, 9);
