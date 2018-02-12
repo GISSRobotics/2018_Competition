@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc6406.commands.AutoGroup;
+import org.usfirst.frc6406.commands.PidTurn;
 import org.usfirst.frc6406.subsystems.*;
 
 /**

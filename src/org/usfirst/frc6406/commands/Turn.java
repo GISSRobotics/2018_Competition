@@ -42,7 +42,7 @@ public class Turn extends Command {
     public Turn(float degrees) {
     	angle = degrees;
     	requires(Robot.drive);
-    	requires(Robot.pidTurn);
+    	
     	
     	absolutangle = Math.abs(angle);
     }
