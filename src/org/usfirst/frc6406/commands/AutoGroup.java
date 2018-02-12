@@ -90,12 +90,22 @@ public class AutoGroup extends CommandGroup {
 		
 			
 			if (firstChar.equals("D")) {
-				float value = Float.parseFloat(splitDirections[i].substring(1));
+				double value = Double.parseDouble(splitDirections[i].substring(1));
 				addSequential(new DriveForward((float)value*700));
 			}
 			else if (firstChar.equals("T")) {
-				float value = (Float.parseFloat(splitDirections[i].substring(1))*-1);
-				float pidAngle =0;
+				double value = (Double.parseDouble(splitDirections[i].substring(1))*-1);
+					
+				addSequential(new Turn(value));
+		
+			}
+			if (firstChar.equals("d")) {
+				double value = Double.parseDouble(splitDirections[i].substring(1));
+				addSequential(new DriveForward((float)value*700));
+			}
+			else if (firstChar.equals("t")) {
+				double value = (Double.parseDouble(splitDirections[i].substring(1))*-1);
+				double pidAngle =0;
 				if (value > 0) {
 					pidAngle = 180 -value;
 				} else {

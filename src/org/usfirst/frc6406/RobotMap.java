@@ -162,7 +162,7 @@ public class RobotMap {
 		autoDirections.put("CSCR", "D.3:T50:D4:T-50:D4.7:T-90:D0:P");
 		autoDirections.put("CSWL", "D.3:T-22:D3.4:T22:D0:P");
 		autoDirections.put("CSWR", "D.3:T24:D3.5:T-24:D0:P");
-		autoDirections.put("RSCL", "D6:T-90:D6:T90:D2.2:T90:D0:P");
+		autoDirections.put("RSCL", "d6:t-90:d6:t90:d2.2:t90:d0:P0");
 		autoDirections.put("RSCR", "D8.22:T-90:D0:P");
 		autoDirections.put("RSWL", "D6:T-90:D5.3:T-90:D0:P");
 		autoDirections.put("RSWR", "D4.3:T-90:D0:P");
