@@ -118,6 +118,10 @@ public class Lift extends Subsystem {
         int telescopeTarget = Math.max(Math.min(pos, MAX_HEIGHT_TELESCOPE), (int) (0.0 * MAX_HEIGHT_TELESCOPE));
         // truck can't go lower than 5%
         int truckTarget = Math.max(pos - MAX_HEIGHT_TELESCOPE, (int) (0.0 * MAX_HEIGHT_TRUCK));
+        
+        //int telescopeTarget = Math.max(pos - MAX_HEIGHT_TRUCK, (int) (0.0 * MAX_HEIGHT_TELESCOPE));
+        // truck can't go lower than 5%
+        //int truckTarget = Math.max(Math.min(pos, MAX_HEIGHT_TRUCK), (int) (0.0 * MAX_HEIGHT_TRUCK));
 
         // Encoder counts are actually negative
         telescopeTarget *= -1;
