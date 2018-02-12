@@ -84,8 +84,8 @@ public class Drive extends Subsystem {
     	robotDrive.stopMotor();
     }
     
-    public void turnAngle(double turnRate) {
-    	robotDrive.arcadeDrive(0, turnRate);
+    public void turnAngle(double forwardRate, double turnRate) {
+    	robotDrive.arcadeDrive(forwardRate, turnRate);
     }
 
 	// Put methods for controlling this subsystem
