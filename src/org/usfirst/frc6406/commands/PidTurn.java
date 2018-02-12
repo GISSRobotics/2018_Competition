@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PidTurn extends Command implements PIDOutput {
-s
+
 	double absoluteAngle;
 	static final double kP = 0.03;
 	static final double kI = 0.00;
