@@ -60,8 +60,7 @@ public class Turn extends Command {
 			}
     	}
     	SmartDashboard.putBoolean("conection stage two:", RobotMap.ahrs.isConnected());
-        Robot.pidTurn.setSetpoint(angle);
-    	Robot.pidTurn.enable();
+
     	if (angle > 0) {
     		Robot.drive.turnright();
     	} else if (angle < 0) {
@@ -82,7 +81,7 @@ public class Turn extends Command {
     protected boolean isFinished() {
     	SmartDashboard.putNumber("Yaw2:",  RobotMap.ahrs.getYaw());
     	if (Math.abs( RobotMap.ahrs.getYaw())>=absolutangle) {
-    		Robot.pidTurn.disable();
+
     		return true;
     	}
     	return false;
@@ -91,7 +90,7 @@ public class Turn extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-    	Robot.pidTurn.disable();
+
     	Robot.drive.stop();
     }
 

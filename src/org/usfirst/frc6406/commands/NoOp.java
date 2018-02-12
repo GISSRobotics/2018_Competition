@@ -10,11 +10,12 @@ public class NoOp extends Command {
     public NoOp() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	setTimeout(1);
+    	
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	setTimeout(1);
     }
 
     // Called repeatedly when this Command is scheduled to run

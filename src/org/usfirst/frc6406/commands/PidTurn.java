@@ -21,19 +21,17 @@ public class PidTurn extends Command implements PIDOutput {
 	static final double kF = 0.00;
 	static final double kToleranceDegrees = 0.5;
 	
-	static public PIDController turnController;
-	double rotateToAngleRate;
+	 public PIDController turnController;
+	static public double rotateToAngleRate;
 
 	public PidTurn(double deg) {
+		SmartDashboard.putNumber("Target:", deg);
 		turnController = new PIDController(kP, kI, kD, kF, RobotMap.ahrs, this);
 		turnController.setInputRange(-180.0f, 180.0f);
-		turnController.setOutputRange(-1.0, 1.0);
+		turnController.setOutputRange(-0.5, 0.5);
 		turnController.setAbsoluteTolerance(kToleranceDegrees);
 		turnController.setContinuous(true);
 		turnController.setSetpoint(deg);
-		absoluteAngle = Math.abs(deg);
-		minAngle = absoluteAngle - kToleranceDegrees;
-		maxAngle = absoluteAngle + kToleranceDegrees;
 		rotateToAngleRate = 0.0;
 		setTimeout(3);
 		
@@ -64,8 +62,7 @@ public class PidTurn extends Command implements PIDOutput {
     @Override
     protected boolean isFinished() {
     	SmartDashboard.putNumber("Yaw2:",  RobotMap.ahrs.getYaw());
-    	double yaw = Math.abs( RobotMap.ahrs.getYaw()); 
-    	return (yaw >= minAngle && yaw <= maxAngle) || isTimedOut();
+    	return turnController.onTarget() || isTimedOut();
     }
 
     // Called once after isFinished returns true

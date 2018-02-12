@@ -95,7 +95,16 @@ public class AutoGroup extends CommandGroup {
 			}
 			else if (firstChar.equals("T")) {
 				float value = (Float.parseFloat(splitDirections[i].substring(1))*-1);
-				addSequential(new Turn((float) value));
+				float pidAngle =0;
+				if (value > 0) {
+					pidAngle = 180 -value;
+				} else {
+					pidAngle = -180 - value;
+				}
+					
+					
+					
+				addSequential(new PidTurn(pidAngle));
 		
 			}
 			else if (firstChar == "R") {

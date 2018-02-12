@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
 //    public static claw claw;
 //    public static wrist wrist;
     public static Drive drive;
-    public static PidTurn pidTurn;
+   
 //    public static Sensors sensors;
 //    public static Climber climber;
 //    public static Lift lift;
@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
        // claw = new claw();
         //wrist = new wrist();
         drive = new Drive();
-        pidTurn = new PidTurn();
+       
         //sensors = new Sensors();
         //climber = new Climber();
         //lift = new Lift();
