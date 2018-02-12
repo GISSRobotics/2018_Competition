@@ -96,6 +96,7 @@ public class AutoGroup extends CommandGroup {
 			else if (firstChar.equals("T")) {
 				float value = (Float.parseFloat(splitDirections[i].substring(1))*-1);
 				addSequential(new Turn((float) value));
+		
 			}
 			else if (firstChar == "R") {
 				//Call Raise(value) here
@@ -105,6 +106,7 @@ public class AutoGroup extends CommandGroup {
 			}else {
 				SmartDashboard.putString("Error","Unexpected character ["+firstChar+"] in auto path");
 			}
+			addSequential(new NoOp());
 		}
 		//Do ending stuff here
 	}

@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class PidTurn extends Command implements PIDOutput {
 
 	double absoluteAngle;
+	double minAngle;
+	double maxAngle;
 	static final double kP = 0.03;
 	static final double kI = 0.00;
 	static final double kD = 0.00;
@@ -30,7 +32,11 @@ public class PidTurn extends Command implements PIDOutput {
 		turnController.setContinuous(true);
 		turnController.setSetpoint(deg);
 		absoluteAngle = Math.abs(deg);
+		minAngle = absoluteAngle - kToleranceDegrees;
+		maxAngle = absoluteAngle + kToleranceDegrees;
 		rotateToAngleRate = 0.0;
+		setTimeout(3);
+		
 
 	}
 
@@ -58,7 +64,8 @@ public class PidTurn extends Command implements PIDOutput {
     @Override
     protected boolean isFinished() {
     	SmartDashboard.putNumber("Yaw2:",  RobotMap.ahrs.getYaw());
-    	return Math.abs( RobotMap.ahrs.getYaw())>=absoluteAngle;
+    	double yaw = Math.abs( RobotMap.ahrs.getYaw()); 
+    	return (yaw >= minAngle && yaw <= maxAngle) || isTimedOut();
     }
 
     // Called once after isFinished returns true
