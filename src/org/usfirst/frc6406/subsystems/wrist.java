@@ -35,7 +35,7 @@ public class wrist extends PIDSubsystem {
 
     // Initialize your subsystem here
     public wrist() {
-        super("wrist", 2.5, 0.0, 0.0);
+        super("wrist", 3, 0.0, 0.0);
         setAbsoluteTolerance(0.04);
         getPIDController().setContinuous(false);
 
