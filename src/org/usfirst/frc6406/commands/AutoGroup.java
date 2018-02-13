@@ -101,7 +101,7 @@ public class AutoGroup extends CommandGroup {
 			}
 			if (firstChar.equals("d")) {
 				double value = Double.parseDouble(splitDirections[i].substring(1));
-				addSequential(new DriveForward((float)value*700));
+				addSequential(new PidDrive((float)value*700));
 			}
 			else if (firstChar.equals("t")) {
 				double value = (Double.parseDouble(splitDirections[i].substring(1))*-1);

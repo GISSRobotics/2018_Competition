@@ -169,6 +169,6 @@ public class RobotMap {
 		//autoDirections.put("LSWZ", "D6:T45:D0.5:T45:D0.5:T45:D2:T45:D6");// THIS IS TESTING PATH Should be default
 																			// settings
 
-		autoDirections.put("LSWZ", "T135:T-90:T-22.5:T135:T135:T135:T135:T135");
+		autoDirections.put("LSWZ", "d6:t90:t90:d6:t90:t90");
 	}
 }

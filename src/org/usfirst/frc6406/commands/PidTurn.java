@@ -13,10 +13,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class PidTurn extends Command implements PIDOutput {
 
 	static final double kP = 0.03;
-	static final double kI = 0.00;
+	static final double kI = 0.03;
 	static final double kD = 0.00;
 	static final double kF = 0.00;
-	static final double kToleranceDegrees = 0.5;
+	//static final double kToleranceDegrees = 1.0;
 	
 	 public PIDController turnController;
 	static public double rotateToAngleRate;
@@ -26,7 +26,8 @@ public class PidTurn extends Command implements PIDOutput {
 		turnController = new PIDController(kP, kI, kD, kF, RobotMap.ahrs, this);
 		turnController.setInputRange(-180.0f, 180.0f);
 		turnController.setOutputRange(-0.5, 0.5);
-		turnController.setAbsoluteTolerance(kToleranceDegrees);
+		turnController.setPercentTolerance(0.25);
+		// turnController.setAbsoluteTolerance(kToleranceDegrees);
 		turnController.setContinuous(true);
 		turnController.setSetpoint(deg);
 		rotateToAngleRate = 0.0;

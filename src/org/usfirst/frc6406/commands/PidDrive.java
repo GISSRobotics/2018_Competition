@@ -6,6 +6,7 @@ import org.usfirst.frc6406.RobotMap;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -16,10 +17,11 @@ public class PidDrive extends Command implements PIDOutput {
 	private PIDController turnController;
 	public static double rotateToAngleRate;
 	static final double kP = 0.03;
-	static final double kI = 0.00;
-	static final double kD = 0.00;
+	static final double kI = 0.06;
+	static final double kD = 0.0005;
 	static final double kF = 0.00;
-	static final double kToleranceDegrees = 0.5;
+	
+	//static final double kToleranceDegrees = 0.25;
 	
 	
     public PidDrive(double dist) {
@@ -28,11 +30,13 @@ public class PidDrive extends Command implements PIDOutput {
     	distance = dist;
     	turnController = new PIDController(kP, kI, kD, kF, RobotMap.ahrs, this);
 		turnController.setInputRange(-180.0f, 180.0f);
-		turnController.setOutputRange(-0.5, 0.5);
-		turnController.setAbsoluteTolerance(kToleranceDegrees);
+		turnController.setOutputRange(-0.41, 0.41);
+		turnController.setPercentTolerance(0.25);
+		//turnController.setAbsoluteTolerance(kToleranceDegrees);
 		turnController.setContinuous(true);
 		turnController.setSetpoint(180);
 		rotateToAngleRate = 0.0;
+		setTimeout(10);
 
     	requires(Robot.drive);
     }
@@ -41,6 +45,7 @@ public class PidDrive extends Command implements PIDOutput {
     protected void initialize() {
     	RobotMap.driveQuadratureEncoder2.reset();
     	RobotMap.ahrs.reset();
+    	RobotMap.ahrs.zeroYaw();
 		while (Math.abs(RobotMap.ahrs.getYaw()) > 0) {
 			try {
 				Thread.sleep(100);
@@ -54,12 +59,28 @@ public class PidDrive extends Command implements PIDOutput {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drive.turnAngle(0.6, rotateToAngleRate);
+    	if (RobotMap.driveQuadratureEncoder2.getDistance() < distance) {
+    		Robot.drive.turnAngle(0.7, rotateToAngleRate);
+    	} else {
+    		Robot.drive.turnAngle(0.0, rotateToAngleRate);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return RobotMap.driveQuadratureEncoder2.getDistance() >= distance;
+		SmartDashboard.putBoolean("on_target", turnController.onTarget());
+		SmartDashboard.putNumber("yaw value", RobotMap.ahrs.getYaw());
+    	if (RobotMap.driveQuadratureEncoder2.getDistance() < distance) {
+    		return false;
+    	}
+    	if (RobotMap.driveQuadratureEncoder2.getDistance() >= distance && turnController.onTarget()){ // && Math.abs(RobotMap.ahrs.getYaw())<1.0)
+    			
+    		return true;
+    	} else {
+    		
+    		return isTimedOut();
+    	}
+    		
     }
 
     // Called once after isFinished returns true
