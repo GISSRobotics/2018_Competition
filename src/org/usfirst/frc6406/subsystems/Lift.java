@@ -36,7 +36,7 @@ public class Lift extends Subsystem {
     private static final int MAX_HEIGHT_TRUCK = 227000; // this is encoder data scaled to 36 inches on our twelve tooth
                                                         // gear
     private static final int MAX_HEIGHT_TELESCOPE = 226000;
-    private static final int INCREMENT = 20000;
+    private static final int INCREMENT = 10000;
     private int targetHeight = 0;
     private boolean truckInit = false;
     private boolean telescopeInit = false;
@@ -86,7 +86,7 @@ public class Lift extends Subsystem {
     }
 
     public void Up() {
-        MoveToTarget(currentHeight() + 2 * INCREMENT);
+        MoveToTarget(currentHeight() + 4 * INCREMENT);
     }
 
     public void Down() {
