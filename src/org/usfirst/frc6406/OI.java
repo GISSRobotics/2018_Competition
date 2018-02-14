@@ -77,8 +77,8 @@ public class OI {
         sensitivityincrease.whenPressed(new buttonIncrease());
         sensitivitydecrease = new JoystickButton(stick, 6);
         sensitivitydecrease.whenPressed(new buttonDecrease());
-        //pickupheight = new JoystickButton(stick, 12);
-        //pickupheight.whenPressed(new liftmove(0.05));
+        pickupheight = new JoystickButton(stick, 12);
+        pickupheight.whenPressed(new liftmove(0.05));
         switchHeight = new JoystickButton(stick, 10);
         switchHeight.whenPressed(new liftmove(0.2));
         bottomscale = new JoystickButton(stick, 9);
@@ -87,10 +87,12 @@ public class OI {
         mediumscale.whenPressed(new liftmove(0.85));
         topscale = new JoystickButton(stick, 7);
         topscale.whenPressed(new liftmove(1));
-        // wristup = new JoystickButton(stick, 31);
-        // wristup.whenPressed(new WristMove(1));
-        // wristdown = new JoystickButton(stick, 32);
-        // wristdown.whenPressed(new WristMove(0));
+        
+        wristup = new JoystickButton(stick, 6);
+        wristup.whenPressed(new WristMove(0.0));
+        wristdown = new JoystickButton(stick, 4);
+        wristdown.whenPressed(new WristMove(0.4));
+        
         stopclimb = new JoystickButton(stick, 11);
         stopclimb.whenReleased(new StopClimb());
         climb = new JoystickButton(stick, 11);
