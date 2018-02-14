@@ -1,4 +1,4 @@
-ackage org.usfirst.frc6406;
+package org.usfirst.frc6406;
 
 import org.usfirst.frc6406.commands.*;
 import edu.wpi.first.wpilibj.Joystick;
