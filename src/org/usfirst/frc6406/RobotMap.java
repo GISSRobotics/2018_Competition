@@ -36,6 +36,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -45,11 +47,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class RobotMap {
 
     public static Solenoid clawCLaw_solenoid;
-    public static SpeedController wristmotor;
+    public static VictorSPX wristmotor;
     public static AnalogInput wristpot;
     public static PowerDistributionPanel sensorsPDP;
     public static AnalogInput sensorsUltrasonic;
-    public static SpeedController climbermotor;
+    public static VictorSPX climbermotor;
     public static WPI_TalonSRX lifttruckMotor;
     public static WPI_TalonSRX lifttelescopeMotor;
     public static SpeedController driveRightBack;
@@ -87,11 +89,9 @@ public class RobotMap {
         clawCLaw_solenoid = new Solenoid(0, 0);
         LiveWindow.addActuator("claw", "CLaw_solenoid", clawCLaw_solenoid);
 
-        wristmotor = new VictorSP(10);
-        LiveWindow.addActuator("wrist", "motor", (VictorSP) wristmotor);
+        wristmotor = new VictorSPX(1);
         wristmotor.setInverted(false);
         wristpot = new AnalogInput(0);
-        LiveWindow.addSensor("wrist", "pot", wristpot);
 
         sensorsPDP = new PowerDistributionPanel(0);
         //LiveWindow.addSensor("Sensors", "PDP", sensorsPDP);
@@ -99,8 +99,8 @@ public class RobotMap {
         sensorsUltrasonic = new AnalogInput(1);
         LiveWindow.addSensor("Sensors", "Ultrasonic", sensorsUltrasonic);
 
-        climbermotor = new VictorSP(5);
-        LiveWindow.addActuator("Climber", "motor", (VictorSP) climbermotor);
+        climbermotor = new VictorSPX(0);
+        //LiveWindow.addActuator("Climber", "motor", (VictorSPX) climbermotor);
         climbermotor.setInverted(false);
         lifttruckMotor = new WPI_TalonSRX(1);
 
@@ -133,7 +133,7 @@ public class RobotMap {
 
         driveQuadratureEncoder2.setDistancePerPulse(1.0);
         driveQuadratureEncoder2.setPIDSourceType(PIDSourceType.kRate);
-        
+
         initSelectionButtons();
         initAutoDirections();
     }
