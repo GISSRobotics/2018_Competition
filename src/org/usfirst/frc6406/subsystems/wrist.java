@@ -78,9 +78,8 @@ public class wrist extends PIDSubsystem {
 
     public void move(double m_setpoint) {
         if (m_setpoint > .25) {
-            getPIDController().setP(6);
-        } else {
             getPIDController().setP(3);
+        } else {getPIDController().setP(10);
         }
         setSetpoint(m_setpoint);
 
