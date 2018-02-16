@@ -24,6 +24,7 @@ public class Climb extends Command {
 
 
         requires(Robot.climber);
+        requires(Robot.lift);
 
     }
 
@@ -36,6 +37,7 @@ public class Climb extends Command {
     @Override
     protected void execute() {
         Robot.climber.climb();
+        Robot.lift.stop();
     }
 
     // Make this return true when this Command no longer needs to run execute()

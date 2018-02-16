@@ -134,6 +134,13 @@ public class Lift extends Subsystem {
         }
     }
 
+    public void stop() {
+         
+        telescopeMotor.set(0.0);
+        truckMotor.set(0.0);
+    }
+    
+
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
