@@ -29,18 +29,17 @@ public class OI {
 
     public OI() {        
         stick = new Joystick(0);
-        if (stick.getAxisCount() >=5 ) {
+        if (stick.getAxisCount() == 4 ) {
+        	initFlightStick();
+        } else if (stick.getAxisCount() > 4){
         	initXboxStick();
-        } else if (stick.getAxisCount() ==4){
-        initFlightstick();
         }
     }
 
     private void initXboxStick() {
-    	
     }
     
-	private void initFlightstick() {
+	private void initFlightStick() {
 		fairydriving = new JoystickButton(stick, 1);
         fairydriving.whenPressed(new switchtobackcamera());
         fairydriving.whenReleased(new switchtofrontcamera());
@@ -82,7 +81,11 @@ public class OI {
 		System.out.print("Axis 3:"+stick.getRawAxis(3));
 		System.out.print("Axis 4:"+stick.getRawAxis(4));
 		System.out.print("Axis 5:"+stick.getRawAxis(5));
-   		//if (stick.getRawAxis(0) != 0) {
+		
+		System.out.print("POV:" + stick.getPOV());
+		
+		
+		//if (stick.getRawAxis(0) != 0) {
 		
    		//}
 		
