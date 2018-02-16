@@ -52,7 +52,7 @@ public class JoystickDrive extends Command {
          * axis0));
          */
 
-        Joystick stick = Robot.oi.stick;
+        Joystick stick = Robot.oi.flightstick;
         double acceleration = stick.getRawAxis(1);
         double steering = -stick.getRawAxis(0);
         double driveSensitivity = (stick.getRawAxis(3) / -4.0) + 0.75;
