@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PidTurn extends Command implements PIDOutput {
 
-	static final double kP = 0.03;
-	static final double kI = 0.03;
+	static final double kP = 0.01;
+	static final double kI = 0.00;
 	static final double kD = 0.00;
 	static final double kF = 0.00;
 	//static final double kToleranceDegrees = 1.0;
@@ -25,7 +25,7 @@ public class PidTurn extends Command implements PIDOutput {
 		SmartDashboard.putNumber("Target:", deg);
 		turnController = new PIDController(kP, kI, kD, kF, RobotMap.ahrs, this);
 		turnController.setInputRange(-180.0f, 180.0f);
-		turnController.setOutputRange(-0.5, 0.5);
+		turnController.setOutputRange(-0.55, 0.55);
 		turnController.setPercentTolerance(0.25);
 		// turnController.setAbsoluteTolerance(kToleranceDegrees);
 		turnController.setContinuous(true);
@@ -53,6 +53,7 @@ public class PidTurn extends Command implements PIDOutput {
     @Override
     protected void execute() {
     	Robot.drive.turnAngle(0, rotateToAngleRate);
+    	System.out.printf("turning %f\n", rotateToAngleRate);
     	
     }
 

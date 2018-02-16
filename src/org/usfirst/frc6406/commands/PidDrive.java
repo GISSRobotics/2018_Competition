@@ -16,10 +16,10 @@ public class PidDrive extends Command implements PIDOutput {
 	double distance;
 	private PIDController turnController;
 	public static double rotateToAngleRate;
-	static final double kP = 0.03;
-	static final double kI = 0.06;
-	static final double kD = 0.0005;
-	static final double kF = 0.00;
+	static final double kP = 0.002;
+	static final double kI = 0.00008;
+	static final double kD = 0.0032;
+	static final double kF = 0.0;
 	
 	//static final double kToleranceDegrees = 0.25;
 	
@@ -30,13 +30,13 @@ public class PidDrive extends Command implements PIDOutput {
     	distance = dist;
     	turnController = new PIDController(kP, kI, kD, kF, RobotMap.ahrs, this);
 		turnController.setInputRange(-180.0f, 180.0f);
-		turnController.setOutputRange(-0.41, 0.41);
-		turnController.setPercentTolerance(0.25);
+		turnController.setOutputRange(-0.5, 0.5);
+		turnController.setPercentTolerance(3.0);
 		//turnController.setAbsoluteTolerance(kToleranceDegrees);
 		turnController.setContinuous(true);
 		turnController.setSetpoint(180);
 		rotateToAngleRate = 0.0;
-		setTimeout(10);
+		setTimeout(7);
 
     	requires(Robot.drive);
     }
@@ -62,8 +62,10 @@ public class PidDrive extends Command implements PIDOutput {
     	if (RobotMap.driveQuadratureEncoder2.getDistance() < distance) {
     		Robot.drive.turnAngle(0.7, rotateToAngleRate);
     	} else {
+
     		Robot.drive.turnAngle(0.0, rotateToAngleRate);
     	}
+    	System.out.println(rotateToAngleRate);
     }
 
     // Make this return true when this Command no longer needs to run execute()

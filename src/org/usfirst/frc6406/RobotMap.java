@@ -162,13 +162,13 @@ public class RobotMap {
 		autoDirections.put("CSCR", "D.3:T50:D4:T-50:D4.7:T-90:D0:P");
 		autoDirections.put("CSWL", "D.3:T-22:D3.4:T22:D0:P");
 		autoDirections.put("CSWR", "D.3:T24:D3.5:T-24:D0:P");
-		autoDirections.put("RSCL", "d6:t-90:d6:t90:d2.2:t90:d0:P0");
+		autoDirections.put("RSCL", "d2.5:t90:d1.5:t90:d2.5:t90:d1.5:t90");
 		autoDirections.put("RSCR", "D8.22:T-90:D0:P");
 		autoDirections.put("RSWL", "D6:T-90:D5.3:T-90:D0:P");
 		autoDirections.put("RSWR", "D4.3:T-90:D0:P");
 		//autoDirections.put("LSWZ", "D6:T45:D0.5:T45:D0.5:T45:D2:T45:D6");// THIS IS TESTING PATH Should be default
 																			// settings
 
-		autoDirections.put("LSWZ", "d6:t90:t90:d6:t90:t90");
+		autoDirections.put("LSWZ", "d2:t90:d1:t90:d2:t90:d1:t90");
 	}
 }

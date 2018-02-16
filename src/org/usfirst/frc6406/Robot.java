@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc6406.commands.AutoGroup;
+import org.usfirst.frc6406.commands.JoystickDrive;
 import org.usfirst.frc6406.commands.PidTurn;
 import org.usfirst.frc6406.subsystems.*;
 
@@ -110,7 +111,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-    	new JoystickDrive().start();
+    //	new JoystickDrive().start();
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
