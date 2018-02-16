@@ -98,28 +98,30 @@ public class OI {
 		System.out.print("XBOX POV:" + xboxstick.getPOV());
 		
 		
-		//if (stick.getRawAxis(0) != 0) {
+		//if (xboxstick.getRawAxis(0) != 0) {
 		
    		//}
 		
-		//if (stick.getRawAxis(1) != 0) {
+		//if (xboxstick.getRawAxis(1) != 0) {
    		
 		//}
 		
-		//if (stick.getRawAxis(2) != 0) {
+		//if (xboxstick.getRawAxis(2) != 0) {
    		
 		//}
 		
-		//if (stick.getRawAxis(3) != 0) {
+		//if (xboxstick.getRawAxis(3) != 0) {
    		
 		//}
 		
-		//if (stick.getRawAxis(4) != 0) {
+		//if (xboxstick.getRawAxis(4) != 0) {
    		
 		//}
 		
-		//if (stick.getRawAxis(5) != 0) {
+		//if (xboxstick.getRawAxis(5) != 0) {
    		
 		//}
+		
+		//if (
     }
 }
