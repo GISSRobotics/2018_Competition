@@ -63,4 +63,37 @@ public class OI {
         telescopeup.whileHeld(new TelescopeUp());
 
     }
+    
+    public void UpdateXBoxAxes() {
+    	Joystick stick = new Joystick(0);
+		System.out.print("Axis 0:"+stick.getRawAxis(0));
+		System.out.print("Axis 1:"+stick.getRawAxis(0));
+		System.out.print("Axis 2:"+stick.getRawAxis(0));
+		System.out.print("Axis 3:"+stick.getRawAxis(0));
+		System.out.print("Axis 4:"+stick.getRawAxis(0));
+		System.out.print("Axis 5:"+stick.getRawAxis(0));
+   		//if (stick.getRawAxis(0) != 0) {
+		
+   		//}
+		
+		//if (stick.getRawAxis(1) != 0) {
+   		
+		//}
+		
+		//if (stick.getRawAxis(2) != 0) {
+   		
+		//}
+		
+		//if (stick.getRawAxis(3) != 0) {
+   		
+		//}
+		
+		//if (stick.getRawAxis(4) != 0) {
+   		
+		//}
+		
+		//if (stick.getRawAxis(5) != 0) {
+   		
+		//}
+    }
 }
