@@ -69,15 +69,13 @@ public class OI {
     	
     	if (xboxstick != null) {
 	        //START XBOX CONFIG
-	        opencloseclaw = new JoystickButton(xboxstick, 4);
+	        opencloseclaw = new JoystickButton(xboxstick, 5);
 	        opencloseclaw.whenPressed(new Claw_toggle());
-	        switchHeight = new JoystickButton(xboxstick,1);
-	        switchHeight.whenPressed(new liftmove(0.2));
-	        low = new JoystickButton(xboxstick, 9);
+	        low = new JoystickButton(xboxstick, 1);
 	        low.whenPressed(new liftmove(TELE_PRESET_LOW));
-	        medium = new JoystickButton(xboxstick, 8);
+	        medium = new JoystickButton(xboxstick, 2);
 	        medium.whenPressed(new liftmove(TELE_PRESET_MEDIUM));
-	        high = new JoystickButton(xboxstick, 7);
+	        high = new JoystickButton(xboxstick, 4);
 	        high.whenPressed(new liftmove(TELE_PRESET_HIGH));
     	}
     }
@@ -85,22 +83,22 @@ public class OI {
 	private void initSticks() {
 		for (int order = 0; order <= 1; order++) {
         	Joystick tempStick = new Joystick(order);
-        	System.out.print("USB [" + order + "] has [" + tempStick.getAxisCount() + "] axes");
+        	System.out.println("USB [" + order + "] has [" + tempStick.getAxisCount() + "] axes");
         	switch(tempStick.getAxisCount()) {
         	case 2:
-        		customstick = tempStick;
-        		System.out.print("USB [" + order +"] is assigned to the custom stick");
+        		customstick = new Joystick(order);
+        		System.out.println("USB [" + order +"] is assigned to the custom stick");
         		break;
         	case 4:
-        		flightstick = tempStick;
-        		System.out.print("USB [" + order +"] is assigned to the flight stick");
+        		flightstick = new Joystick(order);
+        		System.out.println("USB [" + order +"] is assigned to the flight stick");
         		break;
         	case 6:
-        		xboxstick = tempStick;
-        		System.out.print("USB [" + order +"] is assigned to the xbox stick");
+        		xboxstick = new Joystick(order);
+        		System.out.println("USB [" + order +"] is assigned to the xbox stick");
         		break;
         	default:
-        		System.out.print("We have no idea what USB [" + order +"] is!");
+        		System.out.println("We have no idea what USB [" + order +"] is!");
         		break;
         	}
     	}
