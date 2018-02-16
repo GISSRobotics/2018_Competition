@@ -94,9 +94,7 @@ public class OI {
 		System.out.print("XBOX Axis 3:"+xboxstick.getRawAxis(3));
 		System.out.print("XBOX Axis 4:"+xboxstick.getRawAxis(4));
 		System.out.print("XBOX Axis 5:"+xboxstick.getRawAxis(5));
-		
 		System.out.print("XBOX POV:" + xboxstick.getPOV());
-		
 		
 		//if (xboxstick.getRawAxis(0) != 0) {
 		
@@ -122,6 +120,12 @@ public class OI {
    		
 		//}
 		
-		//if (
+		//if (xboxstick.getPOV(0) != -1){
+			//This should be elbow up command
+		//}
+		
+		//if (xboxstick.getPOV(180) != -1){
+		//This should be elbow down command
+	//}
     }
 }
