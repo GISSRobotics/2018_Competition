@@ -27,10 +27,21 @@ public class OI {
     public Joystick stick;
     public JoystickButton fairydriving;
 
-    public OI() {
-
+    public OI() {        
         stick = new Joystick(0);
-        fairydriving = new JoystickButton(stick, 1);
+        if (stick.getAxisCount() >=5 ) {
+        	initXboxStick();
+        } else if (stick.getAxisCount() ==4){
+        initFlightstick();
+        }
+    }
+
+    private void initXboxStick() {
+    	
+    }
+    
+	private void initFlightstick() {
+		fairydriving = new JoystickButton(stick, 1);
         fairydriving.whenPressed(new switchtobackcamera());
         fairydriving.whenReleased(new switchtofrontcamera());
         pickupheight = new JoystickButton(stick, 12);
@@ -61,17 +72,16 @@ public class OI {
         telescopedown.whileHeld(new TelescopeDown());
         telescopeup = new JoystickButton(stick, 5);
         telescopeup.whileHeld(new TelescopeUp());
-
-    }
+	}
     
-    public void UpdateXBoxAxes() {
-    	Joystick stick = new Joystick(0);
+    public void UpdateXboxAxes() {
+    	
 		System.out.print("Axis 0:"+stick.getRawAxis(0));
-		System.out.print("Axis 1:"+stick.getRawAxis(0));
-		System.out.print("Axis 2:"+stick.getRawAxis(0));
-		System.out.print("Axis 3:"+stick.getRawAxis(0));
-		System.out.print("Axis 4:"+stick.getRawAxis(0));
-		System.out.print("Axis 5:"+stick.getRawAxis(0));
+		System.out.print("Axis 1:"+stick.getRawAxis(1));
+		System.out.print("Axis 2:"+stick.getRawAxis(2));
+		System.out.print("Axis 3:"+stick.getRawAxis(3));
+		System.out.print("Axis 4:"+stick.getRawAxis(4));
+		System.out.print("Axis 5:"+stick.getRawAxis(5));
    		//if (stick.getRawAxis(0) != 0) {
 		
    		//}
