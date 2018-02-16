@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
-public class OI {
+public class OI implements InitSticks {
     public JoystickButton telescopeup;
     public JoystickButton telescopeuprelease;
     public JoystickButton telescopedown;
@@ -25,22 +25,14 @@ public class OI {
     public JoystickButton switchHeight;
     public JoystickButton pickupheight;
     public Joystick stick;
+    public Joystick xboxstick;
+    public Joystick customstick;
     public JoystickButton fairydriving;
 
-    public OI() {        
-        stick = new Joystick(0);
-        if (stick.getAxisCount() == 4 ) {
-        	initFlightStick();
-        } else if (stick.getAxisCount() > 4){
-        	initXboxStick();
-        }
-    }
-
-    private void initXboxStick() {
-    }
-    
-	private void initFlightStick() {
-		fairydriving = new JoystickButton(stick, 1);
+    public OI() {
+    	initSticks();
+    	
+    	fairydriving = new JoystickButton(stick, 1);
         fairydriving.whenPressed(new switchtobackcamera());
         fairydriving.whenReleased(new switchtofrontcamera());
         pickupheight = new JoystickButton(stick, 12);
@@ -71,18 +63,39 @@ public class OI {
         telescopedown.whileHeld(new TelescopeDown());
         telescopeup = new JoystickButton(stick, 5);
         telescopeup.whileHeld(new TelescopeUp());
+    }
+
+	private void initSticks() {
+		for (int order = 0; order <= 2; order++) {
+        	Joystick tempStick = new Joystick(order);
+        	System.out.print("USB [" + order + "] has [" + tempStick.getAxisCount() + "] axes");
+        	switch(tempStick.getAxisCount()) {
+        	case 2:
+        		customstick = tempStick;
+        		System.out.print("USB [" + order +"] is assigned to the custom stick");
+        		break;
+        	case 4:
+        		stick = tempStick;
+        		System.out.print("USB [" + order +"] is assigned to the flight stick");
+        		break;
+        	default:
+        		xboxstick = tempStick;
+        		System.out.print("USB [" + order +"] is assigned to the xbox stick");
+        		break;
+        	}
+    	}
 	}
     
     public void UpdateXboxAxes() {
     	
-		System.out.print("Axis 0:"+stick.getRawAxis(0));
-		System.out.print("Axis 1:"+stick.getRawAxis(1));
-		System.out.print("Axis 2:"+stick.getRawAxis(2));
-		System.out.print("Axis 3:"+stick.getRawAxis(3));
-		System.out.print("Axis 4:"+stick.getRawAxis(4));
-		System.out.print("Axis 5:"+stick.getRawAxis(5));
+		System.out.print("XBOX Axis 0:"+xboxstick.getRawAxis(0));
+		System.out.print("XBOX Axis 1:"+xboxstick.getRawAxis(1));
+		System.out.print("XBOX Axis 2:"+xboxstick.getRawAxis(2));
+		System.out.print("XBOX Axis 3:"+xboxstick.getRawAxis(3));
+		System.out.print("XBOX Axis 4:"+xboxstick.getRawAxis(4));
+		System.out.print("XBOX Axis 5:"+xboxstick.getRawAxis(5));
 		
-		System.out.print("POV:" + stick.getPOV());
+		System.out.print("XBOX POV:" + xboxstick.getPOV());
 		
 		
 		//if (stick.getRawAxis(0) != 0) {

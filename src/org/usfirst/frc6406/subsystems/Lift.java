@@ -85,7 +85,7 @@ public class Lift extends Subsystem {
         MoveToTarget(currentHeight() - INCREMENT);
     }
 
-    public void MoveToTarget(int pos) {
+    private void MoveToTarget(int pos) {
         // Keep pos in range
         pos = Math.max(Math.min(pos, MAX_HEIGHT_TELESCOPE + MAX_HEIGHT_TRUCK), 0);
         // telescope can't go lower than 5%
