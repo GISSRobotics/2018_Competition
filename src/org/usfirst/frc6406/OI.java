@@ -62,5 +62,6 @@ public class OI {
         telescopeup = new JoystickButton(stick, 5);
         telescopeup.whileHeld(new TelescopeUp());
 
+        SmartDashboard.putData("switch camera", new FixCamera());
     }
 }

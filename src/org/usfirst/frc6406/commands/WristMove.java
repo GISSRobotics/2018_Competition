@@ -32,7 +32,7 @@ public class WristMove extends Command {
     @Override
     protected void initialize() {
         Robot.wrist.enable();
-        Robot.wrist.setSetpoint(m_setpoint);
+        Robot.wrist.move(m_setpoint);
 
     }
 

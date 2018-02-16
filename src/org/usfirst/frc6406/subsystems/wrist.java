@@ -24,7 +24,6 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
 
-
 /**
  *
  */
@@ -54,6 +53,9 @@ public class wrist extends PIDSubsystem {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("wrist position", Robot.wrist.pot.getVoltage());
+
+        Boolean a = (System.currentTimeMillis() / 125) % 2 == 1 && Robot.wrist.pot.getVoltage() > 1;
+        SmartDashboard.putBoolean("wrist be down", a);
     }
 
     @Override
@@ -71,6 +73,18 @@ public class wrist extends PIDSubsystem {
         // e.g. yourMotor.set(output);
 
         motor.set(ControlMode.PercentOutput, output);
+
+    }
+
+    public void move(double m_setpoint) {
+        if (m_setpoint > .25) {
+            getPIDController().setP(6);
+        } else {
+            getPIDController().setP(3);
+        }
+        setSetpoint(m_setpoint);
+
+        // TODO Auto-generated method stub
 
     }
 }
