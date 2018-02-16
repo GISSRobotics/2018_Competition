@@ -24,9 +24,9 @@ public class OI {
     public JoystickButton low;
     public JoystickButton switchHeight;
     public JoystickButton pickupheight;
-    public Joystick flightstick;
-    public Joystick xboxstick;
-    public Joystick customstick;
+    public Joystick flightstick = null;
+    public Joystick xboxstick = null;
+    public Joystick customstick = null;
     public JoystickButton fairydriving;
     
     private static final double TELE_PRESET_HIGH = 391/453;
@@ -36,50 +36,54 @@ public class OI {
     public OI() {
     	initSticks();
     	
-    	fairydriving = new JoystickButton(flightstick, 1);
-        fairydriving.whenPressed(new switchtobackcamera());
-        fairydriving.whenReleased(new switchtofrontcamera());
-        
-        low = new JoystickButton(flightstick, 9);
-        low.whenPressed(new liftmove(TELE_PRESET_LOW));
-        medium = new JoystickButton(flightstick, 8);
-        medium.whenPressed(new liftmove(TELE_PRESET_MEDIUM));
-        high = new JoystickButton(flightstick, 7);
-        high.whenPressed(new liftmove(TELE_PRESET_HIGH));
-
-        wristup = new JoystickButton(flightstick, 6);
-        wristup.whenPressed(new WristMove(0.0));
-        wristdown = new JoystickButton(flightstick, 4);
-        wristdown.whenPressed(new WristMove(0.4));
-
-        stopclimb = new JoystickButton(flightstick, 11);
-        stopclimb.whenReleased(new StopClimb());
-        climb = new JoystickButton(flightstick, 11);
-        climb.whileHeld(new Climb());
-        //opencloseclaw = new JoystickButton(flightstick, 2);
-        //opencloseclaw.whenPressed(new Claw_toggle());
-        telescopedownrelease = new JoystickButton(flightstick, 3);
-        telescopedownrelease.whenReleased(new telescopestop());
-        telescopedown = new JoystickButton(flightstick, 3);
-        telescopedown.whileHeld(new TelescopeDown());
-        telescopeup = new JoystickButton(flightstick, 5);
-        telescopeup.whileHeld(new TelescopeUp());
-        
-        //START XBOX CONFIG
-        opencloseclaw = new JoystickButton(xboxstick, 4);
-        opencloseclaw.whenPressed(new Claw_toggle());
-        switchHeight = new JoystickButton(xboxstick,1);
-        switchHeight.whenPressed(new liftmove(0.2));
-        low = new JoystickButton(xboxstick, 9);
-        low.whenPressed(new liftmove(TELE_PRESET_LOW));
-        medium = new JoystickButton(xboxstick, 8);
-        medium.whenPressed(new liftmove(TELE_PRESET_MEDIUM));
-        high = new JoystickButton(xboxstick, 7);
-        high.whenPressed(new liftmove(TELE_PRESET_HIGH));
+    	if (flightstick != null) {
+    		fairydriving = new JoystickButton(flightstick, 1);
+	        fairydriving.whenPressed(new switchtobackcamera());
+	        fairydriving.whenReleased(new switchtofrontcamera());
+	        
+	        low = new JoystickButton(flightstick, 9);
+	        low.whenPressed(new liftmove(TELE_PRESET_LOW));
+	        medium = new JoystickButton(flightstick, 8);
+	        medium.whenPressed(new liftmove(TELE_PRESET_MEDIUM));
+	        high = new JoystickButton(flightstick, 7);
+	        high.whenPressed(new liftmove(TELE_PRESET_HIGH));
+	
+	        wristup = new JoystickButton(flightstick, 6);
+	        wristup.whenPressed(new WristMove(0.0));
+	        wristdown = new JoystickButton(flightstick, 4);
+	        wristdown.whenPressed(new WristMove(0.4));
+	
+	        stopclimb = new JoystickButton(flightstick, 11);
+	        stopclimb.whenReleased(new StopClimb());
+	        climb = new JoystickButton(flightstick, 11);
+	        climb.whileHeld(new Climb());
+	        //opencloseclaw = new JoystickButton(flightstick, 2);
+	        //opencloseclaw.whenPressed(new Claw_toggle());
+	        telescopedownrelease = new JoystickButton(flightstick, 3);
+	        telescopedownrelease.whenReleased(new telescopestop());
+	        telescopedown = new JoystickButton(flightstick, 3);
+	        telescopedown.whileHeld(new TelescopeDown());
+	        telescopeup = new JoystickButton(flightstick, 5);
+	        telescopeup.whileHeld(new TelescopeUp());
+    	}
+    	
+    	if (xboxstick != null) {
+	        //START XBOX CONFIG
+	        opencloseclaw = new JoystickButton(xboxstick, 4);
+	        opencloseclaw.whenPressed(new Claw_toggle());
+	        switchHeight = new JoystickButton(xboxstick,1);
+	        switchHeight.whenPressed(new liftmove(0.2));
+	        low = new JoystickButton(xboxstick, 9);
+	        low.whenPressed(new liftmove(TELE_PRESET_LOW));
+	        medium = new JoystickButton(xboxstick, 8);
+	        medium.whenPressed(new liftmove(TELE_PRESET_MEDIUM));
+	        high = new JoystickButton(xboxstick, 7);
+	        high.whenPressed(new liftmove(TELE_PRESET_HIGH));
+    	}
     }
 
 	private void initSticks() {
-		for (int order = 0; order <= 2; order++) {
+		for (int order = 0; order <= 1; order++) {
         	Joystick tempStick = new Joystick(order);
         	System.out.print("USB [" + order + "] has [" + tempStick.getAxisCount() + "] axes");
         	switch(tempStick.getAxisCount()) {
@@ -91,9 +95,12 @@ public class OI {
         		flightstick = tempStick;
         		System.out.print("USB [" + order +"] is assigned to the flight stick");
         		break;
-        	default:
+        	case 6:
         		xboxstick = tempStick;
         		System.out.print("USB [" + order +"] is assigned to the xbox stick");
+        		break;
+        	default:
+        		System.out.print("We have no idea what USB [" + order +"] is!");
         		break;
         	}
     	}
