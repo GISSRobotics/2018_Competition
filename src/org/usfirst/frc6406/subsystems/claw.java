@@ -25,7 +25,7 @@ public class claw extends Subsystem {
 
 
 
-    private final Solenoid cLaw_solenoid = RobotMap.clawCLaw_solenoid;
+    private final Solenoid cLaw_solenoid = RobotMap.claw_solenoid;
 
 
     @Override

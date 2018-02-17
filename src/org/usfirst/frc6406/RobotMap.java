@@ -33,7 +33,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  */
 public class RobotMap {
 
-    public static Solenoid clawCLaw_solenoid;
+    public static Solenoid claw_solenoid;
     public static VictorSPX wristmotor;
     public static AnalogInput wristpot;
     public static PowerDistributionPanel sensorsPDP;
@@ -71,23 +71,7 @@ public class RobotMap {
             DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
         }
 
-        compressor = new Compressor(0);
-        clawCLaw_solenoid = new Solenoid(0, 0);
-
-        wristmotor = new VictorSPX(1);
-        wristmotor.setInverted(false);
-        wristpot = new AnalogInput(0);
-
-        sensorsPDP = new PowerDistributionPanel(0);
-
-        sensorsUltrasonic = new AnalogInput(1);
-
-        climbermotor = new VictorSPX(0);
-        climbermotor.setInverted(false);
-        lifttruckMotor = new WPI_TalonSRX(1);
-
-        lifttelescopeMotor = new WPI_TalonSRX(0);
-
+        // Non-CAN devices
         driveRightBack = new Spark(3);
         driveRightBack.setInverted(false);
         driveLeftBack = new Spark(1);
@@ -111,6 +95,47 @@ public class RobotMap {
 
         driveQuadratureEncoder2.setDistancePerPulse(1.0);
         driveQuadratureEncoder2.setPIDSourceType(PIDSourceType.kRate);
+        
+        sensorsUltrasonic = new AnalogInput(1);
+        wristpot = new AnalogInput(0);
+        
+        // CAN devices
+        try {
+        	claw_solenoid = new Solenoid(0, 0);
+        } catch (Exception e) {
+        	claw_solenoid = null;
+        	Robot.Log("PCM not detected.", 1);
+        }
+        try {
+        	climbermotor = new VictorSPX(0);
+        } catch (Exception e) {
+        	climbermotor = null;
+        	Robot.Log("Winch motor not detected.", 1);
+        }
+        try {
+        	wristmotor = new VictorSPX(1);
+        } catch (Exception e) {
+        	wristmotor = null;
+        	Robot.Log("Wrist motor not detected.", 1);
+        }
+        try {
+        	lifttelescopeMotor = new WPI_TalonSRX(0);
+        } catch (Exception e) {
+        	lifttelescopeMotor = null;
+        	Robot.Log("Telescope motor not detected.", 1);
+        }
+        try {
+        	lifttruckMotor = new WPI_TalonSRX(1);
+        } catch (Exception e) {
+        	lifttruckMotor = null;
+        	Robot.Log("Truck motor not detected.", 1);
+        }
+        try {
+        	sensorsPDP = new PowerDistributionPanel(0);
+        } catch (Exception e) {
+        	sensorsPDP = null;
+        	Robot.Log("PDP not detected.", 1);
+        }
 
         initSelectionButtons();
         initAutoDirections();
@@ -120,7 +145,7 @@ public class RobotMap {
         LiveWindow.addActuator("Drive", "LeftBack", (Spark) driveLeftBack);
         LiveWindow.addActuator("Drive", "RightBack", (Spark) driveRightBack);
         LiveWindow.addSensor("Sensors", "Ultrasonic", sensorsUltrasonic);
-        LiveWindow.addActuator("claw", "CLaw_solenoid", clawCLaw_solenoid);
+        LiveWindow.addActuator("claw", "CLaw_solenoid", claw_solenoid);
     }
 
     public static void initSelectionButtons() {
