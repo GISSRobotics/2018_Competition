@@ -72,7 +72,9 @@ public class wrist extends PIDSubsystem {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
 
-        motor.set(ControlMode.PercentOutput, output);
+        if (motor != null) {
+            motor.set(ControlMode.PercentOutput, output);
+        }
 
     }
 

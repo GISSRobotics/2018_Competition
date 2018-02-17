@@ -85,14 +85,11 @@ public class RobotMap {
         driveRobotDrive.setMaxOutput(1.0);
 
         driveQuadratureEncoder = new Encoder(0, 1, false, EncodingType.k4X);
-
         driveQuadratureEncoder.setDistancePerPulse(1.0);
         driveQuadratureEncoder.setPIDSourceType(PIDSourceType.kRate);
         driveQuadratureEncoder2 = new Encoder(2, 3, false, EncodingType.k4X);
-
         driveQuadratureEncoder2.setDistancePerPulse(1.0);
         driveQuadratureEncoder2.setPIDSourceType(PIDSourceType.kRate);
-        
         ultrasonic = new AnalogInput(1);
         wristPot = new AnalogInput(0);
         

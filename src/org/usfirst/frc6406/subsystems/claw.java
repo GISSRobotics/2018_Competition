@@ -45,12 +45,16 @@ public class claw extends Subsystem {
 
     public void setOpen() {
         state = true;
-        clawSolenoid.set(state);
+        if (clawSolenoid != null) {
+        	clawSolenoid.set(state);
+        }
     }
 
     public void setClose() {
         state = false;
-        clawSolenoid.set(state);
+        if (clawSolenoid != null) {
+        	clawSolenoid.set(state);
+        }
     }
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
