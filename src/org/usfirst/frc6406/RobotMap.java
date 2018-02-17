@@ -33,20 +33,19 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  */
 public class RobotMap {
 
-    public static Solenoid claw_solenoid;
-    public static VictorSPX wristmotor;
-    public static AnalogInput wristpot;
-    public static PowerDistributionPanel sensorsPDP;
-    public static AnalogInput sensorsUltrasonic;
-    public static VictorSPX climbermotor;
-    public static WPI_TalonSRX lifttruckMotor;
-    public static WPI_TalonSRX lifttelescopeMotor;
+    public static Solenoid clawSolenoid;
+    public static VictorSPX wristMotor;
+    public static AnalogInput wristPot;
+    public static PowerDistributionPanel PDP;
+    public static AnalogInput ultrasonic;
+    public static VictorSPX winchMotor;
+    public static WPI_TalonSRX liftTruckMotor;
+    public static WPI_TalonSRX liftTelescopeMotor;
     public static SpeedController driveRightBack;
     public static SpeedController driveLeftBack;
     public static SpeedController driveRightFront;
     public static SpeedController driveLeftFront;
     public static RobotDrive driveRobotDrive;
-    public static Compressor compressor;
 
     public static AHRS ahrs;
     public static Encoder driveQuadratureEncoder;
@@ -81,10 +80,8 @@ public class RobotMap {
         driveLeftFront = new Spark(0);
         driveLeftFront.setInverted(false);
         driveRobotDrive = new RobotDrive(driveLeftFront, driveLeftBack, driveRightFront, driveRightBack);
-
         driveRobotDrive.setSafetyEnabled(false);
         driveRobotDrive.setExpiration(0.1);
-        driveRobotDrive.setSensitivity(0.5);
         driveRobotDrive.setMaxOutput(1.0);
 
         driveQuadratureEncoder = new Encoder(0, 1, false, EncodingType.k4X);
@@ -96,44 +93,46 @@ public class RobotMap {
         driveQuadratureEncoder2.setDistancePerPulse(1.0);
         driveQuadratureEncoder2.setPIDSourceType(PIDSourceType.kRate);
         
-        sensorsUltrasonic = new AnalogInput(1);
-        wristpot = new AnalogInput(0);
+        ultrasonic = new AnalogInput(1);
+        wristPot = new AnalogInput(0);
         
         // CAN devices
+        // Null if not detected
+        // This might not work...
         try {
-        	claw_solenoid = new Solenoid(0, 0);
+        	clawSolenoid = new Solenoid(0, 0);
         } catch (Exception e) {
-        	claw_solenoid = null;
+        	clawSolenoid = null;
         	Robot.Log("PCM not detected.", 1);
         }
         try {
-        	climbermotor = new VictorSPX(0);
+        	winchMotor = new VictorSPX(0);
         } catch (Exception e) {
-        	climbermotor = null;
+        	winchMotor = null;
         	Robot.Log("Winch motor not detected.", 1);
         }
         try {
-        	wristmotor = new VictorSPX(1);
+        	wristMotor = new VictorSPX(1);
         } catch (Exception e) {
-        	wristmotor = null;
+        	wristMotor = null;
         	Robot.Log("Wrist motor not detected.", 1);
         }
         try {
-        	lifttelescopeMotor = new WPI_TalonSRX(0);
+        	liftTelescopeMotor = new WPI_TalonSRX(0);
         } catch (Exception e) {
-        	lifttelescopeMotor = null;
+        	liftTelescopeMotor = null;
         	Robot.Log("Telescope motor not detected.", 1);
         }
         try {
-        	lifttruckMotor = new WPI_TalonSRX(1);
+        	liftTruckMotor = new WPI_TalonSRX(1);
         } catch (Exception e) {
-        	lifttruckMotor = null;
+        	liftTruckMotor = null;
         	Robot.Log("Truck motor not detected.", 1);
         }
         try {
-        	sensorsPDP = new PowerDistributionPanel(0);
+        	PDP = new PowerDistributionPanel(0);
         } catch (Exception e) {
-        	sensorsPDP = null;
+        	PDP = null;
         	Robot.Log("PDP not detected.", 1);
         }
 
@@ -144,8 +143,8 @@ public class RobotMap {
         LiveWindow.addActuator("Drive", "RightFront", (Spark) driveRightFront);
         LiveWindow.addActuator("Drive", "LeftBack", (Spark) driveLeftBack);
         LiveWindow.addActuator("Drive", "RightBack", (Spark) driveRightBack);
-        LiveWindow.addSensor("Sensors", "Ultrasonic", sensorsUltrasonic);
-        LiveWindow.addActuator("claw", "CLaw_solenoid", claw_solenoid);
+        LiveWindow.addSensor("Sensors", "Ultrasonic", ultrasonic);
+        LiveWindow.addActuator("claw", "CLaw_solenoid", clawSolenoid);
     }
 
     public static void initSelectionButtons() {

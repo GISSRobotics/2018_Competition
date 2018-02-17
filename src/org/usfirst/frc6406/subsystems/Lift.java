@@ -38,8 +38,8 @@ public class Lift extends Subsystem {
     private int targetHeight = 0;
     private boolean truckInit = false;
     private boolean telescopeInit = false;
-    private final WPI_TalonSRX truckMotor = RobotMap.lifttruckMotor;
-    private final WPI_TalonSRX telescopeMotor = RobotMap.lifttelescopeMotor;
+    private final WPI_TalonSRX truckMotor = RobotMap.liftTruckMotor;
+    private final WPI_TalonSRX telescopeMotor = RobotMap.liftTelescopeMotor;
 
     SensorCollection truckStatus;
     SensorCollection telescopeStatus;

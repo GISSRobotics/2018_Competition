@@ -28,8 +28,8 @@ import edu.wpi.first.wpilibj.VictorSP;
  *
  */
 public class wrist extends PIDSubsystem {
-    private final VictorSPX motor = RobotMap.wristmotor;
-    private final AnalogInput pot = RobotMap.wristpot;
+    private final VictorSPX motor = RobotMap.wristMotor;
+    private final AnalogInput pot = RobotMap.wristPot;
 
     // Initialize your subsystem here
     public wrist() {

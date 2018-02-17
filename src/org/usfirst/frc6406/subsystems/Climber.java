@@ -28,7 +28,7 @@ public class Climber extends Subsystem {
 
 
 
-    private final VictorSPX motor = RobotMap.climbermotor;
+    private final VictorSPX motor = RobotMap.winchMotor;
 
 
     @Override
