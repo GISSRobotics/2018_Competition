@@ -62,7 +62,7 @@ public class wrist extends PIDSubsystem {
         // e.g. a sensor, like a potentiometer:
         // yourPot.getAverageVoltage() / kYourMaxVoltage;
 
-        return pot.getAverageVoltage() / 5.0;
+        return pot.getAverageVoltage() / 2.5;
     }
 
     @Override

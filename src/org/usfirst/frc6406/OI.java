@@ -52,7 +52,7 @@ public class OI {
 	        wristup = new JoystickButton(flightstick, 6);
 	        wristup.whenPressed(new WristMove(0.0));
 	        wristdown = new JoystickButton(flightstick, 4);
-	        wristdown.whenPressed(new WristMove(0.4));
+	        wristdown.whenPressed(new WristMove(1.0));
 	
 	        stopclimb = new JoystickButton(flightstick, 11);
 	        climb.whileHeld(new Climb());
@@ -135,6 +135,20 @@ public class OI {
     	} else if (customstick != null) {
     		double targetPosition = (customstick.getRawAxis(0) / 2.0) + 0.5;
     		Robot.lift.moveTelescope(targetPosition);
+    	}
+    	
+    	// Wrist
+    	// Both xbox and custom have controls for this
+    	if (xboxstick != null) {
+    		int pov = xboxstick.getPOV(0);
+    		if (pov > 90 && pov < 270) {
+    			(new WristMove(1.0)).start();
+    		} else {
+    			(new WristMove(0.0)).start();
+    		}
+    	} else if (customstick != null) {
+    		double targetPosition = customstick.getRawAxis(1) + 1.0;
+    		(new WristMove(targetPosition)).start();
     	}
     	
 		System.out.print("XBOX Axis 0:"+xboxstick.getRawAxis(0));
