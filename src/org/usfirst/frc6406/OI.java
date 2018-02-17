@@ -34,9 +34,59 @@ public class OI {
     private static final double TELE_PRESET_LOW = 0.05;
 
     public OI() {
-    	initSticks();
-    	
-    	if (flightstick != null) {
+    	checkSticks();
+    }
+
+	public void checkSticks() {
+		Robot.Log("Updating controllers...", 1);
+		boolean flight = false;
+		boolean xbox = false;
+		boolean custom = false;
+		for (int order = 0; order <= 1; order++) {
+        	Joystick tempStick = new Joystick(order);
+        	switch(tempStick.getAxisCount()) {
+        	case 8:
+        		custom = true;
+        		if (customstick == null) {
+            		customstick = new Joystick(order);
+            		addCustomButtons();
+            		Robot.Log("USB [" + order +"] is assigned to the custom stick", 1);
+        		}
+        		break;
+        	case 4:
+        		flight = true;
+        		if (flightstick == null) {
+            		flightstick = new Joystick(order);
+            		addFlightstickButtons();
+            		Robot.Log("USB [" + order +"] is assigned to the flight stick", 1);
+        		}
+        		break;
+        	case 6:
+        		xbox = true;
+        		if (xboxstick == null) {
+            		xboxstick = new Joystick(order);
+            		addXboxButtons();
+            		Robot.Log("USB [" + order +"] is assigned to the xbox stick", 1);
+        		}
+        		break;
+        	default:
+        		Robot.Log("We have no idea what USB [\" + order +\"] is!", 1);
+        		break;
+        	}
+    	}
+		if (!flight) {
+			flightstick = null;
+		}
+		if (!xbox) {
+			xboxstick = null;
+		}
+		if (!custom) {
+			customstick = null;
+		}
+	}
+	
+	private void addFlightstickButtons() {
+		if (flightstick != null) {
     		// Logitech 3D Flightstick
     		fairydriving = new JoystickButton(flightstick, 1);
 	        fairydriving.whenPressed(new switchtobackcamera());
@@ -65,7 +115,9 @@ public class OI {
 	        telescopeup = new JoystickButton(flightstick, 5);
 	        telescopeup.whileHeld(new TelescopeUp());
     	}
-    	
+	}
+	
+	private void addXboxButtons() { 	
     	if (xboxstick != null) {
 	        // Xbox 360 gamepad
 	        opencloseclaw = new JoystickButton(xboxstick, 5);
@@ -77,7 +129,9 @@ public class OI {
 	        high = new JoystickButton(xboxstick, 4);
 	        high.whenPressed(new liftmove(TELE_PRESET_HIGH));
     	}
-    	
+	}
+	
+	private void addCustomButtons() {   	
     	if (customstick != null) {
     		// Custom PowerUp console
     		opencloseclaw = new JoystickButton(customstick, 1);
@@ -86,30 +140,6 @@ public class OI {
     		stopclimb = new JoystickButton(customstick, 2);
 	        climb.whileHeld(new Climb());
 	        climb.whenReleased(new StopClimb());
-    	}
-    }
-
-	private void initSticks() {
-		for (int order = 0; order <= 1; order++) {
-        	Joystick tempStick = new Joystick(order);
-        	System.out.println("USB [" + order + "] has [" + tempStick.getAxisCount() + "] axes");
-        	switch(tempStick.getAxisCount()) {
-        	case 2:
-        		customstick = new Joystick(order);
-        		System.out.println("USB [" + order +"] is assigned to the custom stick");
-        		break;
-        	case 4:
-        		flightstick = new Joystick(order);
-        		System.out.println("USB [" + order +"] is assigned to the flight stick");
-        		break;
-        	case 6:
-        		xboxstick = new Joystick(order);
-        		System.out.println("USB [" + order +"] is assigned to the xbox stick");
-        		break;
-        	default:
-        		System.out.println("We have no idea what USB [" + order +"] is!");
-        		break;
-        	}
     	}
 	}
     

@@ -110,6 +110,13 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        oi.checkSticks();
         oi.RunAxes();
+    }
+    
+    public static void Log(String msg, int min_verbosity) {
+    	if (LOG_VERBOSITY >= min_verbosity) {
+    		System.out.println(msg);
+    	}
     }
 }

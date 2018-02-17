@@ -73,7 +73,6 @@ public class RobotMap {
 
         compressor = new Compressor(0);
         clawCLaw_solenoid = new Solenoid(0, 0);
-        LiveWindow.addActuator("claw", "CLaw_solenoid", clawCLaw_solenoid);
 
         wristmotor = new VictorSPX(1);
         wristmotor.setInverted(false);
@@ -82,7 +81,6 @@ public class RobotMap {
         sensorsPDP = new PowerDistributionPanel(0);
 
         sensorsUltrasonic = new AnalogInput(1);
-        LiveWindow.addSensor("Sensors", "Ultrasonic", sensorsUltrasonic);
 
         climbermotor = new VictorSPX(0);
         climbermotor.setInverted(false);
@@ -91,16 +89,12 @@ public class RobotMap {
         lifttelescopeMotor = new WPI_TalonSRX(0);
 
         driveRightBack = new Spark(3);
-        LiveWindow.addActuator("Drive", "RightBack", (Spark) driveRightBack);
         driveRightBack.setInverted(false);
         driveLeftBack = new Spark(1);
-        LiveWindow.addActuator("Drive", "LeftBack", (Spark) driveLeftBack);
         driveLeftBack.setInverted(false);
         driveRightFront = new Spark(2);
-        LiveWindow.addActuator("Drive", "RightFront", (Spark) driveRightFront);
         driveRightFront.setInverted(false);
         driveLeftFront = new Spark(0);
-        LiveWindow.addActuator("Drive", "LeftFront", (Spark) driveLeftFront);
         driveLeftFront.setInverted(false);
         driveRobotDrive = new RobotDrive(driveLeftFront, driveLeftBack, driveRightFront, driveRightBack);
 
@@ -120,6 +114,13 @@ public class RobotMap {
 
         initSelectionButtons();
         initAutoDirections();
+        
+        LiveWindow.addActuator("Drive", "LeftFront", (Spark) driveLeftFront);
+        LiveWindow.addActuator("Drive", "RightFront", (Spark) driveRightFront);
+        LiveWindow.addActuator("Drive", "LeftBack", (Spark) driveLeftBack);
+        LiveWindow.addActuator("Drive", "RightBack", (Spark) driveRightBack);
+        LiveWindow.addSensor("Sensors", "Ultrasonic", sensorsUltrasonic);
+        LiveWindow.addActuator("claw", "CLaw_solenoid", clawCLaw_solenoid);
     }
 
     public static void initSelectionButtons() {
