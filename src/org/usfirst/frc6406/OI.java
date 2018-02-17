@@ -35,6 +35,7 @@ public class OI {
 
     public OI() {
     	checkSticks();
+    	SmartDashboard.putData("switch camera", new FixCamera());
     }
 
 	public void checkSticks() {
