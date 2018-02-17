@@ -31,6 +31,8 @@ import org.usfirst.frc6406.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
+	
+	public static final int LOG_VERBOSITY = 1; // 0=nothing; 1=some occational stuff; 2=everything
 
     public static OI oi;
     private AutoGroup ag;
