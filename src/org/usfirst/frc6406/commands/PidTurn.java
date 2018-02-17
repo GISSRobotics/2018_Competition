@@ -34,7 +34,7 @@ public class PidTurn extends Command implements PIDOutput {
 		turnController.setContinuous(true);
 		turnController.setSetpoint(deg);
 		rotateToAngleRate = 0.0;
-		setTimeout(6);
+		//setTimeout(6);
 		
 
 	}
@@ -65,7 +65,7 @@ public class PidTurn extends Command implements PIDOutput {
     protected boolean isFinished() {
     	SmartDashboard.putNumber("Yaw2:",  RobotMap.ahrs.getYaw());
     	SmartDashboard.putNumber("Yaw Error:",  turnController.getError());
-    	return turnController.onTarget() || isTimedOut();
+    	return turnController.onTarget(); //|| isTimedOut();
     }
 
     // Called once after isFinished returns true

@@ -42,7 +42,7 @@ public class PidDrive extends Command implements PIDOutput {
 		turnController.setContinuous(true);
 		turnController.setSetpoint(180);
 		rotateToAngleRate = 0.0;
-		setTimeout(7);
+		//setTimeout(7);
 
     	requires(Robot.drive);
     }
