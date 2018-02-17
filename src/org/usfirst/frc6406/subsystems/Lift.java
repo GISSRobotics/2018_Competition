@@ -10,6 +10,7 @@
 
 package org.usfirst.frc6406.subsystems;
 
+import org.usfirst.frc6406.Robot;
 import org.usfirst.frc6406.RobotMap;
 import org.usfirst.frc6406.commands.*;
 
@@ -92,12 +93,6 @@ public class Lift extends Subsystem {
         // Keep pos in range
         pos = Math.max(Math.min(pos, MAX_HEIGHT_TELESCOPE + MAX_HEIGHT_TRUCK), 0);
         // telescope can't go lower than 5%
-        // int telescopeTarget = Math.max(Math.min(pos, MAX_HEIGHT_TELESCOPE), (int)
-        // (0.0 * MAX_HEIGHT_TELESCOPE));
-        // truck can't go lower than 5%
-        // int truckTarget = Math.max(pos - MAX_HEIGHT_TELESCOPE, (int) (0.0 *
-        // MAX_HEIGHT_TRUCK));
-
         int telescopeTarget = Math.max(pos - MAX_HEIGHT_TRUCK, (int) (0.0 * MAX_HEIGHT_TELESCOPE));
         // truck can't go lower than 5%
         int truckTarget = Math.max(Math.min(pos, MAX_HEIGHT_TRUCK), (int) (0.0 * MAX_HEIGHT_TRUCK));
@@ -106,7 +101,7 @@ public class Lift extends Subsystem {
         telescopeTarget *= -1;
         truckTarget *= -1;
 
-        System.out.println("target:" + telescopeTarget + ", " + truckTarget);
+        Robot.Log("target:" + telescopeTarget + ", " + truckTarget, 2);
         telescopeMotor.set(ControlMode.Position, telescopeTarget);
         truckMotor.set(ControlMode.Position, truckTarget);
         SmartDashboard.putNumber("telescope-position", pos);
@@ -120,7 +115,7 @@ public class Lift extends Subsystem {
             if (!telescopeStatus.isRevLimitSwitchClosed()) {
                 telescopeInit = true;
                 telescopeMotor.setSelectedSensorPosition(10000, pidid, 100);
-                // System.out.println("Telescope encoder reset to 0.");
+                Robot.Log("Telescope encoder reset to 0.", 1);
             }
             telescopeMotor.set(0.0);
 
@@ -133,7 +128,7 @@ public class Lift extends Subsystem {
             if (!truckStatus.isRevLimitSwitchClosed()) {
                 truckInit = true;
                 truckMotor.setSelectedSensorPosition(10000, pidid, 100);
-                System.out.println("Truck encoder reset to 0.");
+                Robot.Log("Truck encoder reset to 0.", 1);
             }
             truckMotor.set(0.0);
 
