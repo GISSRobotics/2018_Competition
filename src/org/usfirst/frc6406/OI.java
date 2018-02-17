@@ -57,8 +57,8 @@ public class OI {
 	        stopclimb.whenReleased(new StopClimb());
 	        climb = new JoystickButton(flightstick, 11);
 	        climb.whileHeld(new Climb());
-	        //opencloseclaw = new JoystickButton(flightstick, 2);
-	        //opencloseclaw.whenPressed(new Claw_toggle());
+	        opencloseclaw = new JoystickButton(flightstick, 2);
+	        opencloseclaw.whenPressed(new Claw_toggle());
 	        telescopedownrelease = new JoystickButton(flightstick, 3);
 	        telescopedownrelease.whenReleased(new telescopestop());
 	        telescopedown = new JoystickButton(flightstick, 3);
