@@ -37,6 +37,7 @@ public class OI {
     	initSticks();
     	
     	if (flightstick != null) {
+    		// Logitech 3D Flightstick
     		fairydriving = new JoystickButton(flightstick, 1);
 	        fairydriving.whenPressed(new switchtobackcamera());
 	        fairydriving.whenReleased(new switchtofrontcamera());
@@ -54,21 +55,19 @@ public class OI {
 	        wristdown.whenPressed(new WristMove(0.4));
 	
 	        stopclimb = new JoystickButton(flightstick, 11);
-	        stopclimb.whenReleased(new StopClimb());
-	        climb = new JoystickButton(flightstick, 11);
 	        climb.whileHeld(new Climb());
+	        climb.whenReleased(new StopClimb());
 	        opencloseclaw = new JoystickButton(flightstick, 2);
 	        opencloseclaw.whenPressed(new Claw_toggle());
-	        telescopedownrelease = new JoystickButton(flightstick, 3);
-	        telescopedownrelease.whenReleased(new telescopestop());
 	        telescopedown = new JoystickButton(flightstick, 3);
 	        telescopedown.whileHeld(new TelescopeDown());
+	        telescopedown.whenReleased(new telescopestop());
 	        telescopeup = new JoystickButton(flightstick, 5);
 	        telescopeup.whileHeld(new TelescopeUp());
     	}
     	
     	if (xboxstick != null) {
-	        //START XBOX CONFIG
+	        // Xbox 360 gamepad
 	        opencloseclaw = new JoystickButton(xboxstick, 5);
 	        opencloseclaw.whenPressed(new Claw_toggle());
 	        low = new JoystickButton(xboxstick, 1);
@@ -77,6 +76,16 @@ public class OI {
 	        medium.whenPressed(new liftmove(TELE_PRESET_MEDIUM));
 	        high = new JoystickButton(xboxstick, 4);
 	        high.whenPressed(new liftmove(TELE_PRESET_HIGH));
+    	}
+    	
+    	if (customstick != null) {
+    		// Custom PowerUp console
+    		opencloseclaw = new JoystickButton(customstick, 1);
+    		opencloseclaw.whenPressed(new claw_open());
+    		opencloseclaw.whenReleased(new claw_close());
+    		stopclimb = new JoystickButton(customstick, 2);
+	        climb.whileHeld(new Climb());
+	        climb.whenReleased(new StopClimb());
     	}
     }
 
