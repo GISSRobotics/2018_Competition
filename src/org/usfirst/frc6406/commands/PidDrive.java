@@ -16,9 +16,9 @@ public class PidDrive extends Command implements PIDOutput {
 	double distance;
 	private PIDController turnController;
 	public static double rotateToAngleRate;
-	static final double kP = 0.002;
-	static final double kI = 0.00008;
-	static final double kD = 0.0032;
+	static final double kP = 0.0; //SmartDashboard.getNumber("P Drive", 0.00);//0.002;
+	static final double kI = 0.0;
+	static final double kD = 0. ; //SmartDashboard.getNumber("D Drive", 0.00);//0.0032;
 	static final double kF = 0.0;
 	
 	//static final double kToleranceDegrees = 0.25;
@@ -28,6 +28,12 @@ public class PidDrive extends Command implements PIDOutput {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	distance = dist;
+    	double p = SmartDashboard.getNumber("P Drive", 0.00);
+    	SmartDashboard.putNumber("pp", p);
+    	//System.out.printf("p drive %f\n", p);
+    	double d =  SmartDashboard.getNumber("D Drive", 0.00);
+    	SmartDashboard.putNumber("dd", d);
+    	System.out.printf("d drive %f\n", d);
     	turnController = new PIDController(kP, kI, kD, kF, RobotMap.ahrs, this);
 		turnController.setInputRange(-180.0f, 180.0f);
 		turnController.setOutputRange(-0.5, 0.5);
@@ -65,13 +71,14 @@ public class PidDrive extends Command implements PIDOutput {
 
     		Robot.drive.turnAngle(0.0, rotateToAngleRate);
     	}
-    	System.out.println(rotateToAngleRate);
+    	// System.out.println(rotateToAngleRate);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 		SmartDashboard.putBoolean("on_target", turnController.onTarget());
 		SmartDashboard.putNumber("yaw value", RobotMap.ahrs.getYaw());
+		SmartDashboard.putNumber("Encoder Distance", RobotMap.driveQuadratureEncoder2.getDistance());
     	if (RobotMap.driveQuadratureEncoder2.getDistance() < distance) {
     		return false;
     	}

@@ -71,6 +71,11 @@ public class RobotMap {
 	public static SendableChooser<String> priorityChooser = new SendableChooser<>();
 	public static SendableChooser<String> positionChooser = new SendableChooser<>();
 
+	private double kDDrive;
+    private double kPDrive;
+    private double kDTurn;
+    private double kPTurn;
+
 	@SuppressWarnings("deprecation")
 	public static void init() {
 		try {
@@ -109,13 +114,13 @@ public class RobotMap {
 		// lifttelescopeMotor = new WPI_TalonSRX(1);
 
 		driveRightBack = new Spark(3);
-		driveRightBack.setInverted(false);
+		driveRightBack.setInverted(true);
 		driveLeftBack = new Spark(1);
-		driveLeftBack.setInverted(false);
+		driveLeftBack.setInverted(true);
 		driveRightFront = new Spark(2);
-		driveRightFront.setInverted(false);
+		driveRightFront.setInverted(true);
 		driveLeftFront = new Spark(0);
-		driveLeftFront.setInverted(false);
+		driveLeftFront.setInverted(true);
 		driveRobotDrive = new RobotDrive(driveLeftFront, driveLeftBack, driveRightFront, driveRightBack);
 
 		driveRobotDrive.setSafetyEnabled(false);
@@ -169,6 +174,13 @@ public class RobotMap {
 		//autoDirections.put("LSWZ", "D6:T45:D0.5:T45:D0.5:T45:D2:T45:D6");// THIS IS TESTING PATH Should be default
 																			// settings
 
-		autoDirections.put("LSWZ", "d2:t90:d1:t90:d2:t90:d1:t90");
+		autoDirections.put("LSWZ", "t90:t90:t90:t90:t90:t90:t90:t90");
+	}
+	
+	public static void initPIDSelectors() {
+		SmartDashboard.putNumber ("P Drive", 0.0);
+		SmartDashboard.putNumber ("D Drive", 0.0);
+		SmartDashboard.putNumber ("p_turn",  0.0075);
+		SmartDashboard.putNumber ("d_turn",  0.0);
 	}
 }
