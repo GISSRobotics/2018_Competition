@@ -127,6 +127,16 @@ public class OI {
             Robot.drive.arcadeDrive(acceleration * driveSensitivity * reverse, steering * steeringSensitivity);
     	}
     	
+    	// Telescope
+    	// Both xbox and custom have controls for this
+    	if (xboxstick != null) {
+    		double movementSpeed = xboxstick.getRawAxis(4);
+    		Robot.lift.Move(movementSpeed);
+    	} else if (customstick != null) {
+    		double targetPosition = (customstick.getRawAxis(0) / 2.0) + 0.5;
+    		Robot.lift.moveTelescope(targetPosition);
+    	}
+    	
 		System.out.print("XBOX Axis 0:"+xboxstick.getRawAxis(0));
 		System.out.print("XBOX Axis 1:"+xboxstick.getRawAxis(1));
 		System.out.print("XBOX Axis 2:"+xboxstick.getRawAxis(2));
