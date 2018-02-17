@@ -114,7 +114,6 @@ public class OI {
 	}
     
     public void RunAxes() {
-    	
     	// These happen here so that subsystems don't get taken over.
     	
     	// Driving
@@ -147,49 +146,8 @@ public class OI {
     			(new WristMove(0.0)).start();
     		}
     	} else if (customstick != null) {
-    		double targetPosition = customstick.getRawAxis(1) + 1.0;
+    		double targetPosition = (customstick.getRawAxis(1) * -1.0) + 1.0;
     		(new WristMove(targetPosition)).start();
     	}
-    	
-		System.out.print("XBOX Axis 0:"+xboxstick.getRawAxis(0));
-		System.out.print("XBOX Axis 1:"+xboxstick.getRawAxis(1));
-		System.out.print("XBOX Axis 2:"+xboxstick.getRawAxis(2));
-		System.out.print("XBOX Axis 3:"+xboxstick.getRawAxis(3));
-		System.out.print("XBOX Axis 4:"+xboxstick.getRawAxis(4));
-		System.out.print("XBOX Axis 5:"+xboxstick.getRawAxis(5));
-		System.out.print("XBOX POV:"   +xboxstick.getPOV());
-		
-		//if (xboxstick.getRawAxis(0) != 0) {
-		
-   		//}
-		
-		//if (xboxstick.getRawAxis(1) != 0) {
-   		
-		//}
-		
-		//if (xboxstick.getRawAxis(2) != 0) {
-   		
-		//}
-		
-		//if (xboxstick.getRawAxis(3) != 0) {
-   		
-		//}
-		
-		//if (xboxstick.getRawAxis(4) != 0) {
-   		
-		//}
-		
-		//if (xboxstick.getRawAxis(5) != 0) {
-   		
-		//}
-		
-		//if (xboxstick.getPOV(0) != -1){
-			//This should be elbow up command
-		//}
-		
-		//if (xboxstick.getPOV(180) != -1){
-			//This should be elbow down command
-		//}
-		
     }
 }
