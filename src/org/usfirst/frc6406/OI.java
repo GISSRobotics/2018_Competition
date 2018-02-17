@@ -113,7 +113,19 @@ public class OI {
     	}
 	}
     
-    public void UpdateXboxAxes() {
+    public void RunAxes() {
+    	
+    	// These happen here so that subsystems don't get taken over.
+    	
+    	// Driving
+    	if (flightstick != null) {
+    		double acceleration = flightstick.getRawAxis(1);
+            double steering = -flightstick.getRawAxis(0);
+            double driveSensitivity = (flightstick.getRawAxis(3) / -4.0) + 0.75;
+            double steeringSensitivity = (flightstick.getRawAxis(3) / -3.0) + 0.66;
+            double reverse = (flightstick.getRawButton(1)) ? -1 : 1;
+            Robot.drive.arcadeDrive(acceleration * driveSensitivity * reverse, steering * steeringSensitivity);
+    	}
     	
 		System.out.print("XBOX Axis 0:"+xboxstick.getRawAxis(0));
 		System.out.print("XBOX Axis 1:"+xboxstick.getRawAxis(1));

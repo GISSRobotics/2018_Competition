@@ -32,7 +32,7 @@ import org.usfirst.frc6406.subsystems.*;
  */
 public class Robot extends TimedRobot {
 	
-	public static final int LOG_VERBOSITY = 1; // 0=nothing; 1=some occational stuff; 2=everything
+	public static final int LOG_VERBOSITY = 1; // 0=nothing; 1=some occasional stuff; 2=everything
 
     public static OI oi;
     private AutoGroup ag;
@@ -95,7 +95,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        new JoystickDrive().start();
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
@@ -112,6 +111,6 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        //oi.UpdateXboxAxes();
+        oi.RunAxes();
     }
 }
