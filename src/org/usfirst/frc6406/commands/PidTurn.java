@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PidTurn extends Command implements PIDOutput {
 
-	static final double kP = 0.03;
+	static final double kP = 10.0;
 	static final double kI = 0.00;
-	static final double kD = 0.00;
+	static final double kD = 3.2;
 	static final double kF = 0.00;
 	//static final double kToleranceDegrees = 1.0;
 	
@@ -23,15 +23,18 @@ public class PidTurn extends Command implements PIDOutput {
 
 	public PidTurn(double deg) {
 		SmartDashboard.putNumber("Target:", deg);
-		turnController = new PIDController(kP, kI, kD, kF, RobotMap.ahrs, this);
+		double pT = SmartDashboard.getNumber("p_turn", 0.00);
+		double dT =SmartDashboard.getNumber("d_turn", 0.00);
+		
+		turnController = new PIDController(pT, kI, dT , kF, RobotMap.ahrs, this);
 		turnController.setInputRange(-180.0f, 180.0f);
-		turnController.setOutputRange(-0.5, 0.5);
-		turnController.setPercentTolerance(0.25);
-		// turnController.setAbsoluteTolerance(kToleranceDegrees);
+		turnController.setOutputRange(-0.7, 0.7);
+		//turnController.setPercentTolerance(3.0);
+		turnController.setAbsoluteTolerance(1.0);
 		turnController.setContinuous(true);
 		turnController.setSetpoint(deg);
 		rotateToAngleRate = 0.0;
-		setTimeout(3);
+		setTimeout(6);
 		
 
 	}
@@ -53,6 +56,7 @@ public class PidTurn extends Command implements PIDOutput {
     @Override
     protected void execute() {
     	Robot.drive.turnAngle(0, rotateToAngleRate);
+    	//System.out.printf("turning %f\n", rotateToAngleRate);
     	
     }
 
@@ -60,6 +64,7 @@ public class PidTurn extends Command implements PIDOutput {
     @Override
     protected boolean isFinished() {
     	SmartDashboard.putNumber("Yaw2:",  RobotMap.ahrs.getYaw());
+    	SmartDashboard.putNumber("Yaw Error:",  turnController.getError());
     	return turnController.onTarget() || isTimedOut();
     }
 

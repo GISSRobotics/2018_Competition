@@ -16,10 +16,10 @@ public class PidDrive extends Command implements PIDOutput {
 	double distance;
 	private PIDController turnController;
 	public static double rotateToAngleRate;
-	static final double kP = 0.03;
-	static final double kI = 0.06;
-	static final double kD = 0.0005;
-	static final double kF = 0.00;
+	static final double kP = 0.0; //SmartDashboard.getNumber("P Drive", 0.00);//0.002;
+	static final double kI = 0.0;
+	static final double kD = 0. ; //SmartDashboard.getNumber("D Drive", 0.00);//0.0032;
+	static final double kF = 0.0;
 	
 	//static final double kToleranceDegrees = 0.25;
 	
@@ -28,15 +28,21 @@ public class PidDrive extends Command implements PIDOutput {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	distance = dist;
+    	double p = SmartDashboard.getNumber("P Drive", 0.00);
+    	SmartDashboard.putNumber("pp", p);
+    	//System.out.printf("p drive %f\n", p);
+    	double d =  SmartDashboard.getNumber("D Drive", 0.00);
+    	SmartDashboard.putNumber("dd", d);
+    	System.out.printf("d drive %f\n", d);
     	turnController = new PIDController(kP, kI, kD, kF, RobotMap.ahrs, this);
 		turnController.setInputRange(-180.0f, 180.0f);
-		turnController.setOutputRange(-0.41, 0.41);
-		turnController.setPercentTolerance(0.25);
+		turnController.setOutputRange(-0.5, 0.5);
+		turnController.setPercentTolerance(3.0);
 		//turnController.setAbsoluteTolerance(kToleranceDegrees);
 		turnController.setContinuous(true);
 		turnController.setSetpoint(180);
 		rotateToAngleRate = 0.0;
-		setTimeout(10);
+		setTimeout(7);
 
     	requires(Robot.drive);
     }
@@ -62,14 +68,17 @@ public class PidDrive extends Command implements PIDOutput {
     	if (RobotMap.driveQuadratureEncoder2.getDistance() < distance) {
     		Robot.drive.turnAngle(0.7, rotateToAngleRate);
     	} else {
+
     		Robot.drive.turnAngle(0.0, rotateToAngleRate);
     	}
+    	// System.out.println(rotateToAngleRate);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 		SmartDashboard.putBoolean("on_target", turnController.onTarget());
 		SmartDashboard.putNumber("yaw value", RobotMap.ahrs.getYaw());
+		SmartDashboard.putNumber("Encoder Distance", RobotMap.driveQuadratureEncoder2.getDistance());
     	if (RobotMap.driveQuadratureEncoder2.getDistance() < distance) {
     		return false;
     	}
