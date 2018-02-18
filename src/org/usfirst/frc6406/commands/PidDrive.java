@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class PidDrive extends Command implements PIDOutput {
 
 	double distance;
-	private PIDController turnController;
+	private PIDController curveController;
 	private PIDController driveController;
 	private PidDriveOutput driveOutput;
 	private int onTargetCounter;
@@ -37,12 +37,12 @@ public class PidDrive extends Command implements PIDOutput {
     	double d =  SmartDashboard.getNumber("D Drive", 0.00);
     	double pT = SmartDashboard.getNumber("P DriveTurn", 0.00);
     	double dT =  SmartDashboard.getNumber("D DriveTurn", 0.00);
-    	turnController = new PIDController(pT, kI, dT, kF, RobotMap.ahrs, this);
-		turnController.setInputRange(-180.0, 180.0);
-		turnController.setOutputRange(-0.5, 0.5);
-		turnController.setAbsoluteTolerance(0.5);
-		turnController.setContinuous(true);
-		turnController.setSetpoint(0);
+    	curveController = new PIDController(pT, kI, dT, kF, RobotMap.ahrs, this);
+		curveController.setInputRange(-180.0, 180.0);
+		curveController.setOutputRange(-0.5, 0.5);
+		curveController.setAbsoluteTolerance(0.5);
+		curveController.setContinuous(true);
+		curveController.setSetpoint(0);
 		rotateToAngleRate = 0.0;
 		//setTimeout(7);
 		
@@ -50,7 +50,7 @@ public class PidDrive extends Command implements PIDOutput {
 		driveOutput = new PidDriveOutput();
 		driveController = new PIDController(p, kI, d, kF, RobotMap.driveQuadratureEncoder2, driveOutput);
 		driveController.setInputRange(0, 1.1*dist);
-		driveController.setOutputRange(-0.7, 0.7);
+		driveController.setOutputRange(-0.8, 0.8);
 		driveController.setAbsoluteTolerance(10);
 		driveController.setContinuous(false);
 		driveController.setSetpoint(dist);
@@ -77,22 +77,19 @@ public class PidDrive extends Command implements PIDOutput {
 			}
 		}
 		*/
-		turnController.enable();
+		curveController.enable();
 		driveController.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//	if (!driveController.onTarget()) {
-    	rotateToAngleRate = Math.abs(driveController.getError()) < 500 ? 0.0 : rotateToAngleRate;
-    	if (-driveOutput.driveRate != 0.7) {
-    		Robot.drive.turnAngle(-driveOutput.driveRate, rotateToAngleRate);
-    	}
+    	Robot.drive.turnAngle(-driveOutput.driveRate, rotateToAngleRate);
     	//} else {
 
     		//Robot.drive.turnAngle(0.0, rotateToAngleRate);
     	//}
-      System.out.println(-driveOutput.driveRate);
+      //System.out.println(-driveOutput.driveRate);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -102,10 +99,11 @@ public class PidDrive extends Command implements PIDOutput {
     	SmartDashboard.putNumber("Distance Error Graph",  driveController.getError());
     	SmartDashboard.putNumber("PID Get", RobotMap.driveQuadratureEncoder2.pidGet());
     	SmartDashboard.putNumber("Yaw2:",  RobotMap.ahrs.getYaw());
-    	SmartDashboard.putNumber("Yaw Error",  turnController.getError());
-    	SmartDashboard.putNumber("Yaw Error Graph",  turnController.getError());
-		SmartDashboard.putBoolean("on_target", turnController.onTarget());
+    	SmartDashboard.putNumber("Yaw Error",  curveController.getError());
+    	SmartDashboard.putNumber("Yaw Error Graph",  curveController.getError());
+		SmartDashboard.putBoolean("on_target", curveController.onTarget());
 		SmartDashboard.putNumber("Encoder Distance", RobotMap.driveQuadratureEncoder2.getDistance());
+		SmartDashboard.putNumber("NavX Distance", RobotMap.ahrs.getDisplacementY());
 		if (driveController.onTarget()) {
     		onTargetCounter++;
     	}else{
@@ -116,7 +114,7 @@ public class PidDrive extends Command implements PIDOutput {
 //    	if (Math.abs(RobotMap.driveQuadratureEncoder2.getDistance()) < distance) {
 //    		return false;
 //    	}
-//    	if (Math.abs(RobotMap.driveQuadratureEncoder2.getDistance()) >= distance && turnController.onTarget()){ // && Math.abs(RobotMap.ahrs.getYaw())<1.0)
+//    	if (Math.abs(RobotMap.driveQuadratureEncoder2.getDistance()) >= distance && curveController.onTarget()){ // && Math.abs(RobotMap.ahrs.getYaw())<1.0)
 //    			
 //    		return true;
 //    	} else {
@@ -128,6 +126,8 @@ public class PidDrive extends Command implements PIDOutput {
 
     // Called once after isFinished returns true
     protected void end() {
+    	driveController.disable();
+    	curveController.disable();
     	Robot.drive.stop();
     	System.out.println("I stopped");
     }

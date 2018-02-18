@@ -86,6 +86,7 @@ public class RobotMap {
 			 * details.
 			 */
 			ahrs = new AHRS(SPI.Port.kMXP);
+			ahrs.reset();
 		} catch (RuntimeException ex) {
 			DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
 		}
@@ -160,7 +161,7 @@ public class RobotMap {
 	public static void initAutoDirections() {
 		autoDirections.put("LSCL", "d8.22:t90:d0:P");// This is our example case (Drive 1 meter:Begin raise 7 feet:Drive
 														// 1 meter:Turn 90 degrees:Place(Dump))
-		autoDirections.put("LSCR", "d5.2:t-90:d6:t90:d2.2:t90:d0.5:P0"); // has been inverted
+		autoDirections.put("LSCR", "d5.2:t-90:d5.5:t90:d2.2:r5.0:t90:r1:t90:d2.2:t-90:d5.5:t90:d5.2:t180"); // has been inverted
 		autoDirections.put("LSWL", "d4.3:t90:d0:P");
 		autoDirections.put("LSWR", "d6:t90:d5.3:t90:d0:P");
 		autoDirections.put("CSCL", "d.3:t-50:d4:t50:d4.7:t90:d0:P");
@@ -175,20 +176,23 @@ public class RobotMap {
 																			// settings
 
 		autoDirections.put("LSWZ", "d3:t-180:d3:t-180:d3:t-180:d3:t-180:d3:t-180");
+		autoDirections.put("LSWY", "d3:d3:t180");
 	}
 	
 	public static void initPIDSelectors() {
-		SmartDashboard.putNumber("P Drive", 0.03);
-		SmartDashboard.putNumber("D Drive", 0.003);
-		SmartDashboard.putNumber("P DriveTurn", 0.0);
-		SmartDashboard.putNumber("D DriveTurn", 0.0);
+		// multi floor
+		SmartDashboard.putNumber("P Drive", 0.035);
+		SmartDashboard.putNumber("D Drive", 0.11);
+		SmartDashboard.putNumber("P DriveTurn", 0.3);
+		SmartDashboard.putNumber("D DriveTurn", 0.3);
 		// carpet people
 //		SmartDashboard.putNumber("p_turn",  0.2);
 //		SmartDashboard.putNumber("i_turn", 0.0);
 //		SmartDashboard.putNumber("d_turn",  0.2);
 		
-		SmartDashboard.putNumber("p_turn",  0.08);
+		// multi floor
+		SmartDashboard.putNumber("p_turn",  0.07);
 		SmartDashboard.putNumber("i_turn", 0.0);
-		SmartDashboard.putNumber("d_turn",  0.0);
+		SmartDashboard.putNumber("d_turn",  0.155);
 	}
 }

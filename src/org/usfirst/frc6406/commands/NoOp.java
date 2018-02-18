@@ -2,20 +2,21 @@ package org.usfirst.frc6406.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
 public class NoOp extends Command {
 
-    public NoOp() {
+	private double timeout;
+	
+    public NoOp(double seconds) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	
+    	timeout = seconds;    	
     	
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	setTimeout(1);
+    	setTimeout(timeout);
     }
 
     // Called repeatedly when this Command is scheduled to run
