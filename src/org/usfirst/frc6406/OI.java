@@ -45,9 +45,9 @@ public class OI {
         topscale.whenPressed(new liftmove(1));
 
         wristup = new JoystickButton(stick, 6);
-        wristup.whenPressed(new WristMove(0.0));//WRIST_MOVE
+        wristup.whenPressed(new WristMove(0.1));//WRIST_MOVE
         wristdown = new JoystickButton(stick, 4);
-        wristdown.whenPressed(new WristMove(0.4));//WRIST_MOVE
+        wristdown.whenPressed(new WristMove(0.37));//WRIST_MOVE
 
         stopclimb = new JoystickButton(stick, 11);
         stopclimb.whenReleased(new StopClimb());
@@ -64,5 +64,6 @@ public class OI {
 
         SmartDashboard.putData("switch camera", new FixCamera());
         SmartDashboard.putNumber("WristUpPosition", 0.0);//TEMP FOR TESTING WRIST POSITIONS
+        SmartDashboard.putNumber("WristDownPosition", 0.4);//TEMP FOR TESTING WRIST POSITIONS
     }
 }

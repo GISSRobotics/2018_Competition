@@ -34,7 +34,7 @@ public class WristMove extends Command {
     @Override
     protected void initialize() {
         Robot.wrist.enable();
-        Robot.wrist.move(SmartDashboard.getNumber("WristUpPosition", 0.0)/*m_setpoint*/);//WRIST_MOVE
+        Robot.wrist.move(m_setpoint);//WRIST_MOVE
 
     }
 
