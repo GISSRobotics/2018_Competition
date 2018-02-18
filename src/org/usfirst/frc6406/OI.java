@@ -105,7 +105,7 @@ public class OI {
 	        wristdown = new JoystickButton(flightstick, 4);
 	        wristdown.whenPressed(new WristMove(1.0));
 	
-	        stopclimb = new JoystickButton(flightstick, 11);
+	        climb = new JoystickButton(flightstick, 11);
 	        climb.whileHeld(new Climb());
 	        climb.whenReleased(new StopClimb());
 	        opencloseclaw = new JoystickButton(flightstick, 2);

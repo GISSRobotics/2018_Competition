@@ -30,7 +30,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  */
 public class Lift extends Subsystem {
 
-    private static final int MAX_HEIGHT_TRUCK = 227000; // this is encoder data scaled to 36 inches on our twelve tooth gear
+    private static final int MAX_HEIGHT_TRUCK = 324000; // this is encoder data scaled to 36 inches on our twelve tooth gear
     private static final int MAX_HEIGHT_TELESCOPE = 226000;
     private static final int DOWN_INCREMENT = 10000;
     private static final int UP_INCREMENT = 4 * DOWN_INCREMENT;
