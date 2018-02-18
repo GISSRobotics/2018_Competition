@@ -12,6 +12,7 @@ package org.usfirst.frc6406.subsystems;
 
 import org.usfirst.frc6406.Robot;
 import org.usfirst.frc6406.RobotMap;
+import org.usfirst.frc6406.OI.Indication;
 import org.usfirst.frc6406.commands.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -58,8 +59,7 @@ public class wrist extends PIDSubsystem {
         boolean a = (System.currentTimeMillis() / 125) % 2 == 1 && Robot.wrist.pot.getVoltage() > 1;
         SmartDashboard.putBoolean("wrist be down", a);
         
-        Robot.oi.xboxstick.setRumble(RumbleType.kLeftRumble, a ? 0.7 : 0.0);
-        Robot.oi.xboxstick.setRumble(RumbleType.kRightRumble, a ? 0.7 : 0.0);
+        Robot.oi.Indicate(Indication.WristDown, a);
     }
 
     @Override

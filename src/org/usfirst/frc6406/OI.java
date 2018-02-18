@@ -2,6 +2,7 @@ package org.usfirst.frc6406;
 
 import org.usfirst.frc6406.commands.*;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -62,6 +63,10 @@ public class OI {
     private static final double TELE_PRESET_LOW = 0.05;
     private static final double WRIST_PRESET_UP = 0.2;
     private static final double WRIST_PRESET_DOWN = 0.74;
+    
+    public static enum Indication {
+        WristDown
+    }
 
     public OI() {
     	checkSticks();
@@ -213,6 +218,13 @@ public class OI {
     		double targetPosition = (customstick.getRawAxis(CUSTOM_AXIS_WRIST) * -1.0) + 1.0;
     		(new WristMove(targetPosition)).start();
     	}
+    }
+    
+    public void Indicate(Indication status, boolean value) {
+        if (status == Indication.WristDown) {
+            Robot.oi.xboxstick.setRumble(RumbleType.kLeftRumble, value ? 0.7 : 0.0);
+            Robot.oi.xboxstick.setRumble(RumbleType.kRightRumble, value ? 0.7 : 0.0);
+        }
     }
     
     // int[] contains int helper
