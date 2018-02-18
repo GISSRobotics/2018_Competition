@@ -59,47 +59,69 @@ public class AutoGroup extends CommandGroup {
         // ParseGameData();
     }
 
-    public void ParseGameData() {// Shrink this down after testing
-        String position = RobotMap.positionChooser.getSelected();
-        ;// When unassigned, need contingency
-        String priority = RobotMap.priorityChooser.getSelected();// When unassigned, hierarchy is
-                                                                 // Switch>Scale>CrossLine>TransferStation
-        String gameData = DriverStation.getInstance().getGameSpecificMessage();
-        String char0 = (position == "right") ? "R" : (position == "left") ? "L" : (position == "center") ? "C" : "0";
-        String char1 = (priority == "switch") ? "SW" : (priority == "scale") ? "SC" : "0";
-        int selectedElement = (char1 == "SW") ? 0 : 1;// THIS ONLY SELECTS SWITCH AND SCALE
-        char char2 = gameData.charAt(selectedElement);
-
-        String pathString = (char0 += char1 += char2);
-        String autoPath = RobotMap.autoDirections.get(pathString);
-        StartAutoPath(autoPath);
-
-    }
-
-    public void StartAutoPath(String autoPath) {
-        if (autoPath == null) {
-            return;
-        }
-        String[] splitDirections = autoPath.split(":");
-        for (int i = 0; i < splitDirections.length; i++) {
-            String firstChar = splitDirections[i].substring(0, 1);
-
-            if (firstChar.equals("D")) {
-                float value = Float.parseFloat(splitDirections[i].substring(1));
-                addSequential(new DriveForward((float) value * 700));
-            } else if (firstChar.equals("T")) {
-                float value = (Float.parseFloat(splitDirections[i].substring(1)) * -1);
-                addSequential(new Turn((float) value));
-            } else if (firstChar == "R") {
-                // Call Raise(value) here
-            } else if (firstChar == "P") {
-                // Call Drop() here //IF THERE IS AN ERROR, TRY AND ADD A '0' AT THE END OF THE
-                // P STRING
-            } else {
-                SmartDashboard.putString("Error", "Unexpected character [" + firstChar + "] in auto path");
-            }
-        }
-        // Do ending stuff here
-    }
-
+	
+	public void ParseGameData(){//Shrink this down after testing
+		String position = RobotMap.positionChooser.getSelected();;//When unassigned, need contingency
+		String priority = RobotMap.priorityChooser.getSelected();//When unassigned, hierarchy is Switch>Scale>CrossLine>TransferStation
+		String gameData = DriverStation.getInstance().getGameSpecificMessage();
+		String char0 = (position == "right") ? "R":(position == "left") ? "L":(position == "center") ? "C":"0"; 
+		String char1 = (priority == "switch") ? "SW":(priority == "scale") ? "SC":"0";
+		int selectedElement = (char1 == "SW") ? 0:1;//THIS ONLY SELECTS SWITCH AND SCALE
+		char char2 = gameData.charAt(selectedElement);
+	
+		String pathString = (char0+=char1+=char2);
+		String autoPath = RobotMap.autoDirections.get(pathString);
+		StartAutoPath(autoPath);
+		
+		
+		
+	}
+	
+	public void StartAutoPath(String autoPath) {
+		if (autoPath == null) {
+			return;
+		}
+		String[] splitDirections = autoPath.split(":");
+		for(int i = 0; i<splitDirections.length; i++) {
+			String firstChar = splitDirections[i].substring(0,1);
+		
+			
+			if (firstChar.equals("D")) {
+				double value = Double.parseDouble(splitDirections[i].substring(1));
+				addSequential(new DriveForward((float)value*METRES_TO_PULSES));
+			}
+			else if (firstChar.equals("T")) {
+				double value = (Double.parseDouble(splitDirections[i].substring(1))*-1);
+					
+				addSequential(new Turn(value));
+		
+			}
+			if (firstChar.equals("d")) {
+				double value = Double.parseDouble(splitDirections[i].substring(1));
+				addSequential(new PidDrive((float)value*METRES_TO_PULSES));
+			}
+			else if (firstChar.equals("t")) {
+				double value = Double.parseDouble(splitDirections[i].substring(1))*-1;
+				addSequential(new PidTurn(value));
+		
+			}
+			else if (firstChar == "r") {
+				//Call Raise(value) here. 0.014 = inch
+				double value = Double.parseDouble(splitDirections[i].substring(1));
+				addSequential(new liftmove(value));
+			}
+			else if (firstChar == "p") {
+				//Call Drop() here //IF THERE IS AN ERROR, TRY AND ADD A '0' AT THE END OF THE P STRING
+				double value = Double.parseDouble(splitDirections[i].substring(1));
+				addSequential(new Drop(value));
+			}else {
+				SmartDashboard.putString("Error","Unexpected character ["+firstChar+"] in auto path");
+			}
+			
+		}
+		//Do ending stuff here
+	}
+	
 }
+
+
