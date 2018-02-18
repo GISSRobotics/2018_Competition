@@ -125,19 +125,19 @@ public class RobotMap {
     }
 
 	public static void initAutoDirections() {
-		autoDirections.put("LSCL", "d8.22:t90:d0:P");// This is our example case (Drive 1 meter:Begin raise 7 feet:Drive
+		autoDirections.put("LSCL", "d8.22:t90:r1:d0:p0.37");// This is our example case (Drive 1 meter:Begin raise 7 feet:Drive
 														// 1 meter:Turn 90 degrees:Place(Dump))
 		autoDirections.put("LSCR", "d5.2:t-90:d5.5:t90:d2.2:r5.0:t90:r1:t90:d2.2:t-90:d5.5:t90:d5.2:t180"); // has been inverted
-		autoDirections.put("LSWL", "d4.3:t90:d0:P");
-		autoDirections.put("LSWR", "d6:t90:d5.3:t90:d0:P");
-		autoDirections.put("CSCL", "d.3:t-50:d4:t50:d4.7:t90:d0:P");
-		autoDirections.put("CSCR", "d.3:t50:D4:t-50:d4.7:t-90:d0:P");
-		autoDirections.put("CSWL", "d.3:t-22:d3.4:t22:d0:P");
-		autoDirections.put("CSWR", "d.3:t24:d3.5:t-24:d0:P");
-		autoDirections.put("RSCL", "d2.5:t90:d1.5:t90:d2.5:t90:d1.5:t90");
-		autoDirections.put("RSCR", "d8.22:t-90:d0:P");
-		autoDirections.put("RSWL", "d6:t-90:d5.3:t-90:d0:P");
-		autoDirections.put("RSWR", "d4.3:t-90:d0:P");
+		autoDirections.put("LSWL", "d4.3:t90:r0.3:d0:p0.37");
+		autoDirections.put("LSWR", "d6:t90:d5.3:t90:r0.3:d0:p0.37");   // r value = percent height, 0.014 = one inch
+		autoDirections.put("CSCL", "d.3:t-50:d4:t50:d4.7:t90:r1:d0:p0.37");
+		autoDirections.put("CSCR", "d.3:t50:D4:t-50:d4.7:t-90:r1:d0:p0.37");
+		autoDirections.put("CSWL", "d.3:t-22:d3.4:t22:r0.3:d0:p0.37");
+		autoDirections.put("CSWR", "d.3:t24:d3.5:t-24:r0.3:d0:p0.37");   //!!!!!! p NEEDS to be 0.37 !!!!!!!
+		autoDirections.put("RSCL", "d2.5:t90:d1.5:t90:d2.5:t90:r1:d1.5:t90:p0.37");
+		autoDirections.put("RSCR", "d8.22:t-90:r1:d0:P0.37");
+		autoDirections.put("RSWL", "d6:t-90:d5.3:t-90:r0.3:d0:p0.37");
+		autoDirections.put("RSWR", "d4.3:t-90:r0.3:d0:p0.37");
 		//autoDirections.put("LSWZ", "D6:T45:D0.5:T45:D0.5:T45:D2:T45:D6");// THIS IS TESTING PATH Should be default
 																			// settings
 
