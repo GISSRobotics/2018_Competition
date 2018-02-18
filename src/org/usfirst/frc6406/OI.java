@@ -10,28 +10,58 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-    public JoystickButton telescopeup;
-    public JoystickButton telescopeuprelease;
-    public JoystickButton telescopedown;
-    public JoystickButton telescopedownrelease;
-    public JoystickButton opencloseclaw;
-    public JoystickButton climb;
-    public JoystickButton stopclimb;
-    public JoystickButton wristdown;
-    public JoystickButton wristup;
-    public JoystickButton high;
-    public JoystickButton medium;
-    public JoystickButton low;
-    public JoystickButton switchHeight;
-    public JoystickButton pickupheight;
+    private JoystickButton flightTelescopeUp;
+    private JoystickButton flightTelescopeDown;
+    private JoystickButton flightClaw;
+    private JoystickButton flightClimb;
+    private JoystickButton flightWristUp;
+    private JoystickButton flightWristDown;
+    private JoystickButton flightTelescopeHigh;
+    private JoystickButton flightTelescopeMedium;
+    private JoystickButton flightTelescopeLow;
+    private JoystickButton flightInvertDrive;
+    private JoystickButton xboxClaw;
+    private JoystickButton xboxTelescopeHigh;
+    private JoystickButton xboxTelescopeMedium;
+    private JoystickButton xboxTelescopeLow;
+    private JoystickButton customClaw;
+    private JoystickButton customClimb;
     public Joystick flightstick = null;
     public Joystick xboxstick = null;
     public Joystick customstick = null;
-    public JoystickButton fairydriving;
     
-    private static final double TELE_PRESET_HIGH = 391/453;
-    private static final double TELE_PRESET_MEDIUM = 82.3/453;
+    private static final int FLIGHT_TEL_UP = 5;
+    private static final int FLIGHT_TEL_DOWN = 3;
+    private static final int FLIGHT_TEL_HIGH = 7;
+    private static final int FLIGHT_TEL_MED = 8;
+    private static final int FLIGHT_TEL_LOW = 9;
+    private static final int FLIGHT_WRIST_UP = 6;
+    private static final int FLIGHT_WRIST_DOWN = 4;
+    private static final int FLIGHT_CLAW = 2;
+    private static final int FLIGHT_CLIMB = 11;
+    private static final int FLIGHT_INVERT = 1;
+    private static final int FLIGHT_AXIS_ACCELERATE = 1;
+    private static final int FLIGHT_AXIS_STEER = 0;
+    private static final int FLIGHT_AXIS_SENSITIVITY = 3;
+    
+    private static final int XBOX_TEL_HIGH = 4;
+    private static final int XBOX_TEL_MED = 2;
+    private static final int XBOX_TEL_LOW = 1;
+    private static final int XBOX_CLAW = 5;
+    private static final int[] XBOX_POV_WRIST_UP = {315, 0, 45};
+    private static final int[] XBOX_POV_WRIST_DOWN = {135, 180, 225};
+    private static final int XBOX_AXIS_TEL = 3;
+    
+    private static final int CUSTOM_CLAW = 1;
+    private static final int CUSTOM_CLIMB = 2;
+    private static final int CUSTOM_AXIS_TEL = 0;
+    private static final int CUSTOM_AXIS_WRIST = 1;
+    
+    private static final double TELE_PRESET_HIGH = 0.87;
+    private static final double TELE_PRESET_MEDIUM = 0.2;
     private static final double TELE_PRESET_LOW = 0.05;
+    private static final double WRIST_PRESET_UP = 0.2;
+    private static final double WRIST_PRESET_DOWN = 0.74;
 
     public OI() {
     	checkSticks();
@@ -39,7 +69,7 @@ public class OI {
     }
 
 	public void checkSticks() {
-		Robot.Log("Updating controllers...", 1);
+		Robot.Log("Updating controllers...", 2);
 		boolean flight = false;
 		boolean xbox = false;
 		boolean custom = false;
@@ -89,58 +119,60 @@ public class OI {
 	private void addFlightstickButtons() {
 		if (flightstick != null) {
     		// Logitech 3D Flightstick
-    		fairydriving = new JoystickButton(flightstick, 1);
-	        fairydriving.whenPressed(new switchtobackcamera());
-	        fairydriving.whenReleased(new switchtofrontcamera());
+    		flightInvertDrive = new JoystickButton(flightstick, FLIGHT_INVERT);
+    		flightInvertDrive.whenPressed(new switchtobackcamera());
+    		flightInvertDrive.whenReleased(new switchtofrontcamera());
+
+            flightTelescopeUp = new JoystickButton(flightstick, FLIGHT_TEL_UP);
+            flightTelescopeUp.whileHeld(new TelescopeUp());
+            flightTelescopeDown = new JoystickButton(flightstick, FLIGHT_TEL_DOWN);
+            flightTelescopeDown.whileHeld(new TelescopeDown());
+            flightTelescopeHigh = new JoystickButton(flightstick, FLIGHT_TEL_HIGH);
+            flightTelescopeHigh.whenPressed(new liftmove(TELE_PRESET_HIGH));
+	        flightTelescopeMedium = new JoystickButton(flightstick, FLIGHT_TEL_MED);
+	        flightTelescopeMedium.whenPressed(new liftmove(TELE_PRESET_MEDIUM));
+            flightTelescopeLow = new JoystickButton(flightstick, FLIGHT_TEL_LOW);
+            flightTelescopeLow.whenPressed(new liftmove(TELE_PRESET_LOW));
+	
+	        flightWristUp = new JoystickButton(flightstick, FLIGHT_WRIST_UP);
+	        flightWristUp.whenPressed(new WristMove(WRIST_PRESET_UP));
+	        flightWristDown = new JoystickButton(flightstick, FLIGHT_WRIST_DOWN);
+	        flightWristDown.whenPressed(new WristMove(WRIST_PRESET_DOWN));
 	        
-	        low = new JoystickButton(flightstick, 9);
-	        low.whenPressed(new liftmove(TELE_PRESET_LOW));
-	        medium = new JoystickButton(flightstick, 8);
-	        medium.whenPressed(new liftmove(TELE_PRESET_MEDIUM));
-	        high = new JoystickButton(flightstick, 7);
-	        high.whenPressed(new liftmove(TELE_PRESET_HIGH));
-	
-	        wristup = new JoystickButton(flightstick, 6);
-	        wristup.whenPressed(new WristMove(0.2));
-	        wristdown = new JoystickButton(flightstick, 4);
-	        wristdown.whenPressed(new WristMove(0.74));
-	
-	        climb = new JoystickButton(flightstick, 11);
-	        climb.whileHeld(new Climb());
-	        climb.whenReleased(new StopClimb());
-	        opencloseclaw = new JoystickButton(flightstick, 2);
-	        opencloseclaw.whenPressed(new Claw_toggle());
-	        telescopedown = new JoystickButton(flightstick, 3);
-	        telescopedown.whileHeld(new TelescopeDown());
-	        telescopedown.whenReleased(new telescopestop());
-	        telescopeup = new JoystickButton(flightstick, 5);
-	        telescopeup.whileHeld(new TelescopeUp());
+            flightClaw = new JoystickButton(flightstick, FLIGHT_CLAW);
+            flightClaw.whenPressed(new Claw_toggle());
+            
+	        flightClimb = new JoystickButton(flightstick, FLIGHT_CLIMB);
+	        flightClimb.whileHeld(new Climb());
+	        flightClimb.whenReleased(new StopClimb());
     	}
 	}
 	
 	private void addXboxButtons() { 	
     	if (xboxstick != null) {
 	        // Xbox 360 gamepad
-	        opencloseclaw = new JoystickButton(xboxstick, 5);
-	        opencloseclaw.whenPressed(new Claw_toggle());
-	        low = new JoystickButton(xboxstick, 1);
-	        low.whenPressed(new liftmove(TELE_PRESET_LOW));
-	        medium = new JoystickButton(xboxstick, 2);
-	        medium.whenPressed(new liftmove(TELE_PRESET_MEDIUM));
-	        high = new JoystickButton(xboxstick, 4);
-	        high.whenPressed(new liftmove(TELE_PRESET_HIGH));
+            xboxTelescopeHigh = new JoystickButton(xboxstick, XBOX_TEL_HIGH);
+            xboxTelescopeHigh.whenPressed(new liftmove(TELE_PRESET_HIGH));
+	        xboxTelescopeMedium = new JoystickButton(xboxstick, XBOX_TEL_MED);
+	        xboxTelescopeMedium.whenPressed(new liftmove(TELE_PRESET_MEDIUM));
+            xboxTelescopeLow = new JoystickButton(xboxstick, XBOX_TEL_LOW);
+            xboxTelescopeLow.whenPressed(new liftmove(TELE_PRESET_LOW));
+
+            xboxClaw = new JoystickButton(xboxstick, XBOX_CLAW);
+            xboxClaw.whenPressed(new Claw_toggle());
     	}
 	}
 	
 	private void addCustomButtons() {   	
     	if (customstick != null) {
     		// Custom PowerUp console
-    		opencloseclaw = new JoystickButton(customstick, 1);
-    		opencloseclaw.whenPressed(new claw_open());
-    		opencloseclaw.whenReleased(new claw_close());
-    		stopclimb = new JoystickButton(customstick, 2);
-	        climb.whileHeld(new Climb());
-	        climb.whenReleased(new StopClimb());
+    		customClaw = new JoystickButton(customstick, CUSTOM_CLAW);
+    		customClaw.whenPressed(new claw_open());
+    		customClaw.whenReleased(new claw_close());
+    		
+    		customClimb = new JoystickButton(customstick, CUSTOM_CLIMB);
+	        customClimb.whileHeld(new Climb());
+	        customClimb.whenReleased(new StopClimb());
     	}
 	}
     
@@ -149,21 +181,21 @@ public class OI {
     	
     	// Driving
     	if (flightstick != null) {
-    		double acceleration = flightstick.getRawAxis(1);
-            double steering = -flightstick.getRawAxis(0);
-            double driveSensitivity = (flightstick.getRawAxis(3) / -4.0) + 0.75;
-            double steeringSensitivity = (flightstick.getRawAxis(3) / -3.0) + 0.66;
-            double reverse = (flightstick.getRawButton(1)) ? -1 : 1;
+    		double acceleration = flightstick.getRawAxis(FLIGHT_AXIS_ACCELERATE);
+            double steering = -flightstick.getRawAxis(FLIGHT_AXIS_STEER);
+            double driveSensitivity = (flightstick.getRawAxis(FLIGHT_AXIS_SENSITIVITY) / -4.0) + 0.75;
+            double steeringSensitivity = (flightstick.getRawAxis(FLIGHT_AXIS_SENSITIVITY) / -3.0) + 0.66;
+            double reverse = (flightstick.getRawButton(FLIGHT_INVERT)) ? -1.0 : 1.0;
             Robot.drive.arcadeDrive(acceleration * driveSensitivity * reverse, steering * steeringSensitivity);
     	}
     	
     	// Telescope
-    	// Both xbox and custom have controls for this
+    	// Both xbox and custom have controls for this. 
     	if (xboxstick != null) {
-    		double movementSpeed = xboxstick.getRawAxis(4);
+    		double movementSpeed = xboxstick.getRawAxis(XBOX_AXIS_TEL);
     		Robot.lift.Move(movementSpeed);
     	} else if (customstick != null) {
-    		double targetPosition = (customstick.getRawAxis(0) / 2.0) + 0.5;
+    		double targetPosition = (customstick.getRawAxis(CUSTOM_AXIS_TEL) / 2.0) + 0.5;
     		Robot.lift.moveTelescope(targetPosition);
     	}
     	
@@ -171,14 +203,25 @@ public class OI {
     	// Both xbox and custom have controls for this
     	if (xboxstick != null) {
     		int pov = xboxstick.getPOV(0);
-    		if (pov > 90 && pov < 270) {
-    			(new WristMove(1.0)).start();
-    		} else {
-    			(new WristMove(0.0)).start();
+            if (Contains(XBOX_POV_WRIST_UP, pov)) {
+                (new WristMove(WRIST_PRESET_UP)).start();
+            }
+    		if (Contains(XBOX_POV_WRIST_DOWN, pov)) {
+    			(new WristMove(WRIST_PRESET_DOWN)).start();
     		}
     	} else if (customstick != null) {
-    		double targetPosition = (customstick.getRawAxis(1) * -1.0) + 1.0;
+    		double targetPosition = (customstick.getRawAxis(CUSTOM_AXIS_WRIST) * -1.0) + 1.0;
     		(new WristMove(targetPosition)).start();
     	}
+    }
+    
+    // int[] contains int helper
+    private static boolean Contains(int[] haystack, int needle) {
+        for (int i : haystack) {
+            if (needle == i) {
+                return true;
+            }
+        }
+        return false;
     }
 }

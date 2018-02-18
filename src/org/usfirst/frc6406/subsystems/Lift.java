@@ -116,8 +116,8 @@ public class Lift extends Subsystem {
     public void periodic() {
 
         // Put code here to be run every loo
-        if (telescopeMotor != null && telescopeMotor.getSelectedSensorPosition(0) > 0 && !(telescopeMotor.getMotorOutputPercent() < 0.0)) {
-            if (!telescopeStatus.isRevLimitSwitchClosed()) {
+        if (telescopeMotor != null && telescopeMotor.getSelectedSensorPosition(0) != 10000 && telescopeMotor.getMotorOutputPercent() >= 0.0) {
+            if (telescopeStatus.isRevLimitSwitchClosed()) {
                 telescopeInit = true;
                 telescopeMotor.setSelectedSensorPosition(10000, pidid, 100);
                 Robot.Log("Telescope encoder reset to 0.", 1);
@@ -129,8 +129,8 @@ public class Lift extends Subsystem {
             // telescopeMotor.set(0.2);
         }
 
-        if (truckMotor != null && truckMotor.getSelectedSensorPosition(0) > 0 && !(truckMotor.getMotorOutputPercent() < 0.0)) {
-            if (!truckStatus.isRevLimitSwitchClosed()) {
+        if (truckMotor != null && truckMotor.getSelectedSensorPosition(0) != 10000 && truckMotor.getMotorOutputPercent() >= 0.0) {
+            if (truckStatus.isRevLimitSwitchClosed()) {
                 truckInit = true;
                 truckMotor.setSelectedSensorPosition(10000, pidid, 100);
                 Robot.Log("Truck encoder reset to 0.", 1);

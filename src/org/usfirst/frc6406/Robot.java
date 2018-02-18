@@ -43,6 +43,8 @@ public class Robot extends TimedRobot {
     public static Sensors sensors;
     public static Climber climber;
     public static Lift lift;
+    
+    private long lastTime = -1; // Controller check timer
 
 
     /**
@@ -110,7 +112,9 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        oi.checkSticks();
+        long thisTime = (System.currentTimeMillis() / 1000) % 2;
+        if (thisTime != lastTime) oi.checkSticks();
+        lastTime = thisTime;
         oi.RunAxes();
     }
     
