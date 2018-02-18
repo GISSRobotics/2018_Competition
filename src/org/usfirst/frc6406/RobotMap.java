@@ -103,31 +103,31 @@ public class RobotMap {
         	Robot.Log("Gripper solenoid not detected.", 1);
         }
         try {
-        	//winchMotor = new VictorSPX(0);
+        	winchMotor = new VictorSPX(0);
         } catch (Exception e) {
         	winchMotor = null;
         	Robot.Log("Winch motor not detected.", 1);
         }
         try {
-        	//wristMotor = new VictorSPX(1);
+        	wristMotor = new VictorSPX(1);
         } catch (Exception e) {
         	wristMotor = null;
         	Robot.Log("Wrist motor not detected.", 1);
         }
         try {
-        	//liftTelescopeMotor = new WPI_TalonSRX(0);
+        	liftTelescopeMotor = new WPI_TalonSRX(0);
         } catch (Exception e) {
         	liftTelescopeMotor = null;
         	Robot.Log("Telescope motor not detected.", 1);
         }
         try {
-        	//liftTruckMotor = new WPI_TalonSRX(1);
+        	liftTruckMotor = new WPI_TalonSRX(1);
         } catch (Exception e) {
         	liftTruckMotor = null;
         	Robot.Log("Truck motor not detected.", 1);
         }
         try {
-        	//PDP = new PowerDistributionPanel(0);
+        	PDP = new PowerDistributionPanel(0);
         } catch (Exception e) {
         	PDP = null;
         	Robot.Log("PDP not detected.", 1);
