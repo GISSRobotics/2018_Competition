@@ -14,25 +14,29 @@ public class PidTurn extends Command implements PIDOutput {
 
 	static final double kP = 10.0;
 	static final double kI = 0.00;
-	static final double kD = 3.2;
+	static final double kD = 0.00;
 	static final double kF = 0.00;
 	//static final double kToleranceDegrees = 1.0;
+	static final double ERROR_TOLERANCE = 1.0;
 	
 	private int onTargetCounter = 0;
+	private double target;
 	
 	 public PIDController turnController;
 	static public double rotateToAngleRate;
 
 	public PidTurn(double deg) {
+		target = deg;
 		SmartDashboard.putNumber("Target:", deg);
 		double pT = SmartDashboard.getNumber("p_turn", 0.00);
-		double dT =SmartDashboard.getNumber("d_turn", 0.00);
+		double iT = SmartDashboard.getNumber("i_turn", 0.00);
+		double dT = SmartDashboard.getNumber("d_turn", 0.00);
 		
-		turnController = new PIDController(pT, kI, dT , kF, RobotMap.ahrs, this);
-		turnController.setInputRange(-180.0f, 180.0f);
-		turnController.setOutputRange(-0.7, 0.7);
+		turnController = new PIDController(pT, iT, dT , kF, RobotMap.ahrs, this);
+		turnController.setInputRange(-180.0, 180.0);
+		turnController.setOutputRange(-0.6, 0.6);
 		//turnController.setPercentTolerance(3.0);
-		turnController.setAbsoluteTolerance(1.0);
+		turnController.setAbsoluteTolerance(ERROR_TOLERANCE);
 		turnController.setContinuous(true);
 		turnController.setSetpoint(deg);
 		rotateToAngleRate = 0.0;
@@ -42,6 +46,7 @@ public class PidTurn extends Command implements PIDOutput {
 	}
 
 	protected void initialize() {
+		SmartDashboard.putString("Error", "t:"+target);
 		RobotMap.ahrs.reset();
 		while (Math.abs(RobotMap.ahrs.getYaw()) > 0) {
 			try {
@@ -66,13 +71,15 @@ public class PidTurn extends Command implements PIDOutput {
     @Override
     protected boolean isFinished() {
     	SmartDashboard.putNumber("Yaw2:",  RobotMap.ahrs.getYaw());
-    	SmartDashboard.putNumber("Yaw Error:",  turnController.getError());
+    	SmartDashboard.putNumber("Yaw Error",  turnController.getError());
+    	SmartDashboard.putNumber("Yaw Error Graph",  turnController.getError());
     	
-    	if (turnController.onTarget()) {
+    	if (Math.abs(turnController.getError()) <= ERROR_TOLERANCE) {
     		onTargetCounter++;
     	}else{
     		 onTargetCounter = 0;
     	}
+    	SmartDashboard.putNumber("turnTargetCounter", onTargetCounter);
     	return onTargetCounter == 10;
     }
 

@@ -158,29 +158,37 @@ public class RobotMap {
 	}
 
 	public static void initAutoDirections() {
-		autoDirections.put("LSCL", "D8.22:T90:D0:P");// This is our example case (Drive 1 meter:Begin raise 7 feet:Drive
+		autoDirections.put("LSCL", "d8.22:t90:d0:P");// This is our example case (Drive 1 meter:Begin raise 7 feet:Drive
 														// 1 meter:Turn 90 degrees:Place(Dump))
-		autoDirections.put("LSCR", "D6:T90:D6:T-90:D2.2:T-90:D0:P");
-		autoDirections.put("LSWL", "D4.3:T90:D0:P");
-		autoDirections.put("LSWR", "D6:T90:D5.3:T90:D0:P");
-		autoDirections.put("CSCL", "D.3:T-50:D4:T50:D4.7:T90:D0:P");
-		autoDirections.put("CSCR", "D.3:T50:D4:T-50:D4.7:T-90:D0:P");
-		autoDirections.put("CSWL", "D.3:T-22:D3.4:T22:D0:P");
-		autoDirections.put("CSWR", "D.3:T24:D3.5:T-24:D0:P");
+		autoDirections.put("LSCR", "d5.2:t-90:d6:t90:d2.2:t90:d0.5:P0"); // has been inverted
+		autoDirections.put("LSWL", "d4.3:t90:d0:P");
+		autoDirections.put("LSWR", "d6:t90:d5.3:t90:d0:P");
+		autoDirections.put("CSCL", "d.3:t-50:d4:t50:d4.7:t90:d0:P");
+		autoDirections.put("CSCR", "d.3:t50:D4:t-50:d4.7:t-90:d0:P");
+		autoDirections.put("CSWL", "d.3:t-22:d3.4:t22:d0:P");
+		autoDirections.put("CSWR", "d.3:t24:d3.5:t-24:d0:P");
 		autoDirections.put("RSCL", "d2.5:t90:d1.5:t90:d2.5:t90:d1.5:t90");
-		autoDirections.put("RSCR", "D8.22:T-90:D0:P");
-		autoDirections.put("RSWL", "D6:T-90:D5.3:T-90:D0:P");
-		autoDirections.put("RSWR", "D4.3:T-90:D0:P");
+		autoDirections.put("RSCR", "d8.22:t-90:d0:P");
+		autoDirections.put("RSWL", "d6:t-90:d5.3:t-90:d0:P");
+		autoDirections.put("RSWR", "d4.3:t-90:d0:P");
 		//autoDirections.put("LSWZ", "D6:T45:D0.5:T45:D0.5:T45:D2:T45:D6");// THIS IS TESTING PATH Should be default
 																			// settings
 
-		autoDirections.put("LSWZ", "t90:t90:t90:t90:t90:t90:t90:t90");
+		autoDirections.put("LSWZ", "d3:t-180:d3:t-180:d3:t-180:d3:t-180:d3:t-180");
 	}
 	
 	public static void initPIDSelectors() {
-		SmartDashboard.putNumber ("P Drive", 0.0);
-		SmartDashboard.putNumber ("D Drive", 0.0);
-		SmartDashboard.putNumber ("p_turn",  0.0075);
-		SmartDashboard.putNumber ("d_turn",  0.0);
+		SmartDashboard.putNumber("P Drive", 0.03);
+		SmartDashboard.putNumber("D Drive", 0.003);
+		SmartDashboard.putNumber("P DriveTurn", 0.0);
+		SmartDashboard.putNumber("D DriveTurn", 0.0);
+		// carpet people
+//		SmartDashboard.putNumber("p_turn",  0.2);
+//		SmartDashboard.putNumber("i_turn", 0.0);
+//		SmartDashboard.putNumber("d_turn",  0.2);
+		
+		SmartDashboard.putNumber("p_turn",  0.08);
+		SmartDashboard.putNumber("i_turn", 0.0);
+		SmartDashboard.putNumber("d_turn",  0.0);
 	}
 }

@@ -68,7 +68,7 @@ public class DriveForward extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return RobotMap.driveQuadratureEncoder2.getDistance() >= distance;
+		return Math.abs(RobotMap.driveQuadratureEncoder2.getDistance()) >= distance;
 	}
 
 	// Called once after isFinished returns true
