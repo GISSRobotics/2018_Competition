@@ -11,6 +11,8 @@
 package org.usfirst.frc6406.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc6406.Robot;
 
 /**
@@ -32,7 +34,7 @@ public class WristMove extends Command {
     @Override
     protected void initialize() {
         Robot.wrist.enable();
-        Robot.wrist.move(m_setpoint);
+        Robot.wrist.move(m_setpoint);//WRIST_MOVE
 
     }
 

@@ -101,9 +101,9 @@ public class OI {
 	        high.whenPressed(new liftmove(TELE_PRESET_HIGH));
 	
 	        wristup = new JoystickButton(flightstick, 6);
-	        wristup.whenPressed(new WristMove(0.0));
+	        wristup.whenPressed(new WristMove(0.2));
 	        wristdown = new JoystickButton(flightstick, 4);
-	        wristdown.whenPressed(new WristMove(1.0));
+	        wristdown.whenPressed(new WristMove(0.74));
 	
 	        climb = new JoystickButton(flightstick, 11);
 	        climb.whileHeld(new Climb());
