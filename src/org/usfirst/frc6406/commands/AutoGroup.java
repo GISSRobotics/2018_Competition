@@ -110,12 +110,14 @@ public class AutoGroup extends CommandGroup {
 		
 			}
 			else if (firstChar == "r") {
-				//Call Raise(value) here
+				//Call Raise(value) here. 0.014 = inch
 				double value = Double.parseDouble(splitDirections[i].substring(1));
-				addSequential(new NoOp(value));
+				addSequential(new liftmove(value));
 			}
 			else if (firstChar == "p") {
 				//Call Drop() here //IF THERE IS AN ERROR, TRY AND ADD A '0' AT THE END OF THE P STRING
+				double value = Double.parseDouble(splitDirections[i].substring(1));
+				addSequential(new Drop(value));
 			}else {
 				SmartDashboard.putString("Error","Unexpected character ["+firstChar+"] in auto path");
 			}
