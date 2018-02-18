@@ -71,7 +71,7 @@ public class OI {
         		}
         		break;
         	default:
-        		Robot.Log("We have no idea what USB [\" + order +\"] is!", 1);
+        		Robot.Log("We have no idea what USB [" + order + "] is!", 1);
         		break;
         	}
     	}
