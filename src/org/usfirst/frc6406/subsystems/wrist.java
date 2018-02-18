@@ -12,6 +12,7 @@ package org.usfirst.frc6406.subsystems;
 
 import org.usfirst.frc6406.Robot;
 import org.usfirst.frc6406.RobotMap;
+import org.usfirst.frc6406.OI.Indication;
 import org.usfirst.frc6406.commands.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -23,6 +24,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
 /**
  *
@@ -54,8 +56,10 @@ public class wrist extends PIDSubsystem {
     public void periodic() {
         SmartDashboard.putNumber("wrist position", Robot.wrist.pot.getVoltage());
 
-        Boolean a = (System.currentTimeMillis() / 125) % 2 == 1 && Robot.wrist.pot.getVoltage() > 1;
+        boolean a = (System.currentTimeMillis() / 125) % 2 == 1 && Robot.wrist.pot.getVoltage() > 1;
         SmartDashboard.putBoolean("wrist be down", a);
+        
+        Robot.oi.Indicate(Indication.WristDown, a);
     }
 
     @Override
