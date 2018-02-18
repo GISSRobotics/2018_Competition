@@ -10,6 +10,7 @@
 
 package org.usfirst.frc6406.subsystems;
 
+import org.usfirst.frc6406.Robot;
 import org.usfirst.frc6406.RobotMap;
 import org.usfirst.frc6406.commands.*;
 
@@ -29,15 +30,14 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  */
 public class Lift extends Subsystem {
 
-    private static final int MAX_HEIGHT_TRUCK = 227000; // this is encoder data scaled to 36 inches on our twelve tooth
-                                                        // gear
+    private static final int MAX_HEIGHT_TRUCK = 324000; // this is encoder data scaled to 36 inches on our twelve tooth gear
     private static final int MAX_HEIGHT_TELESCOPE = 226000;
-    private static final int INCREMENT = 10000;
-    private int targetHeight = 0;
+    private static final int DOWN_INCREMENT = 10000;
+    private static final int UP_INCREMENT = 4 * DOWN_INCREMENT;
     private boolean truckInit = false;
     private boolean telescopeInit = false;
-    private final WPI_TalonSRX truckMotor = RobotMap.lifttruckMotor;
-    private final WPI_TalonSRX telescopeMotor = RobotMap.lifttelescopeMotor;
+    private final WPI_TalonSRX truckMotor = RobotMap.liftTruckMotor;
+    private final WPI_TalonSRX telescopeMotor = RobotMap.liftTelescopeMotor;
 
     SensorCollection truckStatus;
     SensorCollection telescopeStatus;
@@ -45,11 +45,14 @@ public class Lift extends Subsystem {
     public int pidid = 0;
 
     public Lift() {
-        truckStatus = truckMotor.getSensorCollection();
-        telescopeStatus = telescopeMotor.getSensorCollection();
-
-        truckMotor.configClosedloopRamp(0.1, 100);
-        telescopeMotor.configClosedloopRamp(0.1, 100);
+        if (truckMotor != null) {
+            truckStatus = truckMotor.getSensorCollection();
+            truckMotor.configClosedloopRamp(0.1, 100);
+        }
+        if (telescopeMotor != null) {
+            telescopeStatus = telescopeMotor.getSensorCollection();
+            telescopeMotor.configClosedloopRamp(0.1, 100);
+        }
 
     }
 
@@ -61,8 +64,8 @@ public class Lift extends Subsystem {
     }
 
     public int currentHeight() {
-        int a = telescopeMotor.getSelectedSensorPosition(0);
-        int b = truckMotor.getSelectedSensorPosition(0);
+        int a = telescopeMotor != null ? telescopeMotor.getSelectedSensorPosition(0) : 0;
+        int b = truckMotor != null ? truckMotor.getSelectedSensorPosition(0) : 0;
         return -(a + b);
     }
 
@@ -72,23 +75,25 @@ public class Lift extends Subsystem {
     }
 
     public void Up() {
-        MoveToTarget(currentHeight() + 4 * INCREMENT);
+        Move(1.0);
     }
 
     public void Down() {
-        MoveToTarget(currentHeight() - INCREMENT);
+        Move(-1.0);
     }
 
-    public void MoveToTarget(int pos) {
+    public void Move(double percentage) {
+        if (percentage >= 0.0) {
+            MoveToTarget(currentHeight() + (int) (UP_INCREMENT * percentage));
+        } else {
+            MoveToTarget(currentHeight() - (int) (DOWN_INCREMENT * percentage));
+        }
+    }
+
+    private void MoveToTarget(int pos) {
         // Keep pos in range
         pos = Math.max(Math.min(pos, MAX_HEIGHT_TELESCOPE + MAX_HEIGHT_TRUCK), 0);
         // telescope can't go lower than 5%
-        // int telescopeTarget = Math.max(Math.min(pos, MAX_HEIGHT_TELESCOPE), (int)
-        // (0.0 * MAX_HEIGHT_TELESCOPE));
-        // truck can't go lower than 5%
-        // int truckTarget = Math.max(pos - MAX_HEIGHT_TELESCOPE, (int) (0.0 *
-        // MAX_HEIGHT_TRUCK));
-
         int telescopeTarget = Math.max(pos - MAX_HEIGHT_TRUCK, (int) (0.0 * MAX_HEIGHT_TELESCOPE));
         // truck can't go lower than 5%
         int truckTarget = Math.max(Math.min(pos, MAX_HEIGHT_TRUCK), (int) (0.0 * MAX_HEIGHT_TRUCK));
@@ -97,9 +102,13 @@ public class Lift extends Subsystem {
         telescopeTarget *= -1;
         truckTarget *= -1;
 
-        System.out.println("target:" + telescopeTarget + ", " + truckTarget);
-        telescopeMotor.set(ControlMode.Position, telescopeTarget);
-        truckMotor.set(ControlMode.Position, truckTarget);
+        Robot.Log("target:" + telescopeTarget + ", " + truckTarget, 2);
+        if (telescopeMotor != null) {
+            telescopeMotor.set(ControlMode.Position, telescopeTarget);
+        }
+        if (truckMotor != null) {
+            truckMotor.set(ControlMode.Position, truckTarget);
+        }
         SmartDashboard.putNumber("telescope-position", pos);
     }
 
@@ -107,11 +116,11 @@ public class Lift extends Subsystem {
     public void periodic() {
 
         // Put code here to be run every loo
-        if (telescopeMotor.getSelectedSensorPosition(0) > 0 && !(telescopeMotor.getMotorOutputPercent() < 0.0)) {
-            if (!telescopeStatus.isRevLimitSwitchClosed()) {
+        if (telescopeMotor != null && telescopeMotor.getSelectedSensorPosition(0) != 10000 && telescopeMotor.getMotorOutputPercent() >= 0.0) {
+            if (telescopeStatus.isRevLimitSwitchClosed()) {
                 telescopeInit = true;
                 telescopeMotor.setSelectedSensorPosition(10000, pidid, 100);
-                // System.out.println("Telescope encoder reset to 0.");
+                Robot.Log("Telescope encoder reset to 0.", 1);
             }
             telescopeMotor.set(0.0);
 
@@ -120,11 +129,11 @@ public class Lift extends Subsystem {
             // telescopeMotor.set(0.2);
         }
 
-        if (truckMotor.getSelectedSensorPosition(0) > 0 && !(truckMotor.getMotorOutputPercent() < 0.0)) {
-            if (!truckStatus.isRevLimitSwitchClosed()) {
+        if (truckMotor != null && truckMotor.getSelectedSensorPosition(0) != 10000 && truckMotor.getMotorOutputPercent() >= 0.0) {
+            if (truckStatus.isRevLimitSwitchClosed()) {
                 truckInit = true;
                 truckMotor.setSelectedSensorPosition(10000, pidid, 100);
-                System.out.println("Truck encoder reset to 0.");
+                Robot.Log("Truck encoder reset to 0.", 1);
             }
             truckMotor.set(0.0);
 
@@ -135,11 +144,13 @@ public class Lift extends Subsystem {
     }
 
     public void stop() {
-         
-        telescopeMotor.set(0.0);
-        truckMotor.set(0.0);
+        if (telescopeMotor != null) {
+            telescopeMotor.set(0.0);
+        }
+        if (truckMotor != null) {
+            truckMotor.set(0.0);
+        }
     }
-    
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

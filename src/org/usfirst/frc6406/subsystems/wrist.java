@@ -12,6 +12,7 @@ package org.usfirst.frc6406.subsystems;
 
 import org.usfirst.frc6406.Robot;
 import org.usfirst.frc6406.RobotMap;
+import org.usfirst.frc6406.OI.Indication;
 import org.usfirst.frc6406.commands.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -23,13 +24,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
 /**
  *
  */
 public class wrist extends PIDSubsystem {
-    private final VictorSPX motor = RobotMap.wristmotor;
-    private final AnalogInput pot = RobotMap.wristpot;
+    private final VictorSPX motor = RobotMap.wristMotor;
+    private final AnalogInput pot = RobotMap.wristPot;
 
     // Initialize your subsystem here
     public wrist() {
@@ -54,8 +56,10 @@ public class wrist extends PIDSubsystem {
     public void periodic() {
         SmartDashboard.putNumber("wrist position", Robot.wrist.pot.getVoltage());
 
-        Boolean a = (System.currentTimeMillis() / 125) % 2 == 1 && Robot.wrist.pot.getVoltage() > 1;
+        boolean a = (System.currentTimeMillis() / 125) % 2 == 1 && Robot.wrist.pot.getVoltage() > 1;
         SmartDashboard.putBoolean("wrist be down", a);
+        
+        Robot.oi.Indicate(Indication.WristDown, a);
     }
 
     @Override
@@ -64,7 +68,7 @@ public class wrist extends PIDSubsystem {
         // e.g. a sensor, like a potentiometer:
         // yourPot.getAverageVoltage() / kYourMaxVoltage;
 
-        return pot.getAverageVoltage() / 5.0;
+        return pot.getAverageVoltage() / 2.5;
     }
 
     @Override
@@ -72,7 +76,9 @@ public class wrist extends PIDSubsystem {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
 
-        motor.set(ControlMode.PercentOutput, output);
+        if (motor != null) {
+            motor.set(ControlMode.PercentOutput, output);
+        }
 
     }
 

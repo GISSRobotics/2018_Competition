@@ -1,26 +1,22 @@
 package org.usfirst.frc6406.commands;
 
-import org.usfirst.frc6406.Robot;
-
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
-public class FixCamera extends Command {
+public class NoOp extends Command {
 
-    public FixCamera() {
+	private double timeout;
+	
+    public NoOp(double seconds) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	
+    	timeout = seconds;    	
+    	
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        UsbCamera thing = Robot.cameras.camerabill;
-        Robot.cameras.camerabill = Robot.cameras.camerajill;
-        Robot.cameras.camerajill = thing;
-        new switchtofrontcamera().start();
+    	setTimeout(timeout);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -29,7 +25,7 @@ public class FixCamera extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true

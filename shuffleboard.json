@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.19471488178025034,
+  "dividerPosition": 0.19469026548672566,
   "tabPane": [
     {
       "title": "SmartDashboard",
@@ -431,7 +431,6 @@
             ],
             "content": {
               "_type": "List Layout",
-              "_source0": "network_table:///LiveWindow/Drive",
               "_title": "Drive",
               "_children": [
                 {

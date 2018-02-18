@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.CameraServer;
 
 import org.usfirst.frc6406.commands.AutoGroup;
 import org.usfirst.frc6406.commands.Climb;
-import org.usfirst.frc6406.commands.JoystickDrive;
 import org.usfirst.frc6406.subsystems.*;
 
 /**
@@ -31,6 +30,8 @@ import org.usfirst.frc6406.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
+	
+	public static final int LOG_VERBOSITY = 0; // 0=nothing; 1=some occasional stuff; 2=everything
 
     public static OI oi;
     private AutoGroup ag;
@@ -42,6 +43,8 @@ public class Robot extends TimedRobot {
     public static Sensors sensors;
     public static Climber climber;
     public static Lift lift;
+    
+    private long lastTime = -1; // Controller check timer
 
 
     /**
@@ -93,7 +96,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        new JoystickDrive().start();
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
@@ -110,5 +112,15 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        long thisTime = (System.currentTimeMillis() / 1000) % 2;
+        if (thisTime != lastTime) oi.checkSticks();
+        lastTime = thisTime;
+        oi.RunAxes();
+    }
+    
+    public static void Log(String msg, int min_verbosity) {
+    	if (LOG_VERBOSITY >= min_verbosity) {
+    		System.out.println(msg);
+    	}
     }
 }
