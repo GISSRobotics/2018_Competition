@@ -105,6 +105,9 @@ public class OI {
             		Robot.Log("USB [" + order +"] is assigned to the xbox stick", 1);
         		}
         		break;
+        	case 0:
+        	    // This controller is unplugged.
+        	    break;
         	default:
         		Robot.Log("We have no idea what USB [" + order + "] is!", 1);
         		break;
