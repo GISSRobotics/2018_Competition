@@ -26,7 +26,7 @@ public class Sensors extends Subsystem {
 
 
 
-    private final AnalogInput ultrasonic = RobotMap.sensorsUltrasonic;
+    private final AnalogInput ultrasonic = RobotMap.ultrasonic;
 
     private int ultrasonicTickCycle;
     int[] distanceValues = new int[5];

@@ -25,7 +25,7 @@ public class claw extends Subsystem {
 
 
 
-    private final Solenoid cLaw_solenoid = RobotMap.clawCLaw_solenoid;
+    private final Solenoid clawSolenoid = RobotMap.clawSolenoid;
 
 
     @Override
@@ -45,12 +45,16 @@ public class claw extends Subsystem {
 
     public void setOpen() {
         state = true;
-        cLaw_solenoid.set(state);
+        if (clawSolenoid != null) {
+        	clawSolenoid.set(state);
+        }
     }
 
     public void setClose() {
         state = false;
-        cLaw_solenoid.set(state);
+        if (clawSolenoid != null) {
+        	clawSolenoid.set(state);
+        }
     }
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

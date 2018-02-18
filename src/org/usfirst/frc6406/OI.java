@@ -19,51 +19,166 @@ public class OI {
     public JoystickButton stopclimb;
     public JoystickButton wristdown;
     public JoystickButton wristup;
-    public JoystickButton topscale;
-    public JoystickButton mediumscale;
-    public JoystickButton bottomscale;
+    public JoystickButton high;
+    public JoystickButton medium;
+    public JoystickButton low;
     public JoystickButton switchHeight;
     public JoystickButton pickupheight;
-    public Joystick stick;
+    public Joystick flightstick = null;
+    public Joystick xboxstick = null;
+    public Joystick customstick = null;
     public JoystickButton fairydriving;
+    
+    private static final double TELE_PRESET_HIGH = 391/453;
+    private static final double TELE_PRESET_MEDIUM = 82.3/453;
+    private static final double TELE_PRESET_LOW = 0.05;
 
     public OI() {
+    	checkSticks();
+    	SmartDashboard.putData("switch camera", new FixCamera());
+    }
 
-        stick = new Joystick(0);
-        fairydriving = new JoystickButton(stick, 1);
-        fairydriving.whenPressed(new switchtobackcamera());
-        fairydriving.whenReleased(new switchtofrontcamera());
-        pickupheight = new JoystickButton(stick, 12);
-        pickupheight.whenPressed(new liftmove(0.05));
-        switchHeight = new JoystickButton(stick, 10);
-        switchHeight.whenPressed(new liftmove(0.2));
-        bottomscale = new JoystickButton(stick, 9);
-        bottomscale.whenPressed(new liftmove(0.5));
-        mediumscale = new JoystickButton(stick, 8);
-        mediumscale.whenPressed(new liftmove(0.85));
-        topscale = new JoystickButton(stick, 7);
-        topscale.whenPressed(new liftmove(1));
-
-        wristup = new JoystickButton(stick, 6);
-        wristup.whenPressed(new WristMove(0.1));//WRIST_MOVE
-        wristdown = new JoystickButton(stick, 4);
-        wristdown.whenPressed(new WristMove(0.37));//WRIST_MOVE
-
-        stopclimb = new JoystickButton(stick, 11);
-        stopclimb.whenReleased(new StopClimb());
-        climb = new JoystickButton(stick, 11);
-        climb.whileHeld(new Climb());
-        opencloseclaw = new JoystickButton(stick, 2);
-        opencloseclaw.whenPressed(new Claw_toggle());
-        telescopedownrelease = new JoystickButton(stick, 3);
-        telescopedownrelease.whenReleased(new telescopestop());
-        telescopedown = new JoystickButton(stick, 3);
-        telescopedown.whileHeld(new TelescopeDown());
-        telescopeup = new JoystickButton(stick, 5);
-        telescopeup.whileHeld(new TelescopeUp());
-
-        SmartDashboard.putData("switch camera", new FixCamera());
-        SmartDashboard.putNumber("WristUpPosition", 0.0);//TEMP FOR TESTING WRIST POSITIONS
-        SmartDashboard.putNumber("WristDownPosition", 0.4);//TEMP FOR TESTING WRIST POSITIONS
+	public void checkSticks() {
+		Robot.Log("Updating controllers...", 1);
+		boolean flight = false;
+		boolean xbox = false;
+		boolean custom = false;
+		for (int order = 0; order <= 1; order++) {
+        	Joystick tempStick = new Joystick(order);
+        	switch(tempStick.getAxisCount()) {
+        	case 8:
+        		custom = true;
+        		if (customstick == null) {
+            		customstick = new Joystick(order);
+            		addCustomButtons();
+            		Robot.Log("USB [" + order +"] is assigned to the custom stick", 1);
+        		}
+        		break;
+        	case 4:
+        		flight = true;
+        		if (flightstick == null) {
+            		flightstick = new Joystick(order);
+            		addFlightstickButtons();
+            		Robot.Log("USB [" + order +"] is assigned to the flight stick", 1);
+        		}
+        		break;
+        	case 6:
+        		xbox = true;
+        		if (xboxstick == null) {
+            		xboxstick = new Joystick(order);
+            		addXboxButtons();
+            		Robot.Log("USB [" + order +"] is assigned to the xbox stick", 1);
+        		}
+        		break;
+        	default:
+        		Robot.Log("We have no idea what USB [" + order + "] is!", 1);
+        		break;
+        	}
+    	}
+		if (!flight) {
+			flightstick = null;
+		}
+		if (!xbox) {
+			xboxstick = null;
+		}
+		if (!custom) {
+			customstick = null;
+		}
+	}
+	
+	private void addFlightstickButtons() {
+		if (flightstick != null) {
+    		// Logitech 3D Flightstick
+    		fairydriving = new JoystickButton(flightstick, 1);
+	        fairydriving.whenPressed(new switchtobackcamera());
+	        fairydriving.whenReleased(new switchtofrontcamera());
+	        
+	        low = new JoystickButton(flightstick, 9);
+	        low.whenPressed(new liftmove(TELE_PRESET_LOW));
+	        medium = new JoystickButton(flightstick, 8);
+	        medium.whenPressed(new liftmove(TELE_PRESET_MEDIUM));
+	        high = new JoystickButton(flightstick, 7);
+	        high.whenPressed(new liftmove(TELE_PRESET_HIGH));
+	
+	        wristup = new JoystickButton(flightstick, 6);
+	        wristup.whenPressed(new WristMove(0.2));
+	        wristdown = new JoystickButton(flightstick, 4);
+	        wristdown.whenPressed(new WristMove(0.74));
+	
+	        climb = new JoystickButton(flightstick, 11);
+	        climb.whileHeld(new Climb());
+	        climb.whenReleased(new StopClimb());
+	        opencloseclaw = new JoystickButton(flightstick, 2);
+	        opencloseclaw.whenPressed(new Claw_toggle());
+	        telescopedown = new JoystickButton(flightstick, 3);
+	        telescopedown.whileHeld(new TelescopeDown());
+	        telescopedown.whenReleased(new telescopestop());
+	        telescopeup = new JoystickButton(flightstick, 5);
+	        telescopeup.whileHeld(new TelescopeUp());
+    	}
+	}
+	
+	private void addXboxButtons() { 	
+    	if (xboxstick != null) {
+	        // Xbox 360 gamepad
+	        opencloseclaw = new JoystickButton(xboxstick, 5);
+	        opencloseclaw.whenPressed(new Claw_toggle());
+	        low = new JoystickButton(xboxstick, 1);
+	        low.whenPressed(new liftmove(TELE_PRESET_LOW));
+	        medium = new JoystickButton(xboxstick, 2);
+	        medium.whenPressed(new liftmove(TELE_PRESET_MEDIUM));
+	        high = new JoystickButton(xboxstick, 4);
+	        high.whenPressed(new liftmove(TELE_PRESET_HIGH));
+    	}
+	}
+	
+	private void addCustomButtons() {   	
+    	if (customstick != null) {
+    		// Custom PowerUp console
+    		opencloseclaw = new JoystickButton(customstick, 1);
+    		opencloseclaw.whenPressed(new claw_open());
+    		opencloseclaw.whenReleased(new claw_close());
+    		stopclimb = new JoystickButton(customstick, 2);
+	        climb.whileHeld(new Climb());
+	        climb.whenReleased(new StopClimb());
+    	}
+	}
+    
+    public void RunAxes() {
+    	// These happen here so that subsystems don't get taken over.
+    	
+    	// Driving
+    	if (flightstick != null) {
+    		double acceleration = flightstick.getRawAxis(1);
+            double steering = -flightstick.getRawAxis(0);
+            double driveSensitivity = (flightstick.getRawAxis(3) / -4.0) + 0.75;
+            double steeringSensitivity = (flightstick.getRawAxis(3) / -3.0) + 0.66;
+            double reverse = (flightstick.getRawButton(1)) ? -1 : 1;
+            Robot.drive.arcadeDrive(acceleration * driveSensitivity * reverse, steering * steeringSensitivity);
+    	}
+    	
+    	// Telescope
+    	// Both xbox and custom have controls for this
+    	if (xboxstick != null) {
+    		double movementSpeed = xboxstick.getRawAxis(4);
+    		Robot.lift.Move(movementSpeed);
+    	} else if (customstick != null) {
+    		double targetPosition = (customstick.getRawAxis(0) / 2.0) + 0.5;
+    		Robot.lift.moveTelescope(targetPosition);
+    	}
+    	
+    	// Wrist
+    	// Both xbox and custom have controls for this
+    	if (xboxstick != null) {
+    		int pov = xboxstick.getPOV(0);
+    		if (pov > 90 && pov < 270) {
+    			(new WristMove(1.0)).start();
+    		} else {
+    			(new WristMove(0.0)).start();
+    		}
+    	} else if (customstick != null) {
+    		double targetPosition = (customstick.getRawAxis(1) * -1.0) + 1.0;
+    		(new WristMove(targetPosition)).start();
+    	}
     }
 }

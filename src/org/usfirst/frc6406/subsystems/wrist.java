@@ -28,8 +28,8 @@ import edu.wpi.first.wpilibj.VictorSP;
  *
  */
 public class wrist extends PIDSubsystem {
-    private final VictorSPX motor = RobotMap.wristmotor;
-    private final AnalogInput pot = RobotMap.wristpot;
+    private final VictorSPX motor = RobotMap.wristMotor;
+    private final AnalogInput pot = RobotMap.wristPot;
 
     // Initialize your subsystem here
     public wrist() {
@@ -64,7 +64,7 @@ public class wrist extends PIDSubsystem {
         // e.g. a sensor, like a potentiometer:
         // yourPot.getAverageVoltage() / kYourMaxVoltage;
 
-        return pot.getAverageVoltage() / 5.0;
+        return pot.getAverageVoltage() / 2.5;
     }
 
     @Override
@@ -72,7 +72,9 @@ public class wrist extends PIDSubsystem {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
 
-        motor.set(ControlMode.PercentOutput, output);
+        if (motor != null) {
+            motor.set(ControlMode.PercentOutput, output);
+        }
 
     }
 

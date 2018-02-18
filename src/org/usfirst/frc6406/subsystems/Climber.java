@@ -28,7 +28,7 @@ public class Climber extends Subsystem {
 
 
 
-    private final VictorSPX motor = RobotMap.climbermotor;
+    private final VictorSPX motor = RobotMap.winchMotor;
 
 
     @Override
@@ -46,11 +46,15 @@ public class Climber extends Subsystem {
     }
 
     public void climb() {
-        motor.set(ControlMode.PercentOutput, 0.8);
+    	if (motor != null) {
+    		motor.set(ControlMode.PercentOutput, 0.8);	
+    	}
     }
 
     public void stopClimb() {
-    	motor.set(ControlMode.PercentOutput, 0.0);
+    	if (motor != null) {
+    		motor.set(ControlMode.PercentOutput, 0.0);
+    	}
 
     }
     // Put methods for controlling this subsystem
