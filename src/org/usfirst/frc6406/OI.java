@@ -33,9 +33,9 @@ public class OI {
     
     private static final int FLIGHT_TEL_UP = 5;
     private static final int FLIGHT_TEL_DOWN = 3;
-    private static final int FLIGHT_TEL_HIGH = 7;
-    private static final int FLIGHT_TEL_MED = 8;
-    private static final int FLIGHT_TEL_LOW = 9;
+    private static final int FLIGHT_TEL_HIGH = 8;
+    private static final int FLIGHT_TEL_MED = 10;
+    private static final int FLIGHT_TEL_LOW = 12;
     private static final int FLIGHT_WRIST_UP = 6;
     private static final int FLIGHT_WRIST_DOWN = 4;
     private static final int FLIGHT_CLAW = 2;
@@ -51,7 +51,7 @@ public class OI {
     private static final int XBOX_CLAW = 5;
     private static final int[] XBOX_POV_WRIST_UP = {315, 0, 45};
     private static final int[] XBOX_POV_WRIST_DOWN = {135, 180, 225};
-    private static final int XBOX_AXIS_TEL = 3;
+    private static final int XBOX_AXIS_TEL = 5;
     
     private static final int CUSTOM_CLAW = 1;
     private static final int CUSTOM_CLIMB = 2;
@@ -61,7 +61,7 @@ public class OI {
     private static final double TELE_PRESET_HIGH = 0.87;
     private static final double TELE_PRESET_MEDIUM = 0.2;
     private static final double TELE_PRESET_LOW = 0.05;
-    private static final double WRIST_PRESET_UP = 0.2;
+    private static final double WRIST_PRESET_UP = 0.1;
     private static final double WRIST_PRESET_DOWN = 0.74;
     
     public static enum Indication {
@@ -159,7 +159,7 @@ public class OI {
 	private void addXboxButtons() { 	
     	if (xboxstick != null) {
 	        // Xbox 360 gamepad
-            xboxTelescopeHigh = new JoystickButton(xboxstick, XBOX_TEL_HIGH);
+    		xboxTelescopeHigh = new JoystickButton(xboxstick, XBOX_TEL_HIGH);
             xboxTelescopeHigh.whenPressed(new liftmove(TELE_PRESET_HIGH));
 	        xboxTelescopeMedium = new JoystickButton(xboxstick, XBOX_TEL_MED);
 	        xboxTelescopeMedium.whenPressed(new liftmove(TELE_PRESET_MEDIUM));
@@ -200,8 +200,10 @@ public class OI {
     	// Telescope
     	// Both xbox and custom have controls for this. 
     	if (xboxstick != null) {
-    		double movementSpeed = xboxstick.getRawAxis(XBOX_AXIS_TEL);
-    		Robot.lift.Move(movementSpeed);
+    		double movementSpeed = -xboxstick.getRawAxis(XBOX_AXIS_TEL);
+    		if (Math.abs(movementSpeed) > 0.2) {
+    			Robot.lift.Move(movementSpeed);
+    		}
     	} else if (customstick != null) {
     		double targetPosition = (customstick.getRawAxis(CUSTOM_AXIS_TEL) / 2.0) + 0.5;
     		Robot.lift.moveTelescope(targetPosition);
@@ -225,8 +227,10 @@ public class OI {
     
     public void Indicate(Indication status, boolean value) {
         if (status == Indication.WristDown) {
-            Robot.oi.xboxstick.setRumble(RumbleType.kLeftRumble, value ? 0.7 : 0.0);
-            Robot.oi.xboxstick.setRumble(RumbleType.kRightRumble, value ? 0.7 : 0.0);
+        	if (xboxstick != null) {
+        		Robot.oi.xboxstick.setRumble(RumbleType.kLeftRumble, value ? 0.8 : 0.0);
+        		Robot.oi.xboxstick.setRumble(RumbleType.kRightRumble, value ? 0.8 : 0.0);
+        	}
         }
     }
     
