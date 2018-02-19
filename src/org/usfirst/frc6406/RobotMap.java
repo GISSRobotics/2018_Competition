@@ -167,7 +167,7 @@ public class RobotMap {
 
 		autoDirections.put("LSWZ", "d6:t180");
 		autoDirections.put("LSWY", "d3:d3:t180");
-		autoDirections.put("LSWX", "r1:r0.3:r0.75:r1:r3:p0.37");
+		autoDirections.put("LSWX", "r0.8:r0.3:r0.75:r0.8:r0.3:p0.37");
 		
 	}
 	

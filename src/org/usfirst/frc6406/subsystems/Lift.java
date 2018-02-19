@@ -34,6 +34,7 @@ public class Lift extends Subsystem {
     private static final int MAX_HEIGHT_TELESCOPE = 230000;
     private static final int DOWN_INCREMENT = 20000;
     private static final int UP_INCREMENT = 4 * DOWN_INCREMENT;
+    private static final int TOLERANCE = 10000;
     private boolean truckInit = false;
     private boolean telescopeInit = false;
     private final WPI_TalonSRX truckMotor = RobotMap.liftTruckMotor;
@@ -154,6 +155,10 @@ public class Lift extends Subsystem {
         if (truckMotor != null) {
             truckMotor.set(0.0);
         }
+    }
+    
+    public boolean onTarget() {
+    	return Math.abs(telescopeMotor.getClosedLoopError(0)) < TOLERANCE && Math.abs(truckMotor.getClosedLoopError(0)) < TOLERANCE;
     }
 
     // Put methods for controlling this subsystem
