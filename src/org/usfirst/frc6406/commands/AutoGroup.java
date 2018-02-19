@@ -79,7 +79,7 @@ public class AutoGroup extends CommandGroup {
 			else if (firstChar.equals("r")) {
 				//Call Raise(value) here. 0.014 = inch
 				double value = Double.parseDouble(splitDirections[i].substring(1));
-				addSequential(new liftmove(value));
+				addSequential(new LiftMove(value));
 			}
 			else if (firstChar.equals("p")) {
 				//Call Drop() here //IF THERE IS AN ERROR, TRY AND ADD A '0' AT THE END OF THE P STRING
