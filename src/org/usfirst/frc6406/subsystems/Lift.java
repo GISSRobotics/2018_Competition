@@ -30,9 +30,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  */
 public class Lift extends Subsystem {
 
-    private static final int MAX_HEIGHT_TRUCK = 324000; // this is encoder data scaled to 36 inches on our twelve tooth gear
-    private static final int MAX_HEIGHT_TELESCOPE = 226000;
-    private static final int DOWN_INCREMENT = 10000;
+    private static final int MAX_HEIGHT_TRUCK = 300000; // this is encoder data scaled to 36 inches on our twelve tooth gear
+    private static final int MAX_HEIGHT_TELESCOPE = 230000;
+    private static final int DOWN_INCREMENT = 20000;
     private static final int UP_INCREMENT = 4 * DOWN_INCREMENT;
     private boolean truckInit = false;
     private boolean telescopeInit = false;
@@ -75,18 +75,18 @@ public class Lift extends Subsystem {
     }
 
     public void Up() {
-        Move(1.0);
+        Move(0.5);
     }
 
     public void Down() {
-        Move(-1.0);
+        Move(-0.5);
     }
 
     public void Move(double percentage) {
         if (percentage >= 0.0) {
             MoveToTarget(currentHeight() + (int) (UP_INCREMENT * percentage));
         } else {
-            MoveToTarget(currentHeight() - (int) (DOWN_INCREMENT * percentage));
+            MoveToTarget(currentHeight() + (int) (DOWN_INCREMENT * percentage));
         }
     }
 
@@ -115,32 +115,36 @@ public class Lift extends Subsystem {
     @Override
     public void periodic() {
 
-        // Put code here to be run every loo
+        // Put code here to be run every loop
         if (telescopeMotor != null && telescopeMotor.getSelectedSensorPosition(0) != 10000 && telescopeMotor.getMotorOutputPercent() >= 0.0) {
-            if (telescopeStatus.isRevLimitSwitchClosed()) {
+            if (!telescopeStatus.isRevLimitSwitchClosed()) {
                 telescopeInit = true;
                 telescopeMotor.setSelectedSensorPosition(10000, pidid, 100);
                 Robot.Log("Telescope encoder reset to 0.", 1);
+                telescopeMotor.set(0.0);
             }
-            telescopeMotor.set(0.0);
 
         }
         if (!telescopeInit) {
-            // telescopeMotor.set(0.2);
+            telescopeMotor.set(0.2);
         }
 
         if (truckMotor != null && truckMotor.getSelectedSensorPosition(0) != 10000 && truckMotor.getMotorOutputPercent() >= 0.0) {
-            if (truckStatus.isRevLimitSwitchClosed()) {
+            if (!truckStatus.isRevLimitSwitchClosed()) {
                 truckInit = true;
                 truckMotor.setSelectedSensorPosition(10000, pidid, 100);
                 Robot.Log("Truck encoder reset to 0.", 1);
+                truckMotor.set(0.0);
             }
-            truckMotor.set(0.0);
 
         }
         if (!truckInit) {
-            // truckMotor.set(0.2);
+            truckMotor.set(0.2);
         }
+        
+        SmartDashboard.putNumber("Truck Current", RobotMap.PDP.getCurrent(15));
+        SmartDashboard.putNumber("Telescope Current", RobotMap.PDP.getCurrent(2));
+        SmartDashboard.putNumber("Tel VOlts", RobotMap.liftTelescopeMotor.getMotorOutputVoltage());
     }
 
     public void stop() {

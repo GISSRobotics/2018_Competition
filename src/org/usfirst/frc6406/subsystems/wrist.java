@@ -36,7 +36,7 @@ public class wrist extends PIDSubsystem {
     // Initialize your subsystem here
     public wrist() {
         super("wrist", 3, 0.0, 0.0);
-        setAbsoluteTolerance(0.04);
+        setAbsoluteTolerance(0.06);
         getPIDController().setContinuous(false);
 
         // Use these to get going:
@@ -59,7 +59,7 @@ public class wrist extends PIDSubsystem {
         boolean a = (System.currentTimeMillis() / 125) % 2 == 1 && Robot.wrist.pot.getVoltage() > 1;
         SmartDashboard.putBoolean("wrist be down", a);
         
-        Robot.oi.Indicate(Indication.WristDown, a);
+        Robot.oi.Indicate(Indication.WristDown, Robot.wrist.pot.getVoltage() > 1 && Robot.isTeleopEnabled);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class wrist extends PIDSubsystem {
     public void move(double m_setpoint) {
         if (m_setpoint > .25) {
             getPIDController().setP(3);
-        } else {getPIDController().setP(10);
+        } else {getPIDController().setP(5);
         }
         setSetpoint(m_setpoint);
 
