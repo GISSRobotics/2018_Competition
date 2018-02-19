@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
     public static Cameras cameras;
 
     public static Claw claw;
-    public static wrist wrist;
+    public static Wrist wrist;
     public static Drive drive;
     public static Sensors sensors;
     public static Climber climber;
@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
         RobotMap.init();
 
         claw = new Claw();
-        wrist = new wrist();
+        wrist = new Wrist();
         drive = new Drive();
         sensors = new Sensors();
         climber = new Climber();

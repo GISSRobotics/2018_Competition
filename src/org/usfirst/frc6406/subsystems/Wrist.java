@@ -29,13 +29,13 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 /**
  *
  */
-public class wrist extends PIDSubsystem {
+public class Wrist extends PIDSubsystem {
     private final VictorSPX motor = RobotMap.wristMotor;
     private final AnalogInput pot = RobotMap.wristPot;
 
     // Initialize your subsystem here
-    public wrist() {
-        super("wrist", 3, 0.0, 0.0);
+    public Wrist() {
+        super("Wrist", 3, 0.0, 0.0);
         setAbsoluteTolerance(0.06);
         getPIDController().setContinuous(false);
     }
