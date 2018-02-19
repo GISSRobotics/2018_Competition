@@ -175,7 +175,7 @@ public class OI {
     	if (customstick != null) {
     		// Custom PowerUp console
     		customClaw = new JoystickButton(customstick, CUSTOM_CLAW);
-    		customClaw.whenPressed(new claw_open());
+    		customClaw.whenPressed(new ClawOpen());
     		customClaw.whenReleased(new ClawClose());
     		
     		customClimb = new JoystickButton(customstick, CUSTOM_CLIMB);
