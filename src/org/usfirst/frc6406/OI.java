@@ -148,7 +148,7 @@ public class OI {
 	        flightWristDown.whenPressed(new WristMove(WRIST_PRESET_DOWN));
 	        
             flightClaw = new JoystickButton(flightstick, FLIGHT_CLAW);
-            flightClaw.whenPressed(new Claw_toggle());
+            flightClaw.whenPressed(new ClawToggle());
             
 	        flightClimb = new JoystickButton(flightstick, FLIGHT_CLIMB);
 	        flightClimb.whileHeld(new Climb());
@@ -167,7 +167,7 @@ public class OI {
             xboxTelescopeLow.whenPressed(new LiftMove(TELE_PRESET_LOW));
 
             xboxClaw = new JoystickButton(xboxstick, XBOX_CLAW);
-            xboxClaw.whenPressed(new Claw_toggle());
+            xboxClaw.whenPressed(new ClawToggle());
     	}
 	}
 	
