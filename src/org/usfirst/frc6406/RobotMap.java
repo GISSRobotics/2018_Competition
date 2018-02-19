@@ -143,6 +143,7 @@ public class RobotMap {
 
 		driveQuadratureEncoder2.setDistancePerPulse(1.0);
 		driveQuadratureEncoder2.setPIDSourceType(PIDSourceType.kRate);
+		driveQuadratureEncoder2.setSamplesToAverage(50);
 
 		initSelectionButtons();
 		initAutoDirections();
@@ -175,14 +176,14 @@ public class RobotMap {
 		//autoDirections.put("LSWZ", "D6:T45:D0.5:T45:D0.5:T45:D2:T45:D6");// THIS IS TESTING PATH Should be default
 																			// settings
 
-		autoDirections.put("LSWZ", "d3:t-180:d3:t-180:d3:t-180:d3:t-180:d3:t-180");
+		autoDirections.put("LSWZ", "d6:t180");
 		autoDirections.put("LSWY", "d3:d3:t180");
 	}
 	
 	public static void initPIDSelectors() {
 		// multi floor
-		SmartDashboard.putNumber("P Drive", 0.035);
-		SmartDashboard.putNumber("D Drive", 0.11);
+		SmartDashboard.putNumber("P Drive", 0.027);
+		SmartDashboard.putNumber("D Drive", 0.13);
 		SmartDashboard.putNumber("P DriveTurn", 0.3);
 		SmartDashboard.putNumber("D DriveTurn", 0.3);
 		// carpet people
@@ -191,7 +192,7 @@ public class RobotMap {
 //		SmartDashboard.putNumber("d_turn",  0.2);
 		
 		// multi floor
-		SmartDashboard.putNumber("p_turn",  0.07);
+		SmartDashboard.putNumber("p_turn",  0.075);
 		SmartDashboard.putNumber("i_turn", 0.0);
 		SmartDashboard.putNumber("d_turn",  0.155);
 	}
