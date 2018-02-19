@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
     private AutoGroup ag;
     public static Cameras cameras;
 
-    public static claw claw;
+    public static Claw claw;
     public static wrist wrist;
     public static Drive drive;
     public static Sensors sensors;
@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         RobotMap.init();
 
-        claw = new claw();
+        claw = new Claw();
         wrist = new wrist();
         drive = new Drive();
         sensors = new Sensors();

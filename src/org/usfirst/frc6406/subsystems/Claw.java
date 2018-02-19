@@ -20,41 +20,28 @@ import edu.wpi.first.wpilibj.Solenoid;
 /**
  *
  */
-public class claw extends Subsystem {
+public class Claw extends Subsystem {
+
     boolean state = false;
-
-
-
     private final Solenoid clawSolenoid = RobotMap.clawSolenoid;
-
 
     @Override
     public void initDefaultCommand() {
         setClose();
-
-
-        // Set the default command for a subsystem here.
-        // setDefaultCommand(new MySpecialCommand());
     }
 
     @Override
     public void periodic() {
-        // Put code here to be run every loop
-
     }
 
     public void setOpen() {
         state = true;
-        if (clawSolenoid != null) {
-        	clawSolenoid.set(state);
-        }
+        setSolenoid();
     }
 
     public void setClose() {
         state = false;
-        if (clawSolenoid != null) {
-        	clawSolenoid.set(state);
-        }
+        setSolenoid();
     }
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -63,4 +50,9 @@ public class claw extends Subsystem {
         return state;
     }
 
+    private void setSolenoid() {
+        if (clawSolenoid != null) {
+        	clawSolenoid.set(state);
+        }
+    }
 }
