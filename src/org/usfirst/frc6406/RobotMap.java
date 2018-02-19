@@ -97,7 +97,7 @@ public class RobotMap {
         // Null if not detected
         // This might not work...
         try {
-        	//clawSolenoid = new Solenoid(0, 0);
+        	clawSolenoid = new Solenoid(0, 0);
         	Robot.Log("Gripper solenoid initialized: " + (clawSolenoid != null), 1);
         } catch (Error e) {
         	clawSolenoid = null;
@@ -149,6 +149,7 @@ public class RobotMap {
         SmartDashboard.putData("DriverStationPosition", positionChooser);
     }
 
+
 	public static void initAutoDirections() {
 		autoDirections.put("LSCL", "d8.22:t90:r1:d0:p0.37");// This is our example case (Drive 1 meter:Begin raise 7 feet:Drive
 														// 1 meter:Turn 90 degrees:Place(Dump))
@@ -164,14 +165,14 @@ public class RobotMap {
 		autoDirections.put("RSWL", "d6:t-90:d5.3:t-90:r0.3:d0:p0.37");
 		autoDirections.put("RSWR", "d4.3:t-90:r0.3:d0:p0.37");
 
-		autoDirections.put("LSWZ", "d3:t-180:d3:t-180:d3:t-180:d3:t-180:d3:t-180");
+		autoDirections.put("LSWZ", "d6:t180");
 		autoDirections.put("LSWY", "d3:d3:t180");
 	}
 	
 	public static void initPIDSelectors() {
 		// multi floor
-		SmartDashboard.putNumber("P Drive", 0.035);
-		SmartDashboard.putNumber("D Drive", 0.11);
+		SmartDashboard.putNumber("P Drive", 0.027);
+		SmartDashboard.putNumber("D Drive", 0.13);
 		SmartDashboard.putNumber("P DriveTurn", 0.3);
 		SmartDashboard.putNumber("D DriveTurn", 0.3);
 		// carpet people
@@ -180,7 +181,7 @@ public class RobotMap {
 //		SmartDashboard.putNumber("d_turn",  0.2);
 		
 		// multi floor
-		SmartDashboard.putNumber("p_turn",  0.07);
+		SmartDashboard.putNumber("p_turn",  0.075);
 		SmartDashboard.putNumber("i_turn", 0.0);
 		SmartDashboard.putNumber("d_turn",  0.155);
 	}

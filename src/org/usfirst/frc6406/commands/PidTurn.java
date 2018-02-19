@@ -17,7 +17,7 @@ public class PidTurn extends Command implements PIDOutput {
 	static final double kD = 0.00;
 	static final double kF = 0.00;
 	//static final double kToleranceDegrees = 1.0;
-	static final double ERROR_TOLERANCE = 1.5;
+	static final double ERROR_TOLERANCE = 1.75;
 	
 	private int onTargetCounter = 0;
 	private double target;
