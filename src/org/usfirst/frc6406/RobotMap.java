@@ -96,7 +96,7 @@ public class RobotMap {
         // Null if not detected
         // This might not work...
         try {
-        	//clawSolenoid = new Solenoid(0, 0);
+        	clawSolenoid = new Solenoid(0, 0);
         	Robot.Log("Gripper solenoid initialized: " + (clawSolenoid != null), 1);
         } catch (Error e) {
         	clawSolenoid = null;

@@ -31,7 +31,7 @@ import org.usfirst.frc6406.subsystems.*;
  */
 public class Robot extends TimedRobot {
 	
-	public static final int LOG_VERBOSITY = 0; // 0=nothing; 1=some occasional stuff; 2=everything
+	public static final int LOG_VERBOSITY = 1; // 0=nothing; 1=some occasional stuff; 2=everything
 
     public static OI oi;
     private AutoGroup ag;
@@ -45,6 +45,7 @@ public class Robot extends TimedRobot {
     public static Lift lift;
     
     private long lastTime = -1; // Controller check timer
+    public static boolean isTeleopEnabled = false;
 
 
     /**
@@ -73,6 +74,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
         ag = null;
+        isTeleopEnabled = false;
     }
 
     @Override
@@ -84,6 +86,7 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         ag = new AutoGroup();
         ag.start();
+        isTeleopEnabled = false;
     }
 
     /**
@@ -104,6 +107,7 @@ public class Robot extends TimedRobot {
             ag.cancel();
             ag = null;
         }
+        isTeleopEnabled = true;
     }
 
     /**
