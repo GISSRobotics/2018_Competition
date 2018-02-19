@@ -38,18 +38,10 @@ public class wrist extends PIDSubsystem {
         super("wrist", 3, 0.0, 0.0);
         setAbsoluteTolerance(0.06);
         getPIDController().setContinuous(false);
-
-        // Use these to get going:
-        // setSetpoint() - Sets where the PID controller should move the system
-        // to
-        // enable() - Enables the PID controller.
     }
 
     @Override
     public void initDefaultCommand() {
-
-        // Set the default command for a subsystem here.
-        // setDefaultCommand(new MySpecialCommand());
     }
 
     @Override

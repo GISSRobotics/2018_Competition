@@ -58,12 +58,6 @@ public class RobotMap {
     @SuppressWarnings("deprecation")
     public static void init() {
         try {
-            /* Communicate w/navX-MXP via the MXP SPI Bus. */
-            /* Alternatively: I2C.Port.kMXP, SerialPort.Port.kMXP or SerialPort.Port.kUSB */
-            /*
-             * See http://navx-mxp.kauailabs.com/guidance/selecting-an-interface/ for
-             * details.
-             */
             ahrs = new AHRS(SPI.Port.kMXP);
             ahrs.reset();
         } catch (RuntimeException ex) {
