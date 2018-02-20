@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj.Ultrasonic;
 public class AutoGroup extends CommandGroup {
     public AutoGroup() {
 		ParseGameData();
+		if (!Robot.claw.getState()) {Robot.claw.setClose();}
 	}
     
     // Called just before this Command runs the first time
