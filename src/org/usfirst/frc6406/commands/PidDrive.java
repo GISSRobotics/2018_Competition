@@ -44,9 +44,10 @@ public class PidDrive extends Command implements PIDOutput {
 		curveController.setSetpoint(0);
 		rotateToAngleRate = 0.0;
 		
-		RobotMap.driveQuadratureEncoder2.setPIDSourceType(PIDSourceType.kDisplacement);
+		RobotMap.driveQuadratureEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
+		RobotMap.driveQuadratureEncoder.setReverseDirection(true);
 		driveOutput = new PidDriveOutput();
-		driveController = new PIDController(p, kI, d, kF, RobotMap.driveQuadratureEncoder2, driveOutput);
+		driveController = new PIDController(p, kI, d, kF, RobotMap.driveQuadratureEncoder, driveOutput);
 		driveController.setInputRange(0, 1.1*dist);
 		driveController.setOutputRange(-0.8, 0.8);
 		driveController.setAbsoluteTolerance(10);
@@ -60,7 +61,7 @@ public class PidDrive extends Command implements PIDOutput {
     protected void initialize() {
     	SmartDashboard.putString("Error", "d:"+distance);
     	rotateToAngleRate = 0.0;
-    	RobotMap.driveQuadratureEncoder2.reset();
+    	RobotMap.driveQuadratureEncoder.reset();
     	driveOutput.reset();
     	RobotMap.ahrs.zeroYaw();
 		curveController.enable();
@@ -74,15 +75,15 @@ public class PidDrive extends Command implements PIDOutput {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	SmartDashboard.putNumber("Speed",  RobotMap.driveQuadratureEncoder2.getRate()/(689.44 * 0.8)*3.6);
+    	SmartDashboard.putNumber("Speed",  RobotMap.driveQuadratureEncoder.getRate()/(689.44 * 0.8)*3.6);
     	SmartDashboard.putNumber("Distance Error",  driveController.getError());
     	SmartDashboard.putNumber("Distance Error Graph",  driveController.getError());
-    	SmartDashboard.putNumber("PID Get", RobotMap.driveQuadratureEncoder2.pidGet());
+    	SmartDashboard.putNumber("PID Get", RobotMap.driveQuadratureEncoder.pidGet());
     	SmartDashboard.putNumber("Yaw2:",  RobotMap.ahrs.getYaw());
     	SmartDashboard.putNumber("Yaw Error",  curveController.getError());
     	SmartDashboard.putNumber("Yaw Error Graph",  curveController.getError());
 		SmartDashboard.putBoolean("on_target", curveController.onTarget());
-		SmartDashboard.putNumber("Encoder Distance", RobotMap.driveQuadratureEncoder2.getDistance());
+		SmartDashboard.putNumber("Encoder Distance", RobotMap.driveQuadratureEncoder.getDistance());
 		SmartDashboard.putNumber("NavX Distance", RobotMap.ahrs.getDisplacementY());
 		if (driveController.onTarget()) {
     		onTargetCounter++;

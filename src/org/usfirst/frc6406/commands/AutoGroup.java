@@ -22,8 +22,8 @@ import edu.wpi.first.wpilibj.Ultrasonic;
  *
  */
 public class AutoGroup extends CommandGroup {
-	
-	private static final double METRES_TO_PULSES = 689.44 * 0.6857; // Encoders seem to be wrong by 28% (70% speed)
+	//689.44 0.6857(For old robot)
+	private static final double METRES_TO_PULSES = 534.69 * 1; // Encoders seem to be wrong by 28% (70% speed)
     public AutoGroup() {
 		ParseGameData();
 	}
