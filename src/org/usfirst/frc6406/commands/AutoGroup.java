@@ -46,7 +46,7 @@ public class AutoGroup extends CommandGroup {
 		char char2 = gameData.charAt(selectedElement);
 	
 		String pathString = (char0+=char1+=char2);
-		String autoPath = RobotMap.autoDirections.get(pathString);
+		String autoPath = RobotMap.getPathString(pathString);
 		StartAutoPath(autoPath);
 	}
 	

@@ -141,6 +141,8 @@ public class RobotMap {
         positionChooser.addObject("Right", "right");
         SmartDashboard.putData("PrioritySelect2", priorityChooser);
         SmartDashboard.putData("DriverStationPosition2", positionChooser);
+        
+        SmartDashboard.putString("PathString", "");
     }
 
 
@@ -162,6 +164,18 @@ public class RobotMap {
 		autoDirections.put("LSWY", "d3:d3:t180");
 		autoDirections.put("LSWX", "r0.8:r0.3:r0.75:r0.8:r0.3:p0.37");
 		
+	}
+	
+	public static String getPathString(String pathString) {
+	    String newString = autoDirections.get(pathString);
+	    String finalString;
+	    if (SmartDashboard.getString("PathString", "")=="") {
+	        SmartDashboard.putString("PathString", newString);
+	        finalString = newString;
+	    }else {
+	        finalString = SmartDashboard.getString("PathString", "");
+	    }
+	    return finalString;
 	}
 	
 	public static void initPIDSelectors() {
