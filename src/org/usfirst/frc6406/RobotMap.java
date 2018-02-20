@@ -145,19 +145,18 @@ public class RobotMap {
 
 
 	public static void initAutoDirections() {
-		autoDirections.put("LSCL", "d8.22:t90:r1:d0:p0.37");// This is our example case (Drive 1 meter:Begin raise 7 feet:Drive
-														// 1 meter:Turn 90 degrees:Place(Dump))
-		autoDirections.put("LSCR", "d5.2:t-90:d5.5:t90:d2.2:r5.0:t90:r1:t90:d2.2:t-90:d5.5:t90:d5.2:t180"); // has been inverted
-		autoDirections.put("LSWL", "d4.3:t90:r0.3:d0:p0.37");
-		autoDirections.put("LSWR", "d6:t90:d5.3:t90:r0.3:d0:p0.37");   // r value = percent height, 0.014 = one inch
-		autoDirections.put("CSCL", "d.3:t-50:d4:t50:d4.7:t90:r1:d0:p0.37");
-		autoDirections.put("CSCR", "d.3:t50:D4:t-50:d4.7:t-90:r1:d0:p0.37");
-		autoDirections.put("CSWL", "d.3:t-22:d3.4:t22:r0.3:d0:p0.37");
-		autoDirections.put("CSWR", "d.3:t24:d3.5:t-24:r0.3:d0:p0.37");   //!!!!!! p NEEDS to be 0.37 !!!!!!!
-		autoDirections.put("RSCL", "d2.5:t90:d1.5:t90:d2.5:t90:r1:d1.5:t90:p0.37");
-		autoDirections.put("RSCR", "d8.22:t-90:r1:d0:P0.37");
-		autoDirections.put("RSWL", "d6:t-90:d5.3:t-90:r0.3:d0:p0.37");
-		autoDirections.put("RSWR", "d4.3:t-90:r0.3:d0:p0.37");
+		autoDirections.put("LSCL", "d6.1:t3.7:D1.5:t-3.7:p");
+		autoDirections.put("LSCR", "d6.1:t90:d4.8:t-93.7:D1.5:t3.7:p"); 
+		autoDirections.put("LSWL", "D0.6:t17:D3:t-17:p");
+		autoDirections.put("LSWR", "d6.1:t90:d4.8:t45:D1.1:t90:D1.1:t45:p");   
+		autoDirections.put("CSCL", "");
+		autoDirections.put("CSCR", "");
+		autoDirections.put("CSWL", "D0.6:t-35:D3.6:t35:p");
+		autoDirections.put("CSWR", "D0.6:t15.4:D3:t-15.4:p`");   
+		autoDirections.put("RSCL", "d6.1:t-3.7:D1.5:t3.7:p");
+		autoDirections.put("RSCR", "d6.1:t-90:d4.8:t93.7:D1.5:t-3.7:p");
+		autoDirections.put("RSWL", "D0.6:t-17:D3:t17:p");
+		autoDirections.put("RSWR", "d6.1:t-90:d4.8:t-45:D1.1:t-90:D1.1:t-45:p");
 
 		autoDirections.put("LSWZ", "d6:t180");
 		autoDirections.put("LSWY", "d3:d3:t180");

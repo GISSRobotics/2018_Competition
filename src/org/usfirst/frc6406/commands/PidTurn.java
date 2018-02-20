@@ -25,7 +25,7 @@ public class PidTurn extends Command implements PIDOutput {
 	static public double rotateToAngleRate;
 
 	public PidTurn(double deg) {
-        require(Robot.drive);
+        requires(Robot.drive);
         target = deg;
 		SmartDashboard.putNumber("Target:", deg);
 		double pT = SmartDashboard.getNumber("p_turn", 0.00);
