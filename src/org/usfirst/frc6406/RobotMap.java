@@ -146,7 +146,7 @@ public class RobotMap {
 
 	public static void initAutoDirections() {
 		autoDirections.put("LSCL", "d6.1:t3.7:D1.5:t-3.7:p0.0");
-		autoDirections.put("LSCR", "d6.1:t90:d5.0:t-100.0:r0.9:D1.0:t10.0:p0.0"); 
+		autoDirections.put("LSCR", "d6.1:t90:d5.2:r1.0:t-100.0:D1.1:t10.0:p0.0"); 
 		autoDirections.put("LSWL", "D0.6:t17:D3:t-17:p0.0");
 		autoDirections.put("LSWR", "d6.1:t90:d4.8:t45:D1.1:t90:D1.1:t45:p0.0");   
 		//autoDirections.put("CSCL", "");
