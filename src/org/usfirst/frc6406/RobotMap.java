@@ -79,11 +79,11 @@ public class RobotMap {
         driveRobotDrive.setMaxOutput(1.0);
 
         driveQuadratureEncoder = new Encoder(0, 1, false, EncodingType.k4X);
-        driveQuadratureEncoder.setDistancePerPulse(1.0);
-        driveQuadratureEncoder.setPIDSourceType(PIDSourceType.kRate);
+        driveQuadratureEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
+		driveQuadratureEncoder.setReverseDirection(true);
         driveQuadratureEncoder2 = new Encoder(2, 3, false, EncodingType.k4X);
-        driveQuadratureEncoder2.setDistancePerPulse(1.0);
-        driveQuadratureEncoder2.setPIDSourceType(PIDSourceType.kRate);
+        driveQuadratureEncoder2.setPIDSourceType(PIDSourceType.kDisplacement);
+		driveQuadratureEncoder2.setReverseDirection(true);
         ultrasonic = new AnalogInput(1);
         wristPot = new AnalogInput(0);
         
@@ -139,24 +139,24 @@ public class RobotMap {
         positionChooser.addDefault("Left", "left");
         positionChooser.addObject("Center", "center");
         positionChooser.addObject("Right", "right");
-        SmartDashboard.putData("PrioritySelect", priorityChooser);
-        SmartDashboard.putData("DriverStationPosition", positionChooser);
+        SmartDashboard.putData("PrioritySelect2", priorityChooser);
+        SmartDashboard.putData("DriverStationPosition2", positionChooser);
     }
 
 
 	public static void initAutoDirections() {
-		autoDirections.put("LSCL", "d6.1:t3.7:D1.5:t-3.7:p");
-		autoDirections.put("LSCR", "d6.1:t90:d4.8:t-93.7:D1.5:t3.7:p"); 
-		autoDirections.put("LSWL", "D0.6:t17:D3:t-17:p");
-		autoDirections.put("LSWR", "d6.1:t90:d4.8:t45:D1.1:t90:D1.1:t45:p");   
-		autoDirections.put("CSCL", "");
-		autoDirections.put("CSCR", "");
-		autoDirections.put("CSWL", "D0.6:t-35:D3.6:t35:p");
-		autoDirections.put("CSWR", "D0.6:t15.4:D3:t-15.4:p`");   
-		autoDirections.put("RSCL", "d6.1:t-3.7:D1.5:t3.7:p");
-		autoDirections.put("RSCR", "d6.1:t-90:d4.8:t93.7:D1.5:t-3.7:p");
-		autoDirections.put("RSWL", "D0.6:t-17:D3:t17:p");
-		autoDirections.put("RSWR", "d6.1:t-90:d4.8:t-45:D1.1:t-90:D1.1:t-45:p");
+		autoDirections.put("LSCL", "d6.1:t3.7:D1.5:t-3.7:p0.0");
+		autoDirections.put("LSCR", "d6.1:t90:d5.0:t-100.0:r0.9:D1.0:t10.0:p0.0"); 
+		autoDirections.put("LSWL", "D0.6:t17:D3:t-17:p0.0");
+		autoDirections.put("LSWR", "d6.1:t90:d4.8:t45:D1.1:t90:D1.1:t45:p0.0");   
+		//autoDirections.put("CSCL", "");
+		//autoDirections.put("CSCR", "");
+		autoDirections.put("CSWL", "D0.6:t-35:D3.6:t35:p0.0");
+		autoDirections.put("CSWR", "D0.6:t15.4:D3:t-15.4:p0.0");   
+		autoDirections.put("RSCL", "d6.1:t-3.7:D1.5:t3.7:p0.0");
+		autoDirections.put("RSCR", "d6.1:t-90:d4.8:t93.7:D1.5:t-3.7:p0.0");
+		autoDirections.put("RSWL", "D0.6:t-17:D3:t17:p0.0");
+		autoDirections.put("RSWR", "d6.1:t-90:d4.8:t-45:D1.1:t-90:D1.1:t-45:p0.0");
 
 		autoDirections.put("LSWZ", "d2:t180");
 		autoDirections.put("LSWY", "d3:d3:t180");

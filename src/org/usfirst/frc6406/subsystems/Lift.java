@@ -142,10 +142,6 @@ public class Lift extends Subsystem {
         if (!truckInit) {
             truckMotor.set(0.2);
         }
-        
-        SmartDashboard.putNumber("Truck Current", RobotMap.PDP.getCurrent(15));
-        SmartDashboard.putNumber("Telescope Current", RobotMap.PDP.getCurrent(2));
-        SmartDashboard.putNumber("Tel VOlts", RobotMap.liftTelescopeMotor.getMotorOutputVoltage());
     }
 
     public void stop() {

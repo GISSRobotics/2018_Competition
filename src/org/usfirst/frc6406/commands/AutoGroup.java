@@ -13,7 +13,11 @@ package org.usfirst.frc6406.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+//import java.awt.Robot;
+
 import org.usfirst.frc6406.RobotMap;
+import org.usfirst.frc6406.subsystems.Drive;
+import org.usfirst.frc6406.Robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Ultrasonic;
@@ -22,8 +26,6 @@ import edu.wpi.first.wpilibj.Ultrasonic;
  *
  */
 public class AutoGroup extends CommandGroup {
-	//689.44 0.6857(For old robot)
-	private static final double METRES_TO_PULSES = 534.69 * 1; // Encoders seem to be wrong by 28% (70% speed)
     public AutoGroup() {
 		ParseGameData();
 	}
@@ -59,7 +61,7 @@ public class AutoGroup extends CommandGroup {
 			
 			if (firstChar.equals("D")) {
 				double value = Double.parseDouble(splitDirections[i].substring(1));
-				addSequential(new DriveForward((float)value*METRES_TO_PULSES));
+				addSequential(new DriveForward(Drive.MetersToPulses(value)));
 			}
 			else if (firstChar.equals("T")) {
 				double value = (Double.parseDouble(splitDirections[i].substring(1))*-1);
@@ -69,10 +71,10 @@ public class AutoGroup extends CommandGroup {
 			}
 			if (firstChar.equals("d")) {
 				double value = Double.parseDouble(splitDirections[i].substring(1));
-				addSequential(new PidDrive((float)value*METRES_TO_PULSES));
+				addSequential(new PidDrive(Drive.MetersToPulses(value)));
 			}
 			else if (firstChar.equals("t")) {
-				double value = Double.parseDouble(splitDirections[i].substring(1))*-1;
+				double value = Double.parseDouble(splitDirections[i].substring(1));
 				addSequential(new PidTurn(value));
 		
 			}
