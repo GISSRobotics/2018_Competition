@@ -16,12 +16,10 @@ import org.usfirst.frc6406.Robot;
 /**
  *
  */
-public class Claw_toggle extends ConditionalCommand {
+public class ClawToggle extends ConditionalCommand {
 
-    public Claw_toggle() {
-        super(new claw_close(), new claw_open());
-
-
+    public ClawToggle() {
+        super(new ClawClose(), new ClawOpen());
     }
 
     @Override

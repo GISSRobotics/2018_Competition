@@ -22,10 +22,9 @@ public class PidDrive extends Command implements PIDOutput {
 	public static double rotateToAngleRate = 0.0;
 	static final double kP = 0.0; //SmartDashboard.getNumber("P Drive", 0.00);//0.002;
 	static final double kI = 0.0;
-	static final double kD = 0. ; //SmartDashboard.getNumber("D Drive", 0.00);//0.0032;
+	static final double kD = 0.0; //SmartDashboard.getNumber("D Drive", 0.00);//0.0032;
 	static final double kF = 0.0;
 	
-	//static final double kToleranceDegrees = 0.25;
 	
 	
     public PidDrive(double dist) {
@@ -44,7 +43,6 @@ public class PidDrive extends Command implements PIDOutput {
 		curveController.setContinuous(true);
 		curveController.setSetpoint(0);
 		rotateToAngleRate = 0.0;
-		//setTimeout(7);
 		
 		RobotMap.driveQuadratureEncoder2.setPIDSourceType(PIDSourceType.kDisplacement);
 		driveOutput = new PidDriveOutput();
@@ -54,7 +52,6 @@ public class PidDrive extends Command implements PIDOutput {
 		driveController.setAbsoluteTolerance(10);
 		driveController.setContinuous(false);
 		driveController.setSetpoint(dist);
-		System.out.println(dist);
 		
     	requires(Robot.drive);
     }
@@ -65,31 +62,14 @@ public class PidDrive extends Command implements PIDOutput {
     	rotateToAngleRate = 0.0;
     	RobotMap.driveQuadratureEncoder2.reset();
     	driveOutput.reset();
-    	//RobotMap.ahrs.reset();
     	RobotMap.ahrs.zeroYaw();
-    	/*
-		while (Math.abs(RobotMap.ahrs.getYaw()) > 0) {
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		*/
 		curveController.enable();
 		driveController.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//	if (!driveController.onTarget()) {
     	Robot.drive.turnAngle(-driveOutput.driveRate, rotateToAngleRate);
-    	//} else {
-
-    		//Robot.drive.turnAngle(0.0, rotateToAngleRate);
-    	//}
-      //System.out.println(-driveOutput.driveRate);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -111,17 +91,6 @@ public class PidDrive extends Command implements PIDOutput {
     	}
 		SmartDashboard.putNumber("targetCounter", onTargetCounter);
     	return onTargetCounter == 10;
-//    	if (Math.abs(RobotMap.driveQuadratureEncoder2.getDistance()) < distance) {
-//    		return false;
-//    	}
-//    	if (Math.abs(RobotMap.driveQuadratureEncoder2.getDistance()) >= distance && curveController.onTarget()){ // && Math.abs(RobotMap.ahrs.getYaw())<1.0)
-//    			
-//    		return true;
-//    	} else {
-//    		
-//    		return isTimedOut();
-//    	}
-    		
     }
 
     // Called once after isFinished returns true
@@ -129,13 +98,11 @@ public class PidDrive extends Command implements PIDOutput {
     	driveController.disable();
     	curveController.disable();
     	Robot.drive.stop();
-    	System.out.println("I stopped");
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	System.out.println("I got inturrupted.");
     	end();
     }
     

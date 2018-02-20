@@ -16,12 +16,12 @@ import org.usfirst.frc6406.Robot;
 /**
  *
  */
-public class liftmove extends Command {
+public class LiftMove extends Command {
 
     private double m_position;
 
 
-    public liftmove(double position) {
+    public LiftMove(double position) {
 
         m_position = position;
 
@@ -45,7 +45,6 @@ public class liftmove extends Command {
     @Override
     protected boolean isFinished() {
         return Robot.lift.onTarget();
-    	//return true;
     }
 
     // Called once after isFinished returns true

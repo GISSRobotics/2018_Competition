@@ -29,27 +29,19 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 /**
  *
  */
-public class wrist extends PIDSubsystem {
+public class Wrist extends PIDSubsystem {
     private final VictorSPX motor = RobotMap.wristMotor;
     private final AnalogInput pot = RobotMap.wristPot;
 
     // Initialize your subsystem here
-    public wrist() {
-        super("wrist", 3, 0.0, 0.0);
+    public Wrist() {
+        super("Wrist", 3, 0.0, 0.0);
         setAbsoluteTolerance(0.06);
         getPIDController().setContinuous(false);
-
-        // Use these to get going:
-        // setSetpoint() - Sets where the PID controller should move the system
-        // to
-        // enable() - Enables the PID controller.
     }
 
     @Override
     public void initDefaultCommand() {
-
-        // Set the default command for a subsystem here.
-        // setDefaultCommand(new MySpecialCommand());
     }
 
     @Override

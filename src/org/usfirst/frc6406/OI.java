@@ -136,11 +136,11 @@ public class OI {
             flightTelescopeDown = new JoystickButton(flightstick, FLIGHT_TEL_DOWN);
             flightTelescopeDown.whileHeld(new TelescopeDown());
             flightTelescopeHigh = new JoystickButton(flightstick, FLIGHT_TEL_HIGH);
-            flightTelescopeHigh.whenPressed(new liftmove(TELE_PRESET_HIGH));
+            flightTelescopeHigh.whenPressed(new LiftMove(TELE_PRESET_HIGH));
 	        flightTelescopeMedium = new JoystickButton(flightstick, FLIGHT_TEL_MED);
-	        flightTelescopeMedium.whenPressed(new liftmove(TELE_PRESET_MEDIUM));
+	        flightTelescopeMedium.whenPressed(new LiftMove(TELE_PRESET_MEDIUM));
             flightTelescopeLow = new JoystickButton(flightstick, FLIGHT_TEL_LOW);
-            flightTelescopeLow.whenPressed(new liftmove(TELE_PRESET_LOW));
+            flightTelescopeLow.whenPressed(new LiftMove(TELE_PRESET_LOW));
 	
 	        flightWristUp = new JoystickButton(flightstick, FLIGHT_WRIST_UP);
 	        flightWristUp.whenPressed(new WristMove(WRIST_PRESET_UP));
@@ -148,7 +148,7 @@ public class OI {
 	        flightWristDown.whenPressed(new WristMove(WRIST_PRESET_DOWN));
 	        
             flightClaw = new JoystickButton(flightstick, FLIGHT_CLAW);
-            flightClaw.whenPressed(new Claw_toggle());
+            flightClaw.whenPressed(new ClawToggle());
             
 	        flightClimb = new JoystickButton(flightstick, FLIGHT_CLIMB);
 	        flightClimb.whileHeld(new Climb());
@@ -160,14 +160,14 @@ public class OI {
     	if (xboxstick != null) {
 	        // Xbox 360 gamepad
     		xboxTelescopeHigh = new JoystickButton(xboxstick, XBOX_TEL_HIGH);
-            xboxTelescopeHigh.whenPressed(new liftmove(TELE_PRESET_HIGH));
+            xboxTelescopeHigh.whenPressed(new LiftMove(TELE_PRESET_HIGH));
 	        xboxTelescopeMedium = new JoystickButton(xboxstick, XBOX_TEL_MED);
-	        xboxTelescopeMedium.whenPressed(new liftmove(TELE_PRESET_MEDIUM));
+	        xboxTelescopeMedium.whenPressed(new LiftMove(TELE_PRESET_MEDIUM));
             xboxTelescopeLow = new JoystickButton(xboxstick, XBOX_TEL_LOW);
-            xboxTelescopeLow.whenPressed(new liftmove(TELE_PRESET_LOW));
+            xboxTelescopeLow.whenPressed(new LiftMove(TELE_PRESET_LOW));
 
             xboxClaw = new JoystickButton(xboxstick, XBOX_CLAW);
-            xboxClaw.whenPressed(new Claw_toggle());
+            xboxClaw.whenPressed(new ClawToggle());
     	}
 	}
 	
@@ -175,8 +175,8 @@ public class OI {
     	if (customstick != null) {
     		// Custom PowerUp console
     		customClaw = new JoystickButton(customstick, CUSTOM_CLAW);
-    		customClaw.whenPressed(new claw_open());
-    		customClaw.whenReleased(new claw_close());
+    		customClaw.whenPressed(new ClawOpen());
+    		customClaw.whenReleased(new ClawClose());
     		
     		customClimb = new JoystickButton(customstick, CUSTOM_CLIMB);
 	        customClimb.whileHeld(new Climb());

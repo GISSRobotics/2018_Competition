@@ -16,42 +16,21 @@ import org.usfirst.frc6406.Robot;
 /**
  *
  */
-public class claw_open extends Command {
-
-
-
-    public claw_open() {
-
-
+public class ClawClose extends Command {
+    
+    public ClawClose() {
         requires(Robot.claw);
-
-    }
-
-    // Called just before this Command runs the first time
-    @Override
-    protected void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.claw.setOpen();
+        Robot.claw.setClose();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return Robot.claw.getState();
-    }
-
-    // Called once after isFinished returns true
-    @Override
-    protected void end() {
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    @Override
-    protected void interrupted() {
+        return !Robot.claw.getState();
     }
 }
