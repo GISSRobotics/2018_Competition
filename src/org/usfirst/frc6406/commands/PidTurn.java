@@ -50,7 +50,7 @@ public class PidTurn extends Command implements PIDOutput {
 	 // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    	Robot.drive.turnAngle(0, rotateToAngleRate);
+    	Robot.drive.turnAngle(0, -rotateToAngleRate);
     }
 
     // Make this return true when this Command no longer needs to run execute()
