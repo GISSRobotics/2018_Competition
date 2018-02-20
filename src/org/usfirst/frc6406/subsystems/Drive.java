@@ -76,8 +76,8 @@ public class Drive extends Subsystem {
         robotDrive.arcadeDrive(acceleration, steering);
     }
     
-    public void slowfoward() {
-    	robotDrive.tankDrive(-0.5, -0.5);
+    public void slowmove(double multiplyer) {
+    	robotDrive.tankDrive(-0.5*multiplyer, -0.5*multiplyer);
     }
     
     public void turnleft() {

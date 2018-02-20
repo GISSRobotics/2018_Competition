@@ -47,11 +47,11 @@ public class AutoGroup extends CommandGroup {
 	
 		String pathString = (char0+=char1+=char2);
 		String autoPath = RobotMap.getPathString(pathString);
-		StartAutoPath(autoPath);
+	    StartAutoPath(autoPath);
 	}
 	
 	public void StartAutoPath(String autoPath) {
-		if (autoPath == null) {
+		if (autoPath.length() < 2) {
 			return;
 		}
 		String[] splitDirections = autoPath.split(":");
