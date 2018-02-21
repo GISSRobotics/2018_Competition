@@ -1,6 +1,8 @@
 package org.usfirst.frc6406;
 
 import org.usfirst.frc6406.commands.*;
+import org.usfirst.frc6406.subsystems.Wrist;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -61,8 +63,6 @@ public class OI {
     private static final double TELE_PRESET_HIGH = 0.87;
     private static final double TELE_PRESET_MEDIUM = 0.2;
     private static final double TELE_PRESET_LOW = 0.05;
-    private static final double WRIST_PRESET_UP = 0.1;
-    private static final double WRIST_PRESET_DOWN = 0.74;
     
     public static enum Indication {
         WristDown
@@ -143,9 +143,9 @@ public class OI {
             flightTelescopeLow.whenPressed(new LiftMove(TELE_PRESET_LOW));
 	
 	        flightWristUp = new JoystickButton(flightstick, FLIGHT_WRIST_UP);
-	        flightWristUp.whenPressed(new WristMove(WRIST_PRESET_UP));
+	        flightWristUp.whenPressed(new WristMove(Wrist.WRIST_PRESET_UP));
 	        flightWristDown = new JoystickButton(flightstick, FLIGHT_WRIST_DOWN);
-	        flightWristDown.whenPressed(new WristMove(WRIST_PRESET_DOWN));
+	        flightWristDown.whenPressed(new WristMove(Wrist.WRIST_PRESET_DOWN));
 	        
             flightClaw = new JoystickButton(flightstick, FLIGHT_CLAW);
             flightClaw.whenPressed(new ClawToggle());
@@ -214,13 +214,14 @@ public class OI {
     	if (xboxstick != null) {
     		int pov = xboxstick.getPOV(0);
             if (Contains(XBOX_POV_WRIST_UP, pov)) {
-                (new WristMove(WRIST_PRESET_UP)).start();
+                (new WristMove(Wrist.WRIST_PRESET_UP)).start();
             }
     		if (Contains(XBOX_POV_WRIST_DOWN, pov)) {
-    			(new WristMove(WRIST_PRESET_DOWN)).start();
+    			(new WristMove(Wrist.WRIST_PRESET_DOWN)).start();
     		}
     	} else if (customstick != null) {
     		double targetPosition = (customstick.getRawAxis(CUSTOM_AXIS_WRIST) * -1.0) + 1.0;
+    		targetPosition = Math.min(Wrist.WRIST_PRESET_UP, Math.max(targetPosition, Wrist.WRIST_PRESET_DOWN));
     		(new WristMove(targetPosition)).start();
     	}
     }

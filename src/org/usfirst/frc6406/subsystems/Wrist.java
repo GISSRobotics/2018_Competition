@@ -33,6 +33,9 @@ public class Wrist extends PIDSubsystem {
     private final VictorSPX motor = RobotMap.wristMotor;
     private final AnalogInput pot = RobotMap.wristPot;
 
+    public static final double WRIST_PRESET_UP = 0.1;
+    public static final double WRIST_PRESET_DOWN = 0.74;
+
     // Initialize your subsystem here
     public Wrist() {
         super("Wrist", 3, 0.0, 0.0);
