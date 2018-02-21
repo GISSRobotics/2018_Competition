@@ -13,7 +13,11 @@ package org.usfirst.frc6406.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+//import java.awt.Robot;
+
 import org.usfirst.frc6406.RobotMap;
+import org.usfirst.frc6406.subsystems.Drive;
+import org.usfirst.frc6406.Robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Ultrasonic;
@@ -22,10 +26,9 @@ import edu.wpi.first.wpilibj.Ultrasonic;
  *
  */
 public class AutoGroup extends CommandGroup {
-	
-	private static final double METRES_TO_PULSES = 689.44 * 0.6857; // Encoders seem to be wrong by 28% (70% speed)
     public AutoGroup() {
 		ParseGameData();
+		if (!Robot.claw.getState()) {Robot.claw.setClose();}
 	}
     
     // Called just before this Command runs the first time
@@ -44,12 +47,12 @@ public class AutoGroup extends CommandGroup {
 		char char2 = gameData.charAt(selectedElement);
 	
 		String pathString = (char0+=char1+=char2);
-		String autoPath = RobotMap.autoDirections.get(pathString);
-		StartAutoPath(autoPath);
+		String autoPath = RobotMap.getPathString(pathString);
+	    StartAutoPath(autoPath);
 	}
 	
 	public void StartAutoPath(String autoPath) {
-		if (autoPath == null) {
+		if (autoPath.length() < 2) {
 			return;
 		}
 		String[] splitDirections = autoPath.split(":");
@@ -59,7 +62,7 @@ public class AutoGroup extends CommandGroup {
 			
 			if (firstChar.equals("D")) {
 				double value = Double.parseDouble(splitDirections[i].substring(1));
-				addSequential(new DriveForward((float)value*METRES_TO_PULSES));
+				addSequential(new DriveForward(Drive.MetersToPulses(value)));
 			}
 			else if (firstChar.equals("T")) {
 				double value = (Double.parseDouble(splitDirections[i].substring(1))*-1);
@@ -69,10 +72,10 @@ public class AutoGroup extends CommandGroup {
 			}
 			if (firstChar.equals("d")) {
 				double value = Double.parseDouble(splitDirections[i].substring(1));
-				addSequential(new PidDrive((float)value*METRES_TO_PULSES));
+				addSequential(new PidDrive(Drive.MetersToPulses(value)));
 			}
 			else if (firstChar.equals("t")) {
-				double value = Double.parseDouble(splitDirections[i].substring(1))*-1;
+				double value = Double.parseDouble(splitDirections[i].substring(1));
 				addSequential(new PidTurn(value));
 		
 			}
@@ -85,7 +88,10 @@ public class AutoGroup extends CommandGroup {
 				//Call Drop() here //IF THERE IS AN ERROR, TRY AND ADD A '0' AT THE END OF THE P STRING
 				double value = Double.parseDouble(splitDirections[i].substring(1));
 				addSequential(new Drop(value));
-			}else {
+			}else if (firstChar.equals("w")) {
+			    double value = Double.parseDouble(splitDirections[i].substring(1));
+			    addSequential(new WristMove(value));
+			}else{
 				SmartDashboard.putString("Error","Unexpected character ["+firstChar+"] in auto path");
 			}
 			

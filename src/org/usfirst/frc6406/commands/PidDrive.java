@@ -44,7 +44,6 @@ public class PidDrive extends Command implements PIDOutput {
 		curveController.setSetpoint(0);
 		rotateToAngleRate = 0.0;
 		
-		RobotMap.driveQuadratureEncoder2.setPIDSourceType(PIDSourceType.kDisplacement);
 		driveOutput = new PidDriveOutput();
 		driveController = new PIDController(p, kI, d, kF, RobotMap.driveQuadratureEncoder2, driveOutput);
 		driveController.setInputRange(0, 1.1*dist);

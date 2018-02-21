@@ -54,6 +54,8 @@ public class RobotMap {
 
     public static SendableChooser<String> priorityChooser = new SendableChooser<>();
     public static SendableChooser<String> positionChooser = new SendableChooser<>();
+    
+    private static String WRIST_PRESET_STRING = "w0.74:";
 
     @SuppressWarnings("deprecation")
     public static void init() {
@@ -79,11 +81,11 @@ public class RobotMap {
         driveRobotDrive.setMaxOutput(1.0);
 
         driveQuadratureEncoder = new Encoder(0, 1, false, EncodingType.k4X);
-        driveQuadratureEncoder.setDistancePerPulse(1.0);
-        driveQuadratureEncoder.setPIDSourceType(PIDSourceType.kRate);
+        driveQuadratureEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
+		driveQuadratureEncoder.setReverseDirection(true);
         driveQuadratureEncoder2 = new Encoder(2, 3, false, EncodingType.k4X);
-        driveQuadratureEncoder2.setDistancePerPulse(1.0);
-        driveQuadratureEncoder2.setPIDSourceType(PIDSourceType.kRate);
+        driveQuadratureEncoder2.setPIDSourceType(PIDSourceType.kDisplacement);
+		driveQuadratureEncoder2.setReverseDirection(true);
         ultrasonic = new AnalogInput(1);
         wristPot = new AnalogInput(0);
         
@@ -139,29 +141,42 @@ public class RobotMap {
         positionChooser.addDefault("Left", "left");
         positionChooser.addObject("Center", "center");
         positionChooser.addObject("Right", "right");
-        SmartDashboard.putData("PrioritySelect", priorityChooser);
-        SmartDashboard.putData("DriverStationPosition", positionChooser);
+        SmartDashboard.putData("PrioritySelect2", priorityChooser);
+        SmartDashboard.putData("DriverStationPosition2", positionChooser);
+        
+        SmartDashboard.putString("PathString", "");
     }
 
 
 	public static void initAutoDirections() {
-		autoDirections.put("LSCL", "d6.1:t3.7:D1.5:t-3.7:p");
-		autoDirections.put("LSCR", "d6.1:t90:d4.8:t-93.7:D1.5:t3.7:p"); 
-		autoDirections.put("LSWL", "D0.6:t17:D3:t-17:p");
-		autoDirections.put("LSWR", "d6.1:t90:d4.8:t45:D1.1:t90:D1.1:t45:p");   
-		autoDirections.put("CSCL", "");
-		autoDirections.put("CSCR", "");
-		autoDirections.put("CSWL", "D0.6:t-35:D3.6:t35:p");
-		autoDirections.put("CSWR", "D0.6:t15.4:D3:t-15.4:p`");   
-		autoDirections.put("RSCL", "d6.1:t-3.7:D1.5:t3.7:p");
-		autoDirections.put("RSCR", "d6.1:t-90:d4.8:t93.7:D1.5:t-3.7:p");
-		autoDirections.put("RSWL", "D0.6:t-17:D3:t17:p");
-		autoDirections.put("RSWR", "d6.1:t-90:d4.8:t-45:D1.1:t-90:D1.1:t-45:p");
+		autoDirections.put("LSCL", "d6.1:r1.0:t20:D0.95:t-20:p0.0:D-1.0:r0.0:t-180.0");
+		autoDirections.put("LSCR", "d6.1:t90:d5.2:r1.0:t-100.0:D1.1:t10.0:p0.0"); 
+		autoDirections.put("LSWL", "t-5.0:r0.4:D4.0:t95:D0.2:p0.0");
+		autoDirections.put("LSWR", "D4.0:t180:t180");   
+		//autoDirections.put("CSCL", "");
+		//autoDirections.put("CSCR", "");
+		autoDirections.put("CSWL", "D0.6:t-50.0:r0.4:D2.3:t50.0:D0.2:p0.0:D-1.6:r0.0:t90:D1.5:t-90:D0.3");
+		autoDirections.put("CSWR", "D0.6:t35.0:r0.4:D2:t-35.0:D0.1:p0.0:D-1.6:r0.0:t-90:D1.5:t90:D0.3");   
+		autoDirections.put("RSCL", "d6.1:t-90:d5.2:r1.0:t100.0:D1.1:t-10.0:p0.0");
+		autoDirections.put("RSCR", "d6.1:r1.0:t-20:D0.95:t20:p0.0:D-1.0:r0.0:t180.0");
+		autoDirections.put("RSWL", "D4.0:t180:t180");
+		autoDirections.put("RSWR", "t5.0:r0.4:D4.0:t-95:D0.2:p0.0");
 
-		autoDirections.put("LSWZ", "d6:t180");
+		autoDirections.put("LSWZ", "d2:t180");
 		autoDirections.put("LSWY", "d3:d3:t180");
 		autoDirections.put("LSWX", "r0.8:r0.3:r0.75:r0.8:r0.3:p0.37");
 		
+	}
+	
+	public static String getPathString(String pathString) {
+	    String newString = WRIST_PRESET_STRING + autoDirections.get(pathString);
+	    System.out.println(newString);
+	    String customString = SmartDashboard.getString("PathString", "");
+	    System.out.println(customString);
+	    String finalString = customString.length() < 2 ? newString : customString;
+	    System.out.println(finalString);
+	    SmartDashboard.putString("PathString", finalString);
+	    return finalString;
 	}
 	
 	public static void initPIDSelectors() {

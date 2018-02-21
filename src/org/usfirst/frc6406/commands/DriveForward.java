@@ -40,8 +40,9 @@ public class DriveForward extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		
 		RobotMap.driveQuadratureEncoder2.reset();
-		Robot.drive.slowfoward();
+		Robot.drive.slowmove(Math.signum(distance));
 
 	}
 
@@ -54,7 +55,7 @@ public class DriveForward extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(RobotMap.driveQuadratureEncoder2.getDistance()) >= distance;
+		return Math.abs(RobotMap.driveQuadratureEncoder2.getDistance()) >= Math.abs(distance);
 	}
 
 	// Called once after isFinished returns true
