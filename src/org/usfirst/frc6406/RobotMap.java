@@ -54,6 +54,8 @@ public class RobotMap {
 
     public static SendableChooser<String> priorityChooser = new SendableChooser<>();
     public static SendableChooser<String> positionChooser = new SendableChooser<>();
+    
+    private static String WRIST_PRESET_STRING = "w0.74:";
 
     @SuppressWarnings("deprecation")
     public static void init() {
@@ -167,7 +169,7 @@ public class RobotMap {
 	}
 	
 	public static String getPathString(String pathString) {
-	    String newString = autoDirections.get(pathString);
+	    String newString = WRIST_PRESET_STRING + autoDirections.get(pathString);
 	    System.out.println(newString);
 	    String customString = SmartDashboard.getString("PathString", "");
 	    System.out.println(customString);

@@ -88,7 +88,10 @@ public class AutoGroup extends CommandGroup {
 				//Call Drop() here //IF THERE IS AN ERROR, TRY AND ADD A '0' AT THE END OF THE P STRING
 				double value = Double.parseDouble(splitDirections[i].substring(1));
 				addSequential(new Drop(value));
-			}else {
+			}else if (firstChar.equals("w")) {
+			    double value = Double.parseDouble(splitDirections[i].substring(1));
+			    addSequential(new WristMove(value));
+			}else{
 				SmartDashboard.putString("Error","Unexpected character ["+firstChar+"] in auto path");
 			}
 			
