@@ -42,7 +42,7 @@ public class OI {
     private static final int FLIGHT_WRIST_DOWN = 4;
     private static final int FLIGHT_CLAW = 2;
     private static final int FLIGHT_CLIMB = 11;
-    private static final int FLIGHT_INVERT = 1;
+    private static final int FLIGHT_CAM_INVERT = 1;
     private static final int FLIGHT_AXIS_ACCELERATE = 1;
     private static final int FLIGHT_AXIS_STEER = 0;
     private static final int FLIGHT_AXIS_SENSITIVITY = 3;
@@ -127,7 +127,7 @@ public class OI {
 	private void addFlightstickButtons() {
 		if (flightstick != null) {
     		// Logitech 3D Flightstick
-    		flightInvertDrive = new JoystickButton(flightstick, FLIGHT_INVERT);
+    		flightInvertDrive = new JoystickButton(flightstick, FLIGHT_CAM_INVERT);
     		flightInvertDrive.whenPressed(new switchtobackcamera());
     		flightInvertDrive.whenReleased(new switchtofrontcamera());
 
@@ -193,8 +193,7 @@ public class OI {
             double steering = -flightstick.getRawAxis(FLIGHT_AXIS_STEER);
             double driveSensitivity = (flightstick.getRawAxis(FLIGHT_AXIS_SENSITIVITY) / -4.0) + 0.75;
             double steeringSensitivity = (flightstick.getRawAxis(FLIGHT_AXIS_SENSITIVITY) / -3.0) + 0.66;
-            double reverse = (flightstick.getRawButton(FLIGHT_INVERT)) ? -1.0 : 1.0;
-            Robot.drive.arcadeDrive(acceleration * driveSensitivity * reverse, steering * steeringSensitivity);
+            Robot.drive.arcadeDrive(acceleration * driveSensitivity, steering * steeringSensitivity);
     	}
     	
     	// Telescope
