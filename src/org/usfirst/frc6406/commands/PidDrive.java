@@ -32,10 +32,10 @@ public class PidDrive extends Command implements PIDOutput {
         // eg. requires(chassis);
     	
     	distance = dist;
-    	double p = SmartDashboard.getNumber("P Drive", 0.00);
-    	double d =  SmartDashboard.getNumber("D Drive", 0.00);
-    	double pT = SmartDashboard.getNumber("P DriveTurn", 0.00);
-    	double dT =  SmartDashboard.getNumber("D DriveTurn", 0.00);
+    	double p = SmartDashboard.getNumber("P Drive", 0.002);
+    	double d =  SmartDashboard.getNumber("D Drive", 0.0032);
+    	double pT = SmartDashboard.getNumber("P DriveTurn", 0.3);
+    	double dT =  SmartDashboard.getNumber("D DriveTurn", 0.3);
     	curveController = new PIDController(pT, kI, dT, kF, RobotMap.ahrs, this);
 		curveController.setInputRange(-180.0, 180.0);
 		curveController.setOutputRange(-0.5, 0.5);

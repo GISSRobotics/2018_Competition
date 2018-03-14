@@ -149,27 +149,27 @@ public class RobotMap {
 
 
 	public static void initAutoDirections() {
-		autoDirections.put("LSCL", "d6.1:r1.0:t20:D0.95:t-20:p0.0:D-1.0:r0.0:t-180.0");
-		autoDirections.put("LSCR", "d6.1:t90:d5.2:r1.0:t-100.0:D1.1:t10.0:p0.0"); 
-		autoDirections.put("LSWL", "t-5.0:r0.4:D4.0:t95:D0.2:p0.0");
+		autoDirections.put("LSCL", "d6.1:r1.0:"+WRIST_PRESET_STRING+"t20:D0.95:t-20:p0.0:D-1.0:r0.0:t-180.0");
+		autoDirections.put("LSCR", "d6.1:t90:d5.2:r1.0:"+WRIST_PRESET_STRING+"t-100.0:D1.1:t10.0:p0.0"); 
+		autoDirections.put("LSWL", "t-5.0:r0.4:"+WRIST_PRESET_STRING+"D4.0:t95:D0.2:p0.0");
 		autoDirections.put("LSWR", "D4.0:t180:t180");   
 		//autoDirections.put("CSCL", "");
 		//autoDirections.put("CSCR", "");
-		autoDirections.put("CSWL", "D0.6:t-50.0:r0.4:D2.3:t50.0:D0.2:p0.0:D-1.6:r0.0:t90:D1.5:t-90:D0.3");
-		autoDirections.put("CSWR", "D0.6:t35.0:r0.4:D2:t-35.0:D0.1:p0.0:D-1.6:r0.0:t-90:D1.5:t90:D0.3");   
-		autoDirections.put("RSCL", "d6.1:t-90:d5.2:r1.0:t100.0:D1.1:t-10.0:p0.0");
-		autoDirections.put("RSCR", "d6.1:r1.0:t-20:D0.95:t20:p0.0:D-1.0:r0.0:t180.0");
+		autoDirections.put("CSWL", "D0.6:t-50.0:r0.4:"+WRIST_PRESET_STRING+"D2.3:t50.0:D0.2:p0.0:D-1.6:r0.0:t90:D1.5:t-90:D0.3");
+		autoDirections.put("CSWR", "D0.6:t35.0:r0.4:"+WRIST_PRESET_STRING+"D2:t-35.0:D0.1:p0.0:D-1.6:r0.0:t-90:D1.5:t90:D0.3");   
+		autoDirections.put("RSCL", "d6.1:t-90:d5.2:r1.0:"+WRIST_PRESET_STRING+"t100.0:D1.1:t-10.0:p0.0");
+		autoDirections.put("RSCR", "d6.1:r1.0:"+WRIST_PRESET_STRING+"t-20:D0.95:t20:p0.0:D-1.0:r0.0:t180.0");
 		autoDirections.put("RSWL", "D4.0:t180:t180");
-		autoDirections.put("RSWR", "t5.0:r0.4:D4.0:t-95:D0.2:p0.0");
+		autoDirections.put("RSWR", "t5.0:r0.4:"+WRIST_PRESET_STRING+"D4.0:t-95:D0.2:p0.0");
 
 		autoDirections.put("LSWZ", "d2:t180");
 		autoDirections.put("LSWY", "d3:d3:t180");
-		autoDirections.put("LSWX", "r0.8:r0.3:r0.75:r0.8:r0.3:p0.37");
+		autoDirections.put("LSWX", "r0.8:r0.3:r0.75:"+WRIST_PRESET_STRING+"r0.8:r0.3:p0.37");
 		
 	}
 	
 	public static String getPathString(String pathString) {
-	    String newString = WRIST_PRESET_STRING + autoDirections.get(pathString);
+	    String newString = /*WRIST_PRESET_STRING +*/ autoDirections.get(pathString);
 	    System.out.println(newString);
 	    String customString = SmartDashboard.getString("PathString", "");
 	    System.out.println(customString);

@@ -28,9 +28,9 @@ public class PidTurn extends Command implements PIDOutput {
         requires(Robot.drive);
         target = deg;
 		SmartDashboard.putNumber("Target:", deg);
-		double pT = SmartDashboard.getNumber("p_turn", 0.00);
+		double pT = SmartDashboard.getNumber("p_turn", 0.075);
 		double iT = SmartDashboard.getNumber("i_turn", 0.00);
-		double dT = SmartDashboard.getNumber("d_turn", 0.00);
+		double dT = SmartDashboard.getNumber("d_turn", 0.155);
 		
 		turnController = new PIDController(pT, iT, dT , kF, RobotMap.ahrs, this);
 		turnController.setInputRange(-180.0, 180.0);
