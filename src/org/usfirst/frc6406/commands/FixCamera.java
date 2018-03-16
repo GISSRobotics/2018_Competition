@@ -17,13 +17,13 @@ public class FixCamera extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        UsbCamera thing = Robot.cameras.camerabill;
-        Robot.cameras.camerabill = Robot.cameras.camerajill;
-        Robot.cameras.camerajill = thing;
-        new switchtofrontcamera().start();
+        //UsbCamera thing = Robot.cameras.camerabill;
+        //Robot.cameras.camerabill = Robot.cameras.camerajill;
+        //Robot.cameras.camerajill = thing;
+        //new switchtofrontcamera().start();
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    // Called repematedly when this Command is scheduled to run
     protected void execute() {
     }
 

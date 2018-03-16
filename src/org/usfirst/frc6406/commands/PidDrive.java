@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Preferences;
 
 /**
  *
@@ -19,6 +20,8 @@ public class PidDrive extends Command implements PIDOutput {
 	private PIDController driveController;
 	private PidDriveOutput driveOutput;
 	private int onTargetCounter;
+	private int lastEncoderCount;
+	private Preferences prefs;
 	public static double rotateToAngleRate = 0.0;
 	static final double kP = 0.0; //SmartDashboard.getNumber("P Drive", 0.00);//0.002;
 	static final double kI = 0.0;
@@ -32,10 +35,17 @@ public class PidDrive extends Command implements PIDOutput {
         // eg. requires(chassis);
     	
     	distance = dist;
-    	double p = SmartDashboard.getNumber("P Drive", 0.002);
-    	double d =  SmartDashboard.getNumber("D Drive", 0.0032);
-    	double pT = SmartDashboard.getNumber("P DriveTurn", 0.3);
-    	double dT =  SmartDashboard.getNumber("D DriveTurn", 0.3);
+    	
+    	prefs = Preferences.getInstance();
+    	
+    	//double p = SmartDashboard.getNumber("P Drive", 0.002);
+    	double p = prefs.getDouble("P Drive", 0.002);
+    	//double d =  SmartDashboard.getNumber("D Drive", 0.0032);
+    	double d = prefs.getDouble("D Drive", 0.0032);
+    	//double pT = SmartDashboard.getNumber("P DriveTurn", 0.3);
+    	double pT = prefs.getDouble("P Drive Turn", 0.3);
+    	//double dT =  SmartDashboard.getNumber("D DriveTurn", 0.3);
+    	double dT = prefs.getDouble("D Drive Turn", 0.3);
     	curveController = new PIDController(pT, kI, dT, kF, RobotMap.ahrs, this);
 		curveController.setInputRange(-180.0, 180.0);
 		curveController.setOutputRange(-0.5, 0.5);
@@ -83,11 +93,12 @@ public class PidDrive extends Command implements PIDOutput {
 		SmartDashboard.putBoolean("on_target", curveController.onTarget());
 		SmartDashboard.putNumber("Encoder Distance", RobotMap.driveQuadratureEncoder2.getDistance());
 		SmartDashboard.putNumber("NavX Distance", RobotMap.ahrs.getDisplacementY());
-		if (driveController.onTarget()) {
+		if ((int)(RobotMap.driveQuadratureEncoder2.getDistance()) == lastEncoderCount && RobotMap.driveQuadratureEncoder2.getDistance() != 0) {
     		onTargetCounter++;
     	}else{
     		 onTargetCounter = 0;
     	}
+		lastEncoderCount = (int)(RobotMap.driveQuadratureEncoder2.getDistance());
 		SmartDashboard.putNumber("targetCounter", onTargetCounter);
     	return onTargetCounter == 10;
     }

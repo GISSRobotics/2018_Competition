@@ -20,36 +20,32 @@ import org.usfirst.frc6406.Robot;
  */
 public class Drop extends Command {
 
-    private double m_setpoint;
+	private double timeout;
 
-    public Drop(double setpoint) {
+    public Drop(double seconds) {
 
-        m_setpoint = setpoint;
+        timeout = seconds;
 
-        requires(Robot.wrist);
         requires(Robot.claw);
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.wrist.enable();
-        Robot.wrist.move(m_setpoint);//WRIST_MOVE
+        Robot.claw.setOpen();
+        setTimeout(timeout);
 
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    	if (Robot.wrist.onTarget()) {
-            Robot.claw.setOpen();
-    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return Robot.wrist.onTarget() && Robot.claw.getState();
+        return Robot.claw.getState() && isTimedOut();
 
     }
 
