@@ -22,7 +22,7 @@ public class OI {
     private JoystickButton flightTelescopeHigh;
     private JoystickButton flightTelescopeMedium;
     private JoystickButton flightTelescopeLow;
-    private JoystickButton flightInvertDrive;
+    //private JoystickButton flightInvertDrive;
     private JoystickButton xboxClaw;
     private JoystickButton xboxTelescopeHigh;
     private JoystickButton xboxTelescopeMedium;
@@ -127,9 +127,9 @@ public class OI {
 	private void addFlightstickButtons() {
 		if (flightstick != null) {
     		// Logitech 3D Flightstick
-    		flightInvertDrive = new JoystickButton(flightstick, FLIGHT_CAM_INVERT);
-    		flightInvertDrive.whenPressed(new switchtobackcamera());
-    		flightInvertDrive.whenReleased(new switchtofrontcamera());
+    		//flightInvertDrive = new JoystickButton(flightstick, FLIGHT_CAM_INVERT);
+    		//flightInvertDrive.whenPressed(new switchtobackcamera());
+    		// flightInvertDrive.whenReleased(new switchtofrontcamera());
 
             flightTelescopeUp = new JoystickButton(flightstick, FLIGHT_TEL_UP);
             flightTelescopeUp.whileHeld(new TelescopeUp());

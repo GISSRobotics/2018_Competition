@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Preferences;
 
 public class PidTurn extends Command implements PIDOutput {
 
@@ -16,23 +17,25 @@ public class PidTurn extends Command implements PIDOutput {
 	static final double kI = 0.00;
 	static final double kD = 0.00;
 	static final double kF = 0.00;
-	static final double ERROR_TOLERANCE = 1.75;
+	static final double ERROR_TOLERANCE = 3.0;
 	
 	private int onTargetCounter = 0;
 	private double target;
-	
-	 public PIDController turnController;
+	private Preferences prefs;
+	public PIDController turnController;
 	static public double rotateToAngleRate;
 
 	public PidTurn(double deg) {
         requires(Robot.drive);
         target = deg;
+        prefs = Preferences.getInstance();
 		SmartDashboard.putNumber("Target:", deg);
-		double pT = SmartDashboard.getNumber("p_turn", 0.075);
-		double iT = SmartDashboard.getNumber("i_turn", 0.00);
-		double dT = SmartDashboard.getNumber("d_turn", 0.155);
+		double pT = prefs.getDouble("P Turn", 0.075);
+		//double pT = SmartDashboard.getNumber("p_turn", 0.075);
+		double dT = prefs.getDouble("D Turn", 0.155);
+		//double dT = SmartDashboard.getNumber("d_turn", 0.155);
 		
-		turnController = new PIDController(pT, iT, dT , kF, RobotMap.ahrs, this);
+		turnController = new PIDController(pT, 0.0, dT , kF, RobotMap.ahrs, this);
 		turnController.setInputRange(-180.0, 180.0);
 		turnController.setOutputRange(-0.6, 0.6);
 		turnController.setAbsoluteTolerance(ERROR_TOLERANCE);

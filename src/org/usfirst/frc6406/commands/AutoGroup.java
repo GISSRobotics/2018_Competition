@@ -42,13 +42,17 @@ public class AutoGroup extends CommandGroup {
 		String priority = RobotMap.priorityChooser.getSelected();//When unassigned, hierarchy is Switch>Scale>CrossLine>TransferStation
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		String char0 = (position == "right") ? "R":(position == "left") ? "L":(position == "center") ? "C":"0"; 
-		String char1 = (priority == "switch") ? "SW":(priority == "scale") ? "SC":"0";
-		int selectedElement = (char1 == "SW") ? 0:1;//THIS ONLY SELECTS SWITCH AND SCALE
+		String char1 = (priority == "nothing") ? "NO" : (priority == "crossAutoLine") ? "AL" : (priority == "switch") ? "SW":(priority == "scale") ? "SC":"0";
+		int selectedElement = (char1 == "SW") ? 0:1;//THIS ONLY SELECTS SWITCH AND SCALE; WILL HIT ONLY SCALE WHEN CHOOSING ANYTHING ELSE
 		char char2 = gameData.charAt(selectedElement);
 	
 		String pathString = (char0+=char1+=char2);
 		String autoPath = RobotMap.getPathString(pathString);
-	    StartAutoPath(autoPath);
+		if (autoPath == null) {
+			return;
+		}
+	
+		StartAutoPath(autoPath);
 	}
 	
 	public void StartAutoPath(String autoPath) {
